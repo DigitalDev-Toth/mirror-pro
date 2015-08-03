@@ -1,0 +1,9 @@
+@import url('bootstrap.css');
+@import url('perfect-scrollbar.css');
+@import url('http://fonts.googleapis.com/css?family=Oswald');
+
+html, body {
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+}
