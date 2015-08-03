@@ -1,4 +1,4 @@
-Mirror Estándar v2
+Mirror Profesional
 =============
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
@@ -23,7 +23,7 @@ Mirror Estándar puede ser usado en estaciones de trabajo, smartphones, y tablet
 
 <p align="justify">Mirror Estándar se caracteriza por ser una herramienta con tiempos de ejecución mínimos y pocas exigencias, ideal para ser utilizado en dispositivos carentes de hardware poderoso. Permitiendo el acceso a estudios médicos a una mayor cantidad de usuarios y entidades médicas de escasos recursos.</p>
 
-## Mirror Estándar v2 ##
+## Mirror Profesional ##
 
 <p align="justify">Mirror Estándar v2 es la nueva versión del visor de imágenes médicas propiedad de la empresa chilena Toth Limitada. Esta versión corresponde a una reescritura completa del software, en donde se prima la escalabilidad y mantención del sistema. Además se añaden nuevas características y herramientas que permiten un mejor análisis de estudios radiológicos.</p>
 
