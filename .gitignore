@@ -1,0 +1,6 @@
+# Ignore node modules files
+/node_modules/*
+/node_modules
+
+# Ignore npm-debug file
+npm-debug.log

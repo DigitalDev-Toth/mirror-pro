@@ -1,0 +1,72 @@
+@import url('http://fonts.googleapis.com/css?family=Oswald');
+
+body {
+	margin: 0px;
+}
+
+#workspace {
+	background: #000;
+	min-width: 250px;
+	min-height: 500px;
+}
+
+.container-fluid {
+	margin: 0px;
+	padding: 0px;
+}
+
+.row {
+	margin: 0px;
+	padding: 0px;
+}
+
+#panel-header {
+	background: #60287C;
+}
+
+#panel-body {
+	background: #333;
+	border-left: 3px solid #60287C;
+	border-right: 3px solid #60287C;
+	border-bottom: 3px solid #60287C;
+}
+
+#panel-body-menu {
+	margin: 0px;
+	padding: 0px;
+	background: #4C4C4C;
+}
+
+#panel-body-main {
+	margin: 0px;
+	padding: 0px;
+	background: #6C6C6C;
+}
+
+#panel-body-navigatorbar {
+	margin: 0px;
+	padding: 0px;
+	background: #4C4C4C;
+}
+
+#panel-body-main-contexts {
+	margin: 0px;
+	padding: 0px;
+	background: #6C6C6C;
+}
+
+#panel-body-main-menu {
+	margin: 0px;
+	padding: 0px;
+	background: #4C4C4C;
+}
+
+#body-menu-container {
+	margin: 0px;
+	padding: 0px;
+}
+
+#main-menu-container {
+	margin: 0px;
+	padding: 0px;
+}
