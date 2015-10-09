@@ -1,5 +1,6 @@
 import { Core } from "./core";
 import { UI } from "./ui";
+import { Interaction } from "./interaction";
 
 import { WorkFlow } from "./workflow/WorkFlow";
 

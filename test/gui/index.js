@@ -41,5 +41,23 @@ describe("GUI test", function() {
 			expect( parseInt( menuContainerMainDOM.style.height ) ).to.be.above(0);
 			done();
 		});
+
+		it("should have a 'body' menu with sizes greater than zero", (done) => {
+			let menuContainerBodyTopDOM = browser.document.getElementById( "body-menu-top" ),
+				menuContainerBodyContentDOM = browser.document.getElementById( "body-menu-content" );
+
+			expect( parseInt( menuContainerBodyTopDOM.style.height ) ).to.be.above(0);
+			expect( parseInt( menuContainerBodyContentDOM.style.height ) ).to.be.above(0);
+			done();
+		});
+
+		it("should have a 'main' menu with sizes greater than zero", (done) => {
+			let menuContainerMainLeftDOM = browser.document.getElementById( "main-menu-left" ),
+				menuContainerMainContentDOM = browser.document.getElementById( "main-menu-content" );
+
+			expect( parseInt( menuContainerMainLeftDOM.style.width ) ).to.be.above(0);
+			expect( parseInt( menuContainerMainContentDOM.style.height ) ).to.be.above(0);
+			done();
+		});
 	});
 });

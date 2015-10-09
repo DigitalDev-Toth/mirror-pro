@@ -37,7 +37,7 @@ export class WorkSpace {
 
 		this.setLookAndFeelSizes( workspaceDOM );
 
-		this.setResponsiveSizes(workspaceDOM);
+		this.setResponsiveSizes( workspaceDOM );
 	}
 
 	/**
@@ -116,7 +116,7 @@ export class WorkSpace {
 		let panelBodyMainDOM = document.getElementById( "panel-body-main" ),
 			panelBodyMainDOMSubstract = 0;
 
-		for ( var sum of [ parseInt( panelBodyMenuDOM.style.width ), parseInt( panelBodyNavigatorbarDOM.style.width ), 6 ] ) {
+		for ( let sum of [ parseInt( panelBodyMenuDOM.style.width ), parseInt( panelBodyNavigatorbarDOM.style.width ), 6 ] ) {
 			panelBodyMainDOMSubstract += sum;
 		}
 
@@ -125,10 +125,12 @@ export class WorkSpace {
 
 		let panelBodyMainMenuDOM = document.getElementById( "panel-body-main-menu" );
 
+		panelBodyMainMenuDOM.style.width = `${ parseInt( panelBodyMainDOM.style.width ) }px`;
 		panelBodyMainMenuDOM.style.height = "25px";
 
 		let panelBodyMainContextsDOM = document.getElementById( "panel-body-main-contexts" );
 
+		panelBodyMainContextsDOM.style.width = `${ parseInt( panelBodyMainDOM.style.width ) }px`;
 		panelBodyMainContextsDOM.style.height = `${ parseInt( panelBodyMainDOM.style.height ) - parseInt( panelBodyMainMenuDOM.style.height ) }px`;
 	}
 

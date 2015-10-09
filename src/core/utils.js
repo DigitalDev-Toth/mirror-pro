@@ -30,10 +30,19 @@ export let Utils = {
 
 	/**
 	 * [browserDetection description]
-	 * @return {String} [description]
+	 * @return {String|Boolean} [description]
 	 */
 	browserDetection() {
-		
+		if ( navigator.userAgent.indexOf ( "Firefox" ) !== -1 ) {
+        	return "firefox";        
+    	} 
+    	if ( navigator.userAgent.indexOf ( "MSIE" ) !== -1 || navigator.userAgent.indexOf( "rv:11" ) !== -1 ) {
+        	return "msie";
+    	} 
+    	if ( navigator.userAgent.indexOf ( "Chrome" ) !== -1 ) {
+        	return "chrome";
+    	}
+    	return false;
 	},
 
 	/**

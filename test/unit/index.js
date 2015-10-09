@@ -29,6 +29,13 @@ describe("Unit test", function() {
 				expect( result ).to.be.false;
 				done();
 			});
+
+			it("should be 'chrome' when the name of the browser is it", (done) => {
+				let result = browser.window.MIRROR.Utils.browserDetection();
+
+				expect( result ).to.be.equal( "chrome" );
+				done();
+			});
 		});
 	});
 
