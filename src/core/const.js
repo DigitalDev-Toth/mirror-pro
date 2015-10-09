@@ -1,3 +1,7 @@
+/**
+ * [CONST description]
+ * @type {Object}
+ */
 export const CONST = {
 	
 	APP_LONG_NAME		: "Mirror Professional",

@@ -92,7 +92,7 @@ export class WorkSpace {
 
 	/**
 	 * [setLookAndFeelSizes description]
-	 * @param {[type]} workspaceDOM [description]
+	 * @param {Object} workspaceDOM [description]
 	 */
 	setLookAndFeelSizes(workspaceDOM) {
 		let panelHeaderDOM = document.getElementById( "panel-header" );
