@@ -6,8 +6,6 @@ const browser = new Browser();
 
 describe("Functional test", function() {
 
-	this.timeout(5000);
-
 	before((done) => {
 		return browser.visit("http://localhost:3000", done);
 	});

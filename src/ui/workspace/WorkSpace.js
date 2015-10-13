@@ -1,10 +1,12 @@
 import { Utils } from "../../core/utils";
 import { LookAndFeel } from "./LookAndFeel";
+import { Interaction } from "../../interaction";
 
 /**
  * 
  */
 export class WorkSpace {
+	
 	/**
 	 * [constructor description]
 	 * @param  {String} workSpaceId [description]
@@ -135,7 +137,9 @@ export class WorkSpace {
 	}
 
 	setResponsiveSizes(workspaceDOM) {
-		addEventListener("resize", () => {
+		let event = new Interaction.EventManager();
+
+		event.onResize(() => {
 			workspaceDOM = this.setWorkSpaceSize( workspaceDOM );
 			this.setLookAndFeelSizes( workspaceDOM );
 		});

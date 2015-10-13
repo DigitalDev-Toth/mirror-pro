@@ -12,5 +12,7 @@ export class WorkFlow {
 		let menuMain = new global.MIRROR.UI.Menu( "main" );
 
 		menuMain.run();
+
+		let blockMsg = new global.MIRROR.UI.Block( "block 1", menuBody );
 	}
 }

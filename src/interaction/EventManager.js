@@ -2,6 +2,7 @@
  * 
  */
 export class EventManager {
+	
 	/**
 	 * [constructor description]
 	 */

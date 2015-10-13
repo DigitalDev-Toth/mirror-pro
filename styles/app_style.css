@@ -72,20 +72,7 @@ body {
 	width: 100%;
 }
 
-#main-menu-left {
-	margin: 0px;
-	padding: 0px;
-	display: inline-block;
-}
-
-#main-menu-right {
-	margin: 0px;
-	padding: 0px;
-	display: inline-block;
-}
-
 #main-menu-content {
 	margin: 0px;
 	padding: 0px;
-	display: inline-block;
 }

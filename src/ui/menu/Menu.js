@@ -1,4 +1,5 @@
 import { LookAndFeel } from "./LookAndFeel";
+import { Interaction } from "../../interaction";
 
 /**
  * 
@@ -19,7 +20,7 @@ export class Menu {
 		 * [maxBlocks description]
 		 * @type {Number}
 		 */
-		this.maxBlocks = 4;
+		this.numberOfBlocks = 0;
 	}
 
 	/**
@@ -124,49 +125,23 @@ export class Menu {
 	}
 
 	setLookAndFeelSizesForBodyMenu(menuContainerDOM) {
-		let menuContainerBodyTopDOM = document.getElementById( "body-menu-top" ),
-			menuContainerBodyBottomDOM = document.getElementById( "body-menu-bottom" ),
-			menuContainerBodyContentDOM = document.getElementById( "body-menu-content" );
-
-		menuContainerBodyTopDOM.style.width = menuContainerDOM.style.width;
-		menuContainerBodyTopDOM.style.height = "15px";
-
-		menuContainerBodyBottomDOM.style.width = menuContainerDOM.style.width;
-		menuContainerBodyBottomDOM.style.height = "15px";
-
-		let menuContainerBodyContentDOMSubstrac = 0;
-
-		for ( let sum of [ parseInt( menuContainerBodyTopDOM.style.height ), parseInt( menuContainerBodyBottomDOM.style.height ) ] ) {
-			menuContainerBodyContentDOMSubstrac += sum;
-		}
+		let menuContainerBodyContentDOM = document.getElementById( "body-menu-content" );
 
 		menuContainerBodyContentDOM.style.width = menuContainerDOM.style.width;
-		menuContainerBodyContentDOM.style.height = `${ parseInt( menuContainerDOM.style.height ) - menuContainerBodyContentDOMSubstrac }px`;
+		menuContainerBodyContentDOM.style.height = menuContainerDOM.style.height;
 	}
 
 	setLookAndFeelSizesForMainMenu(menuContainerDOM) {
-		let menuContainerMainLeftDOM = document.getElementById( "main-menu-left" ),
-			menuContainerMainRightDOM = document.getElementById( "main-menu-right" ),
-			menuContainerMainContentDOM = document.getElementById( "main-menu-content" );
+		let menuContainerMainContentDOM = document.getElementById( "main-menu-content" );
 
-		menuContainerMainLeftDOM.style.width = "15px";
-		menuContainerMainLeftDOM.style.height = menuContainerDOM.style.height;
-
-		menuContainerMainRightDOM.style.width = "15px";
-		menuContainerMainRightDOM.style.height = menuContainerDOM.style.height;
-
-		let menuContainerMainContentDOMSubstract = 0;
-
-		for ( let sum of [ parseInt( menuContainerMainLeftDOM.style.width ), parseInt( menuContainerMainRightDOM.style.width ), 8 ] ) {
-			menuContainerMainContentDOMSubstract += sum;					
-		}
-
-		menuContainerMainContentDOM.style.width = `${ parseInt( menuContainerDOM.style.width ) - menuContainerMainContentDOMSubstract }px`;
+		menuContainerMainContentDOM.style.width = menuContainerDOM.style.width;
 		menuContainerMainContentDOM.style.height = menuContainerDOM.style.height;
 	}
 
 	setResponsiveSizes(menuContainerPanelDOM) {
-		addEventListener("resize", () => {
+		let event = new Interaction.EventManager();
+
+		event.onResize(() => {
 			this.setLookAndFeelSizes( menuContainerPanelDOM );
 		});
 	}
