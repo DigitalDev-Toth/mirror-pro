@@ -1,5 +1,5 @@
 import { LookAndFeel } from "./LookAndFeel";
-import { Interaction } from "../../interaction";
+import { Event } from "../../event";
 
 /**
  * 
@@ -27,8 +27,8 @@ export class Menu {
 	 * [run description]
 	 */
 	run() {
-		if ( this.getMenuContainerPanelId() ) {
-			let menuContainerPanelDOM = this.getMenuContainerPanel( this.getMenuContainerPanelId() );
+		if ( this.getMenuContainerPanelID() ) {
+			let menuContainerPanelDOM = this.getMenuContainerPanel( this.getMenuContainerPanelID() );
 
 			menuContainerPanelDOM = this.paintLookAndFeel( menuContainerPanelDOM );
 
@@ -36,15 +36,15 @@ export class Menu {
 
 			this.setResponsiveSizes( menuContainerPanelDOM );
 		} else {
-			console.log( "ERROR: menuContainerPanelId not found!" );
+			console.log( "ERROR: menuContainerPanelID not found!" );
 		}	
 	}
 
 	/**
-	 * [getMenuContainerPanelId description]
+	 * [getMenuContainerPanelID description]
 	 * @return {String|Boolean} [description]
 	 */
-	getMenuContainerPanelId() {
+	getMenuContainerPanelID() {
 		if ( this.menuContainerPanel === "body" ) {
 			return "panel-body-menu";
 		}
@@ -58,11 +58,11 @@ export class Menu {
 
 	/**
 	 * [getMenuContainerPanel description]
-	 * @param  {String} menuContainerPanelId [description]
+	 * @param  {String} menuContainerPanelID [description]
 	 * @return {Object}                      [description]
 	 */
-	getMenuContainerPanel(menuContainerPanelId) {
-		return document.getElementById( menuContainerPanelId );
+	getMenuContainerPanel(menuContainerPanelID) {
+		return document.getElementById( menuContainerPanelID );
 	}
 
 	/**
@@ -77,10 +77,10 @@ export class Menu {
 	}
 
 	/**
-	 * [getMenuContainerId description]
+	 * [getMenuContainerID description]
 	 * @return {String|Boolean} [description]
 	 */
-	getMenuContainerId() {
+	getMenuContainerID() {
 		if ( this.menuContainerPanel === "body" ) {
 			return "body-menu-container";
 		}
@@ -94,11 +94,36 @@ export class Menu {
 
 	/**
 	 * [getMenuContainer description]
-	 * @param  {String} menuContainerId [description]
+	 * @param  {String} menuContainerID [description]
 	 * @return {Object}                 [description]
 	 */
-	getMenuContainer(menuContainerId) {
-		return document.getElementById( menuContainerId );
+	getMenuContainer(menuContainerID) {
+		return document.getElementById( menuContainerID );
+	}
+
+	/**
+	 * [getMenuContainerContentID description]
+	 * @return {String|Boolean} [description]
+	 */
+	getMenuContainerContentID() {
+		if ( this.menuContainerPanel === "body" ) {
+			return "body-menu-content";
+		}
+
+		if ( this.menuContainerPanel === "main" ) {
+			return "main-menu-content";
+		}
+
+		return false;
+	}
+
+	/**
+	 * [getMenuContainerContent description]
+	 * @param  {String} menuContainerContentID [description]
+	 * @return {Object}                        [description]
+	 */
+	getMenuContainerContent(menuContainerContentID) {
+		return document.getElementById( menuContainerContentID );
 	}
 
 	/**
@@ -106,8 +131,8 @@ export class Menu {
 	 * @param {Object} menuContainerPanelDOM [description]
 	 */
 	setLookAndFeelSizes(menuContainerPanelDOM) {
-		if ( this.getMenuContainerId() ) {
-			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerId() );
+		if ( this.getMenuContainerID() ) {
+			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
 			menuContainerDOM.style.width = `${ parseInt( menuContainerPanelDOM.style.width ) }px`;
 			menuContainerDOM.style.height = `${ parseInt( menuContainerPanelDOM.style.height ) }px`;
@@ -120,7 +145,7 @@ export class Menu {
 				this.setLookAndFeelSizesForMainMenu( menuContainerDOM );
 			}
 		} else {
-			console.log( "ERROR: menuContainerId not found!" );
+			console.log( "ERROR: menuContainerID not found!" );
 		}
 	}
 
@@ -139,9 +164,9 @@ export class Menu {
 	}
 
 	setResponsiveSizes(menuContainerPanelDOM) {
-		let event = new Interaction.EventManager();
+		let eventCommon = new Event.Common();
 
-		event.onResize(() => {
+		eventCommon.onResize(() => {
 			this.setLookAndFeelSizes( menuContainerPanelDOM );
 		});
 	}

@@ -1,6 +1,6 @@
 import { Utils } from "../../core/utils";
 import { LookAndFeel } from "./LookAndFeel";
-import { Interaction } from "../../interaction";
+import { Event } from "../../event";
 
 /**
  * 
@@ -9,14 +9,14 @@ export class WorkSpace {
 	
 	/**
 	 * [constructor description]
-	 * @param  {String} workSpaceId [description]
+	 * @param  {String} workSpaceID [description]
 	 */
-	constructor(workSpaceId = "workspace") {
+	constructor(workSpaceID = "workspace") {
 		/**
-		 * [workSpaceId description]
+		 * [workSpaceID description]
 		 * @type {String}
 		 */
-		this.workSpaceId = workSpaceId;
+		this.workSpaceID = workSpaceID;
 	}
 
 	/**
@@ -25,7 +25,7 @@ export class WorkSpace {
 	run() {
 		let workspaceDOM = null;
 		
-		if ( !Utils.workSpaceDetection( this.workSpaceId ) ) {
+		if ( !Utils.workSpaceDetection( this.workSpaceID ) ) {
 			workspaceDOM = this.createWorkSpace();
 
 			this.appendWorkSpaceToBody( workspace );
@@ -48,7 +48,7 @@ export class WorkSpace {
 	 */
 	createWorkSpace() {
 		let workspaceDOM = document.createElement( "div" );
-		workspaceDOM.setAttribute( "id", this.workSpaceId );
+		workspaceDOM.setAttribute( "id", this.workSpaceID );
 
 		return workspaceDOM;
 	}
@@ -66,7 +66,7 @@ export class WorkSpace {
 	 * @return {Object} [description]
 	 */
 	getWorkSpace() {
-		return document.getElementById( this.workSpaceId );
+		return document.getElementById( this.workSpaceID );
 	}
 
 	/**
@@ -137,9 +137,9 @@ export class WorkSpace {
 	}
 
 	setResponsiveSizes(workspaceDOM) {
-		let event = new Interaction.EventManager();
+		let eventCommon = new Event.Common();
 
-		event.onResize(() => {
+		eventCommon.onResize(() => {
 			workspaceDOM = this.setWorkSpaceSize( workspaceDOM );
 			this.setLookAndFeelSizes( workspaceDOM );
 		});

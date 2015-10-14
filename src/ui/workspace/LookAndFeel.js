@@ -1,3 +1,7 @@
+/**
+ * [LookAndFeel description]
+ * @type {Object}
+ */
 export const LookAndFeel = {
 	
 	DOM: `

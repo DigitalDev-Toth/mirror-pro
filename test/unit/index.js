@@ -84,9 +84,27 @@ describe("Unit test", function() {
 
 			it("should have a 'LookAndFeel' structure", (done) => {
 				let menu = new browser.window.MIRROR.UI.Menu(),
-					menuContainerDOM = menu.getMenuContainer( menu.getMenuContainerId() ),
+					menuContainerDOM = menu.getMenuContainer( menu.getMenuContainerID() ),
 					hasChilds = menuContainerDOM.hasChildNodes();
 
+				expect( hasChilds ).to.be.true;
+				done();
+			});
+		});
+
+		describe("Block", () => {
+
+			it("should have a 'LookAndFeel' structure", (done) => {
+				let menu = new browser.window.MIRROR.UI.Menu(),
+					block = new browser.window.MIRROR.UI.Block( menu );
+
+				block.setNumberOfBlocks();
+				block.setBlockID();
+
+				let	blockContainerDOM = block.getBlockContainer(),
+					hasChilds = blockContainerDOM.hasChildNodes();
+
+				expect( blockContainerDOM ).to.be.an( "object" );
 				expect( hasChilds ).to.be.true;
 				done();
 			});

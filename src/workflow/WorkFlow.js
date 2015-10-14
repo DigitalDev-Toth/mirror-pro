@@ -13,6 +13,16 @@ export class WorkFlow {
 
 		menuMain.run();
 
-		let blockMsg = new global.MIRROR.UI.Block( "block 1", menuBody );
+		let block_body_1 = new global.MIRROR.UI.Block( menuBody );
+
+		block_body_1.run();
+
+		let block_body_2 = new global.MIRROR.UI.Block( menuBody );
+
+		block_body_2.run();
+
+		let block_main_1 = new global.MIRROR.UI.Block( menuMain );
+
+		block_main_1.run();
 	}
 }

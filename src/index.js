@@ -1,13 +1,13 @@
 import { Core } from "./core";
 import { UI } from "./ui";
-import { Interaction } from "./interaction";
+import { Event } from "./event";
 
 import { WorkFlow } from "./workflow/WorkFlow";
 
 import "../styles/app_style.css";
 
 Core.UI = UI;
-Core.Interaction = Interaction;
+Core.Event = Event;
 Core.WorkFlow = WorkFlow;
 
 global.MIRROR = Core;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-export class EventManager {
+export class Common {
 	
 	/**
 	 * [constructor description]

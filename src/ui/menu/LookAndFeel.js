@@ -1,4 +1,8 @@
-export let LookAndFeel = {
+/**
+ * [LookAndFeel description]
+ * @type {Object}
+ */
+export const LookAndFeel = {
 	
 	body: {
 		DOM: `
