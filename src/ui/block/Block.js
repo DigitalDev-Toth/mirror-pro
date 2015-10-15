@@ -54,6 +54,8 @@ export class Block {
 			this.setBlockContent();
 
 			this.appendContentToDOM();
+
+			this.updateMenuContainerContentSize( menuContainerContentDOM );
 		} else {
 			console.log( "ERROR: menuContainerContentID not found!" );
 		}
@@ -65,9 +67,7 @@ export class Block {
 	setNumberOfBlocks() {
 		this.menuObject.numberOfBlocks++;
 
-		window.dispatchEvent( 
-			Core.Instances.customEvents.numberOfBlocksChange 
-		);
+		Core.Instances.customEvents.dispatchNumberOfBlocksChange( window );
 	}
 
 	/**
@@ -139,8 +139,8 @@ export class Block {
 	 * @param {Object} content [description]
 	 */
 	setBlockContent(title, content) {
-		this.title = "Block title"; 
-		this.content = "Block content"; 
+		this.title = `Block title ${ this.menuObject.numberOfBlocks }`; 
+		this.content = `Block content ${ this.menuObject.numberOfBlocks }`; 
 	}
 	/**
 	 * [appendContentToDOM description]
@@ -154,5 +154,29 @@ export class Block {
 		}
 
 		blockContent.innerHTML = this.content;
+	}
+
+	/**
+	 * [setMenuContainerContentSize description]
+	 * @param {Object} menuContainerContentDOM [description]
+	 */
+	updateMenuContainerContentSize(menuContainerContentDOM) {
+		let blockContainer = this.getBlockContainer();
+
+		if ( menuContainerContentDOM.style.width === "" ) {
+			menuContainerContentDOM.style.width = "90px";
+		}
+
+		if ( menuContainerContentDOM.style.height === "" ) {
+			menuContainerContentDOM.style.height = "0px";
+		}
+
+		if ( this.menuObject.menuContainerPanel === "body" ) {
+			menuContainerContentDOM.style.height = `${ parseInt( menuContainerContentDOM.style.height ) + blockContainer.offsetHeight }px`; 
+		}
+		
+		if ( this.menuObject.menuContainerPanel === "main" ) {
+			menuContainerContentDOM.style.width = `${ parseInt( menuContainerContentDOM.style.width ) + blockContainer.offsetWidth }px`;
+		}
 	}
 }

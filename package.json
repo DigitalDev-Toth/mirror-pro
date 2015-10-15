@@ -14,7 +14,8 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "bootstrap-webpack": "0.0.3",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "perfect-scrollbar": "^0.6.7"
   },
   "devDependencies": {
     "babel": "^5.8.23",

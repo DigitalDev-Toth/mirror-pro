@@ -47,7 +47,7 @@ export class Menu {
 
 			this.paintPerfectScrollbar();
 
-			this.setEventListenerToPerfectScrollbar();
+			this.updatePerfectScrollbar();
 		} else {
 			console.log( "ERROR: menuContainerPanelID not found!" );
 		}	
@@ -147,12 +147,8 @@ export class Menu {
 		if ( this.getMenuContainerID() ) {
 			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
-			menuContainerDOM.style.width = `
-				${ parseInt( menuContainerPanelDOM.style.width ) }px
-			`;
-			menuContainerDOM.style.height = `
-				${ parseInt( menuContainerPanelDOM.style.height ) }px
-			`;
+			menuContainerDOM.style.width = `${ parseInt( menuContainerPanelDOM.style.width ) }px`;
+			menuContainerDOM.style.height = `${ parseInt( menuContainerPanelDOM.style.height ) }px`;
 
 			if ( this.menuContainerPanel === "body" ) {
 				this.setLookAndFeelSizesForBodyMenu( menuContainerDOM );
@@ -166,40 +162,57 @@ export class Menu {
 		}
 	}
 
+	/**
+	 * [setLookAndFeelSizesForBodyMenu description]
+	 * @param {Object} menuContainerDOM [description]
+	 */
 	setLookAndFeelSizesForBodyMenu(menuContainerDOM) {
 		let menuContainerBodyContentDOM = document.getElementById( "body-menu-content" );
 
 		menuContainerBodyContentDOM.style.width = menuContainerDOM.style.width;
-		menuContainerBodyContentDOM.style.height = menuContainerDOM.style.height;
 	}
 
+	/**
+	 * [setLookAndFeelSizesForMainMenu description]
+	 * @param {Object} menuContainerDOM [description]
+	 */
 	setLookAndFeelSizesForMainMenu(menuContainerDOM) {
 		let menuContainerMainContentDOM = document.getElementById( "main-menu-content" );
 
-		menuContainerMainContentDOM.style.width = menuContainerDOM.style.width;
 		menuContainerMainContentDOM.style.height = menuContainerDOM.style.height;
 	}
 
+	/**
+	 * [setResponsiveSizes description]
+	 * @param {Object} menuContainerPanelDOM [description]
+	 */
 	setResponsiveSizes(menuContainerPanelDOM) {
-
 		Core.Instances.commonEvents.onResize(() => {
 			this.setLookAndFeelSizes( menuContainerPanelDOM );
+
+			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
+
+			this.perfectScrollbar.update( menuContainerDOM );
 		});
 	}
 
+	/**
+	 * [paintPerfectScrollbar description]
+	 */
 	paintPerfectScrollbar() {
-		let menuContainerBodyContentDOM = document.getElementById( "body-menu-container" );
+		let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
-		this.perfectScrollbar.initialize( menuContainerBodyContentDOM );
+		this.perfectScrollbar.initialize( menuContainerDOM );
 	}
 
-	setEventListenerToPerfectScrollbar() {
+	/**
+	 * [setEventListenerToPerfectScrollbar description]
+	 */
+	updatePerfectScrollbar() {
 		Core.Instances.customEvents.onNumberOfBlocksChange( window, () => {
-			let menuContainerBodyContentDOM = document.getElementById( 
-				"body-menu-container" 
-			);
+			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
-			this.menuObject.perfectScrollbar.update( menuContainerBodyContentDOM );
+			this.perfectScrollbar.update( menuContainerDOM );
 		} );
 	}
 }
