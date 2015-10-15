@@ -1,5 +1,7 @@
+import ps from "perfect-scrollbar";
+
 import { LookAndFeel } from "./LookAndFeel";
-import { Event } from "../../event";
+import { Core } from "../../core";
 
 /**
  * 
@@ -21,6 +23,11 @@ export class Menu {
 		 * @type {Number}
 		 */
 		this.numberOfBlocks = 0;
+		/**
+		 * [perfectScrollbar description]
+		 * @type {Object}
+		 */
+		this.perfectScrollbar = ps;
 	}
 
 	/**
@@ -28,13 +35,19 @@ export class Menu {
 	 */
 	run() {
 		if ( this.getMenuContainerPanelID() ) {
-			let menuContainerPanelDOM = this.getMenuContainerPanel( this.getMenuContainerPanelID() );
+			let menuContainerPanelDOM = this.getMenuContainerPanel( 
+				this.getMenuContainerPanelID() 
+			);
 
 			menuContainerPanelDOM = this.paintLookAndFeel( menuContainerPanelDOM );
 
 			this.setLookAndFeelSizes( menuContainerPanelDOM );
 
 			this.setResponsiveSizes( menuContainerPanelDOM );
+
+			this.paintPerfectScrollbar();
+
+			this.setEventListenerToPerfectScrollbar();
 		} else {
 			console.log( "ERROR: menuContainerPanelID not found!" );
 		}	
@@ -134,8 +147,12 @@ export class Menu {
 		if ( this.getMenuContainerID() ) {
 			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
-			menuContainerDOM.style.width = `${ parseInt( menuContainerPanelDOM.style.width ) }px`;
-			menuContainerDOM.style.height = `${ parseInt( menuContainerPanelDOM.style.height ) }px`;
+			menuContainerDOM.style.width = `
+				${ parseInt( menuContainerPanelDOM.style.width ) }px
+			`;
+			menuContainerDOM.style.height = `
+				${ parseInt( menuContainerPanelDOM.style.height ) }px
+			`;
 
 			if ( this.menuContainerPanel === "body" ) {
 				this.setLookAndFeelSizesForBodyMenu( menuContainerDOM );
@@ -164,10 +181,25 @@ export class Menu {
 	}
 
 	setResponsiveSizes(menuContainerPanelDOM) {
-		let eventCommon = new Event.Common();
 
-		eventCommon.onResize(() => {
+		Core.Instances.commonEvents.onResize(() => {
 			this.setLookAndFeelSizes( menuContainerPanelDOM );
 		});
+	}
+
+	paintPerfectScrollbar() {
+		let menuContainerBodyContentDOM = document.getElementById( "body-menu-container" );
+
+		this.perfectScrollbar.initialize( menuContainerBodyContentDOM );
+	}
+
+	setEventListenerToPerfectScrollbar() {
+		Core.Instances.customEvents.onNumberOfBlocksChange( window, () => {
+			let menuContainerBodyContentDOM = document.getElementById( 
+				"body-menu-container" 
+			);
+
+			this.menuObject.perfectScrollbar.update( menuContainerBodyContentDOM );
+		} );
 	}
 }

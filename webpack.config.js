@@ -24,7 +24,7 @@ var config = {
                     path.resolve(__dirname, "images"), 
                     path.resolve(__dirname, "node_modules"), 
                     path.resolve(__dirname, "style"),
-                    path.resolve(__dirname, "template"),
+                    path.resolve(__dirname, "templates"),
                     path.resolve(__dirname, "test")
                 ] 
             },
@@ -37,7 +37,7 @@ var config = {
                     path.resolve(__dirname, "images"), 
                     path.resolve(__dirname, "node_modules"), 
                     path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "template"),
+                    path.resolve(__dirname, "templates"),
                     path.resolve(__dirname, "test")
                 ]
             },
@@ -50,7 +50,7 @@ var config = {
                     path.resolve(__dirname, "images"), 
                     path.resolve(__dirname, "node_modules"), 
                     path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "template"),
+                    path.resolve(__dirname, "templates"),
                     path.resolve(__dirname, "test")
                 ]
             },

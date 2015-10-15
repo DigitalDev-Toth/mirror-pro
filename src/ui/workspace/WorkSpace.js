@@ -1,6 +1,6 @@
 import { Utils } from "../../core/utils";
 import { LookAndFeel } from "./LookAndFeel";
-import { Event } from "../../event";
+import { Events } from "../../events";
 
 /**
  * 
@@ -108,22 +108,32 @@ export class WorkSpace {
 		let panelBodyMenuDOM = document.getElementById( "panel-body-menu" );
 
 		panelBodyMenuDOM.style.width = "140px";
-		panelBodyMenuDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
+		panelBodyMenuDOM.style.height = `
+			${ parseInt( panelBodyDOM.style.height ) - 3 }px
+		`; // 3px border
 
 		let panelBodyNavigatorbarDOM = document.getElementById( "panel-body-navigatorbar" );
 
 		panelBodyNavigatorbarDOM.style.width = "20px";
-		panelBodyNavigatorbarDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
+		panelBodyNavigatorbarDOM.style.height = `
+			${ parseInt( panelBodyDOM.style.height ) - 3 }px
+		`; // 3px border
 
 		let panelBodyMainDOM = document.getElementById( "panel-body-main" ),
 			panelBodyMainDOMSubstract = 0;
 
-		for ( let sum of [ parseInt( panelBodyMenuDOM.style.width ), parseInt( panelBodyNavigatorbarDOM.style.width ), 6 ] ) {
+		for ( let sum of [ parseInt( panelBodyMenuDOM.style.width ), 
+						   parseInt( panelBodyNavigatorbarDOM.style.width ), 
+						   6 ] ) {
 			panelBodyMainDOMSubstract += sum;
 		}
 
-		panelBodyMainDOM.style.width = `${ parseInt( workspaceDOM.style.width ) - panelBodyMainDOMSubstract }px`;
-		panelBodyMainDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
+		panelBodyMainDOM.style.width = `
+			${ parseInt( workspaceDOM.style.width ) - panelBodyMainDOMSubstract }px
+		`;
+		panelBodyMainDOM.style.height = `
+			${ parseInt( panelBodyDOM.style.height ) - 3 }px
+		`; // 3px border
 
 		let panelBodyMainMenuDOM = document.getElementById( "panel-body-main-menu" );
 
@@ -132,12 +142,17 @@ export class WorkSpace {
 
 		let panelBodyMainContextsDOM = document.getElementById( "panel-body-main-contexts" );
 
-		panelBodyMainContextsDOM.style.width = `${ parseInt( panelBodyMainDOM.style.width ) }px`;
-		panelBodyMainContextsDOM.style.height = `${ parseInt( panelBodyMainDOM.style.height ) - parseInt( panelBodyMainMenuDOM.style.height ) }px`;
+		panelBodyMainContextsDOM.style.width = `
+			${ parseInt( panelBodyMainDOM.style.width ) }px
+		`;
+		panelBodyMainContextsDOM.style.height = `
+			${ parseInt( panelBodyMainDOM.style.height ) - 
+			   parseInt( panelBodyMainMenuDOM.style.height ) }px
+		`;
 	}
 
 	setResponsiveSizes(workspaceDOM) {
-		let eventCommon = new Event.Common();
+		let eventCommon = new Events.Common();
 
 		eventCommon.onResize(() => {
 			workspaceDOM = this.setWorkSpaceSize( workspaceDOM );

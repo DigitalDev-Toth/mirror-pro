@@ -1,5 +1,5 @@
 import { LookAndFeel } from "./LookAndFeel";
-import { Event } from "../../event";
+import { Core } from "../../core";
 
 /**
  * 
@@ -43,7 +43,9 @@ export class Block {
 			this.setBlockID();
 
 			let menuContainerContentID = this.menuObject.getMenuContainerContentID(),
-				menuContainerContentDOM = this.menuObject.getMenuContainerContent( menuContainerContentID );
+				menuContainerContentDOM = this.menuObject.getMenuContainerContent( 
+					menuContainerContentID 
+				);
 
 			menuContainerContentDOM = this.paintLookAndFeel( menuContainerContentDOM );
 
@@ -62,6 +64,10 @@ export class Block {
 	 */
 	setNumberOfBlocks() {
 		this.menuObject.numberOfBlocks++;
+
+		window.dispatchEvent( 
+			Core.Instances.customEvents.numberOfBlocksChange 
+		);
 	}
 
 	/**
@@ -83,7 +89,9 @@ export class Block {
 	 * @return {Object}                         [description]
 	 */
 	paintLookAndFeel(menuContainerContentDOM) {
-		menuContainerContentDOM.innerHTML += LookAndFeel[ this.menuObject.menuContainerPanel ].DOM;
+		menuContainerContentDOM.innerHTML += LookAndFeel[ 
+			this.menuObject.menuContainerPanel 
+		].DOM;
 
 		return menuContainerContentDOM;
 	}
@@ -93,7 +101,9 @@ export class Block {
 	 * @param {Object} menuContainerContentDOM [description]
 	 */
 	setDOMBlockIDs(menuContainerContentDOM) {
-		let blockContainer = menuContainerContentDOM.children[ this.menuObject.numberOfBlocks - 1 ];
+		let blockContainer = menuContainerContentDOM.children[ 
+			this.menuObject.numberOfBlocks - 1 
+		];
 
 		blockContainer.setAttribute( "id", this.blockID );
 
@@ -129,13 +139,14 @@ export class Block {
 	 * @param {Object} content [description]
 	 */
 	setBlockContent(title, content) {
-		this.title = "Block title";
-		this.content = "Block content";
+		this.title = "Block title"; 
+		this.content = "Block content"; 
 	}
-
+	/**
+	 * [appendContentToDOM description]
+	 */
 	appendContentToDOM() {
-		let menuContainerPanel = this.menuObject.menuContainerPanel,
-			blockTitle = document.getElementById( `${ this.blockID }-title` ),
+		let blockTitle = document.getElementById( `${ this.blockID }-title` ),
 			blockContent = document.getElementById( `${ this.blockID }-content` );
 
 		if ( blockTitle ) {
