@@ -9,7 +9,8 @@
     "build": "./node_modules/.bin/webpack -d -p --config webpack.production.config.js",
     "server": "node server",
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "test": "node watcher"
+    "test": "./node_modules/.bin/mocha --es_staging --full-trace --slow 3s --no-timeouts --recursive ./test/",
+    "watch": "node watcher"
   },
   "dependencies": {
     "bootstrap": "^3.3.5",
