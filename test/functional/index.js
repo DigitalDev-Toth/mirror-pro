@@ -1,22 +1,25 @@
-import chai from "chai";
-import Browser from "zombie";
+/*import chai from "chai";
+import Nightmare from "nightmare";
 
 const expect = chai.expect;
-const browser = new Browser();
+const nightmare = Nightmare();
 
-describe("Functional test", function() {
+describe("Functional test", () => {
 
-	before((done) => {
-		return browser.visit("http://localhost:3000", done);
+	before(function *() {
+		return yield nightmare.goto("http://localhost:3000");
 	});
 
 	describe("UI", () => {
 
-		it("should have a title equal to 'Mirror Pro'", (done) => {
-			let title = browser.text("title");
+		it("should have a title equal to 'Mirror Pro'", function *() {
+			let title = yield nightmare.title();
 
 			expect( title ).to.be.equal("Mirror Pro");
-			done();
 		});
 	});
-});
+
+	afterEach(function *() {
+    	yield nightmare.end();
+  	});
+});*/

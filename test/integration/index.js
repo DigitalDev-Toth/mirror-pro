@@ -1,10 +1,10 @@
-import chai from "chai";
-import Browser from "zombie";
+/*import chai from "chai";
+import Nightmare from "nightmare";
 
 const expect = chai.expect;
-const browser = new Browser();
+const nightmare = Nightmare();
 
 describe("Integration test", function() {
 
 	
-});
+});*/

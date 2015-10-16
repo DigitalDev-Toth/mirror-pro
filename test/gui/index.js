@@ -1,57 +1,79 @@
-import chai from "chai";
-import Browser from "zombie";
+/*import chai from "chai";
+import Nightmare from "nightmare";
 
 const expect = chai.expect;
-const browser = new Browser();
+const nightmare = Nightmare();
 
-describe("GUI test", function() {
+describe("GUI test", () => {
 
-	before((done) => {
-		return browser.visit("http://localhost:3000", done);
+	before(function *() {
+		return yield nightmare.goto("http://localhost:3000");
 	});
 
 	describe("WorkSpace", () => {
 
-		it("should have a 'workspace' container", (done) => {
-			let workspaceDOM = browser.document.getElementById("workspace");
-
-			expect( workspaceDOM ).to.be.an( "object" );
-			done();
+		it("should have a 'workspace' container", function *() {
+			let workspaceDOM = yield nightmare
+      			.evaluate(() => {
+        			return document.getElementById("workspace");
+      		});
+    		
+    		expect( workspaceDOM ).to.be.an( "object" );
 		});
 
-		it("should have a 'LookAndFeel' sizes greater than zero", (done) => {
-			let panelBodyMainContextsDOM = browser.document.getElementById( "panel-body-main-contexts" ),
-				panelBodyMainMenuDOM = browser.document.getElementById( "panel-body-main-menu" );
-
+		it("should have a 'LookAndFeel' sizes greater than zero", function *() {
+			let panelBodyMainContextsDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "panel-body-main-contexts" );
+			});
+			
+			let panelBodyMainMenuDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "panel-body-main-menu" );
+			});
+			
 			expect( parseInt( panelBodyMainContextsDOM.style.height ) ).to.be.above(0);
 			expect( parseInt( panelBodyMainMenuDOM.style.height ) ).to.be.above(0);
-			done();
 		});
 	});
 
 	describe("Menu", () => {
 
-		it("should have a 'LookAndFeel' sizes greater than zero", (done) => {
-			let menuContainerBodyDOM = browser.document.getElementById( "body-menu-container" ),
-				menuContainerMainDOM = browser.document.getElementById( "main-menu-container" );
-
+		it("should have a 'LookAndFeel' sizes greater than zero", function *() {
+			let menuContainerBodyDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "body-menu-container" );
+			});
+			
+			let menuContainerMainDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "main-menu-container" );
+			});
+			
 			expect( parseInt( menuContainerBodyDOM.style.height ) ).to.be.above(0);
 			expect( parseInt( menuContainerMainDOM.style.height ) ).to.be.above(0);
-			done();
 		});
 
-		it("should have a 'body' menu with sizes greater than zero", (done) => {
-			let menuContainerBodyContentDOM = browser.document.getElementById( "body-menu-content" );
-
+		it("should have a 'body' menu with sizes greater than zero", function *() {
+			let menuContainerBodyContentDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "body-menu-content" );
+			});
+			
 			expect( parseInt( menuContainerBodyContentDOM.style.height ) ).to.be.above(0);
-			done();
 		});
 
-		it("should have a 'main' menu with sizes greater than zero", (done) => {
-			let menuContainerMainContentDOM = browser.document.getElementById( "main-menu-content" );
+		it("should have a 'main' menu with sizes greater than zero", function *() {
+			let menuContainerMainContentDOM = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "main-menu-content" );
+			});
 
 			expect( parseInt( menuContainerMainContentDOM.style.height ) ).to.be.above(0);
-			done();
 		});
 	});
-});
+
+	afterEach(function *() {
+    	yield nightmare.end();
+  	});
+});*/

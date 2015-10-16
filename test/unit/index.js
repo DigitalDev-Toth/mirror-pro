@@ -1,113 +1,62 @@
-import chai from "chai";
-import Browser from "zombie";
+var Nightmare = require('nightmare');
+var expect = require('chai').expect;
+require('mocha-generators').install();
 
-const expect = chai.expect;
-const browser = new Browser();
+describe("Unit test", () => {
+	var nightmare;
 
-describe("Unit test", function() {
-
-	before((done) => {
-		return browser.visit("http://localhost:3000", done);
-	});
+	beforeEach(() => {
+      	nightmare = Nightmare();
+    });
 
 	describe("Core functionalities", () => {
 
 		describe("Utils functionalities", () => {
 
-			it("should have a 'workspace' container", (done) => {
-				let result = browser.window.MIRROR.Utils.workSpaceDetection( "workspace" );
+			it("should have a 'workspace' container", function *() {
+				var result = yield nightmare
+					.goto("http://localhost:3000")
+					.evaluate(() => {
+						return MIRROR.Utils.workSpaceDetection( "workspace" );
+				});
 
 				expect( result ).to.be.true;
-				done();
 			});
 
-			it("should be false when WebGL context it's not supported", (done) => {
-				let result = browser.window.MIRROR.Utils.isWebGLSupported();
+			it("should have support for WebGL context", function *() {
+				var result = yield nightmare
+					.goto("http://localhost:3000")
+					.evaluate(() => {
+						return MIRROR.Utils.isWebGLSupported();
+				});
 
-				expect( result ).to.be.false;
-				done();
+				expect( result ).to.be.true;
 			});
 
-			it("should be 'chrome' when the name of the browser is it", (done) => {
-				let result = browser.window.MIRROR.Utils.browserDetection();
+			it("should be 'chrome' when the name of the browser is it", function *() {
+				var result = yield nightmare
+					.goto("http://localhost:3000")
+					.evaluate(() => {
+						return MIRROR.Utils.browserDetection();
+				});
 
 				expect( result ).to.be.equal( "chrome" );
-				done();
 			});
+		});
+
+		describe("Instances functionalities", () => {
+
+			/*it("should fire the 'numberofblockschange' event", function *() {
+				var result = yield nightmare
+					.goto("http://localhost:3000")
+					.title();
+
+				expect( result ).to.equal( "asdasdas" );
+			});*/
 		});
 	});
 
-	describe("UI functionalities", () => {
-
-		describe("WorkSpace", () => {
-
-			let workspace = null;
-
-			beforeEach(() => {
-    			workspace = new browser.window.MIRROR.UI.WorkSpace();
-  			});
-
-			it("should create a 'workspace' container", (done) => {
-				let workspaceDOM = workspace.createWorkSpace();
-
-				expect( workspaceDOM ).to.be.an( "object" );
-				done();
-			});
-
-			it("should get the 'workspace' container", (done) => {
-				let workspaceDOM = workspace.getWorkSpace();
-
-				expect( workspaceDOM ).to.be.an( "object" );
-				done();
-			});
-
-			it("should have a 'workspace' size greater than zero", (done) => {
-				let workspaceDOM = workspace.getWorkSpace();
-
-				workspaceDOM = workspace.setWorkSpaceSize(workspaceDOM);
-
-				expect( parseInt( workspaceDOM.style.width ) ).to.be.above(0);
-				expect( parseInt( workspaceDOM.style.height ) ).to.be.above(0);
-				done();
-			});
-
-			it("should have a 'LookAndFeel' structure", (done) => {
-				let workspaceDOM = workspace.getWorkSpace(),
-					hasChilds = workspaceDOM.hasChildNodes();
-
-				expect( hasChilds ).to.be.true;
-				done();
-			});
-		});
-
-		describe("Menu", () => {
-
-			it("should have a 'LookAndFeel' structure", (done) => {
-				let menu = new browser.window.MIRROR.UI.Menu(),
-					menuContainerDOM = menu.getMenuContainer( menu.getMenuContainerID() ),
-					hasChilds = menuContainerDOM.hasChildNodes();
-
-				expect( hasChilds ).to.be.true;
-				done();
-			});
-		});
-
-		describe("Block", () => {
-
-			it("should have a 'LookAndFeel' structure", (done) => {
-				let menu = new browser.window.MIRROR.UI.Menu(),
-					block = new browser.window.MIRROR.UI.Block( menu );
-
-				block.setNumberOfBlocks();
-				block.setBlockID();
-
-				let	blockContainerDOM = block.getBlockContainer(),
-					hasChilds = blockContainerDOM.hasChildNodes();
-
-				expect( blockContainerDOM ).to.be.an( "object" );
-				expect( hasChilds ).to.be.true;
-				done();
-			});
-		});
-	});
+	afterEach(function *() {
+    	yield nightmare.end();
+  	});
 });

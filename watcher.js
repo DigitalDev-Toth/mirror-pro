@@ -56,7 +56,19 @@ function make_subscription(client, watch, relative_path) {
       		}
     	}
     	if (resp.subscription == "test-subscription") {
-            spawn("./node_modules/.bin/mocha", ["--compilers",  "js:mocha-babel", "--timeout", "5000", "test/*.js"], {stdio: "inherit"});
+            spawn("./node_modules/.bin/mocha", 
+                [
+                    /*"--compilers", "js:mocha-babel", */
+                    "--harmony",
+                    "--es_staging", 
+                    "--full-trace",
+                    /*"--require", "mocha-generators",*/
+                    "--slow", "3s",
+                    "--timeout", "5000",
+                    "--recursive",
+                    "./test/"
+                ], 
+                {stdio: "inherit"});
   		}
   	});
 }
