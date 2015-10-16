@@ -19,5 +19,10 @@ npm run server
 En desarrollo:
 ```
 npm run dev
+npm run watch (tests con watchman)
+```
+
+Para CI
+```
 npm run test
 ```

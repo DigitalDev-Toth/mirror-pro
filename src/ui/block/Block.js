@@ -140,7 +140,7 @@ export class Block {
 	 */
 	setBlockContent(title, content) {
 		this.title = `Block title ${ this.menuObject.numberOfBlocks }`; 
-		this.content = `Block content ${ this.menuObject.numberOfBlocks }`; 
+		this.content = `Block content ${ this.menuObject.numberOfBlocks } Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum iusto architecto veniam odio at tempora aut itaque voluptatibus soluta aperiam recusandae, incidunt ducimus totam vero temporibus maiores pariatur. Maiores, ab.`; 
 	}
 	
 	/**
