@@ -213,6 +213,6 @@ export class Menu {
 			let menuContainerDOM = this.getMenuContainer( this.getMenuContainerID() );
 
 			this.perfectScrollbar.update( menuContainerDOM );
-		} );
+		});
 	}
 }

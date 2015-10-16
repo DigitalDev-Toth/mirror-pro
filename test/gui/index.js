@@ -1,79 +1,94 @@
-/*import chai from "chai";
-import Nightmare from "nightmare";
+"use strict";
 
-const expect = chai.expect;
-const nightmare = Nightmare();
+require("mocha-generators").install();
+
+const Nightmare = require("nightmare");
+const expect = require("chai").expect;
+
+let nightmare;
 
 describe("GUI test", () => {
 
-	before(function *() {
-		return yield nightmare.goto("http://localhost:3000");
-	});
+	beforeEach(function *() {
+      	nightmare = Nightmare();
+
+      	yield nightmare.goto( "http://localhost:3000" );
+    });
 
 	describe("WorkSpace", () => {
 
 		it("should have a 'workspace' container", function *() {
 			let workspaceDOM = yield nightmare
       			.evaluate(() => {
-        			return document.getElementById("workspace");
+        			return document.getElementById( "workspace" );
       		});
-    		
     		expect( workspaceDOM ).to.be.an( "object" );
 		});
 
 		it("should have a 'LookAndFeel' sizes greater than zero", function *() {
-			let panelBodyMainContextsDOM = yield nightmare
+			let panelBodyMainContextsDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "panel-body-main-contexts" );
+					return document.getElementById( "panel-body-main-contexts" ).offsetHeight;
 			});
 			
-			let panelBodyMainMenuDOM = yield nightmare
+			let panelBodyMainMenuDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "panel-body-main-menu" );
+					return document.getElementById( "panel-body-main-menu" ).offsetHeight;
 			});
-			
-			expect( parseInt( panelBodyMainContextsDOM.style.height ) ).to.be.above(0);
-			expect( parseInt( panelBodyMainMenuDOM.style.height ) ).to.be.above(0);
+
+			expect( panelBodyMainContextsDOMHeight ).to.be.above(0);
+			expect( panelBodyMainMenuDOMHeight ).to.be.above(0);
 		});
 	});
 
 	describe("Menu", () => {
 
 		it("should have a 'LookAndFeel' sizes greater than zero", function *() {
-			let menuContainerBodyDOM = yield nightmare
+			let menuContainerBodyDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "body-menu-container" );
+					return document.getElementById( "body-menu-container" ).offsetHeight;
 			});
 			
-			let menuContainerMainDOM = yield nightmare
+			let menuContainerMainDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "main-menu-container" );
+					return document.getElementById( "main-menu-container" ).offsetHeight;
 			});
 			
-			expect( parseInt( menuContainerBodyDOM.style.height ) ).to.be.above(0);
-			expect( parseInt( menuContainerMainDOM.style.height ) ).to.be.above(0);
+			expect( menuContainerBodyDOMHeight ).to.be.above(0);
+			expect( menuContainerMainDOMHeight ).to.be.above(0);
 		});
 
-		it("should have a 'body' menu with sizes greater than zero", function *() {
-			let menuContainerBodyContentDOM = yield nightmare
+		it("should have sizes greater than zero in 'body' panel", function *() {
+			let menuContainerBodyContentDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "body-menu-content" );
+					return document.getElementById( "body-menu-content" ).offsetHeight;
 			});
 			
-			expect( parseInt( menuContainerBodyContentDOM.style.height ) ).to.be.above(0);
+			expect( menuContainerBodyContentDOMHeight ).to.be.above(0);
 		});
 
-		it("should have a 'main' menu with sizes greater than zero", function *() {
-			let menuContainerMainContentDOM = yield nightmare
+		it("should have sizes greater than zero in 'main' panel", function *() {
+			let menuContainerMainContentDOMHeight = yield nightmare
 				.evaluate(() => {
-					return document.getElementById( "main-menu-content" );
+					return document.getElementById( "main-menu-content" ).offsetHeight;
 			});
 
-			expect( parseInt( menuContainerMainContentDOM.style.height ) ).to.be.above(0);
+			expect( menuContainerMainContentDOMHeight ).to.be.above(0);
+		});
+
+		it("should have mutiples blocks", function *() {
+			let menuContainerBodyContentDOMChildrenLength = yield nightmare
+				.evaluate(() => {
+					return document.getElementById( "body-menu-content" ).children.length;
+			});
+
+			expect( menuContainerBodyContentDOMChildrenLength ).to.be.above(0);
 		});
 	});
 
 	afterEach(function *() {
     	yield nightmare.end();
+    	
+    	process.removeAllListeners();
   	});
-});*/
+});

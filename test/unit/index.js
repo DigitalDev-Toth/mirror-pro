@@ -1,12 +1,18 @@
-var Nightmare = require('nightmare');
-var expect = require('chai').expect;
-require('mocha-generators').install();
+"use strict";
+
+require("mocha-generators").install();
+
+const Nightmare = require("nightmare");
+const expect = require("chai").expect;
+
+let nightmare;
 
 describe("Unit test", () => {
-	var nightmare;
 
-	beforeEach(() => {
+	beforeEach(function *() {
       	nightmare = Nightmare();
+
+      	yield nightmare.goto( "http://localhost:3000" );
     });
 
 	describe("Core functionalities", () => {
@@ -14,8 +20,7 @@ describe("Unit test", () => {
 		describe("Utils functionalities", () => {
 
 			it("should have a 'workspace' container", function *() {
-				var result = yield nightmare
-					.goto("http://localhost:3000")
+				let result = yield nightmare					
 					.evaluate(() => {
 						return MIRROR.Utils.workSpaceDetection( "workspace" );
 				});
@@ -24,8 +29,7 @@ describe("Unit test", () => {
 			});
 
 			it("should have support for WebGL context", function *() {
-				var result = yield nightmare
-					.goto("http://localhost:3000")
+				let result = yield nightmare					
 					.evaluate(() => {
 						return MIRROR.Utils.isWebGLSupported();
 				});
@@ -34,8 +38,7 @@ describe("Unit test", () => {
 			});
 
 			it("should be 'chrome' when the name of the browser is it", function *() {
-				var result = yield nightmare
-					.goto("http://localhost:3000")
+				let result = yield nightmare					
 					.evaluate(() => {
 						return MIRROR.Utils.browserDetection();
 				});
@@ -46,17 +49,28 @@ describe("Unit test", () => {
 
 		describe("Instances functionalities", () => {
 
-			/*it("should fire the 'numberofblockschange' event", function *() {
-				var result = yield nightmare
-					.goto("http://localhost:3000")
-					.title();
+			it("should fire the 'numberofblockschange' event", function *() {
+				let checkFireEvent = false;
 
-				expect( result ).to.equal( "asdasdas" );
-			});*/
+				let result = yield nightmare					
+					.evaluate((checkFireEvent) => {
+						MIRROR.Instances.customEvents.onNumberOfBlocksChange( window, () => {
+							checkFireEvent = true;
+						});
+
+						MIRROR.Instances.customEvents.dispatchNumberOfBlocksChange( window );
+				
+						return checkFireEvent;
+				}, checkFireEvent);
+
+				expect( result ).to.be.true;
+			});
 		});
 	});
 
 	afterEach(function *() {
     	yield nightmare.end();
+
+    	process.removeAllListeners();
   	});
 });

@@ -142,6 +142,7 @@ export class Block {
 		this.title = `Block title ${ this.menuObject.numberOfBlocks }`; 
 		this.content = `Block content ${ this.menuObject.numberOfBlocks }`; 
 	}
+	
 	/**
 	 * [appendContentToDOM description]
 	 */

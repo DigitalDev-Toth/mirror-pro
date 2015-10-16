@@ -1,10 +1,13 @@
-/*import chai from "chai";
-import Nightmare from "nightmare";
+"use strict";
 
-const expect = chai.expect;
-const nightmare = Nightmare();
+require("mocha-generators").install();
+
+const Nightmare = require("nightmare");
+const expect = require("chai").expect;
+
+let nightmare;
 
 describe("Integration test", function() {
 
 	
-});*/
+});
