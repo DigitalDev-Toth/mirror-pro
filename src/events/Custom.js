@@ -11,7 +11,7 @@ export class Custom {
 		 * [numberOfBlocksChange description]
 		 * @type {CustomEvent}
 		 */
-		this.numberOfBlocksChange = new CustomEvent( "numberofblockschange" );
+		/*this.numberOfBlocksChange = new CustomEvent( "numberofblockschange" );*/
 	}
 
 	/**
