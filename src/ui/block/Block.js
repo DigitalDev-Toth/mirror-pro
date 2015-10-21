@@ -67,7 +67,7 @@ export class Block {
 	setNumberOfBlocks() {
 		this.menuObject.numberOfBlocks++;
 
-		/*Core.Instances.customEvents.dispatchNumberOfBlocksChange( window );*/
+		Core.Instances.customEvents.dispatchNumberOfBlocksChange( window );
 	}
 
 	/**
