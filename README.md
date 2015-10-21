@@ -3,26 +3,27 @@ Mirror Profesional
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
 
-## Indicaciones de Uso ##
+## Indicate for Use ##
 
-Instalación:
+Install:
 ```
 npm install
 ```
 
-En producción:
+Production:
 ```
 npm run build
 npm run server
 ```
 
-En desarrollo:
+Develop:
 ```
 npm run dev
-npm run watch (tests con watchman)
+npm run watch (watch testing files)
 ```
 
-Para CI
+CI
 ```
-npm run test
+npm run test:unit
+npm run test:functional
 ```

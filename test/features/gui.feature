@@ -11,5 +11,5 @@ Feature: Mirror Pro GUI
         Then the menu should have a "LookAndFeel" sizes greater than zero
         Then the menu should have sizes greater than zero in the "body" panel
         Then the menu should have sizes greater than zero in the "main" panel
-        Then the menu should have mutiples blocks
-        
+        Then the menu should have mutiple blocks
+         
