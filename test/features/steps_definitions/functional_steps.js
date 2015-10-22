@@ -1,3 +1,5 @@
+/*require("babel").transform("code", { blacklist: ["regenerator"] });*/
+
 import chai from "chai";
 
 const expect = chai.expect;
@@ -16,13 +18,20 @@ export default function () {
         next();
     });
 
-    this.Then(/^I should see "(.*)" as the page title$/, function(title, next) {
-    
-        this.driver
+    this.Then(/^I should see "(.*)" as the page title$/, function*(title, next) {
+        
+        let result = yield this.driver
+            .execute(() => {
+                return document.title;
+            });
+
+        console.log(result);
+        next();
+        /*this.driver
             .title(( err, res ) => {
                 expect( res.value ).to.equal( title );        
             })
-            .call( next );
+            .call( next );*/
     });
 
     this.Then(/^I should see the "perfect scrollbar" when the mouse pointer it's over the menu$/, function(next) {
