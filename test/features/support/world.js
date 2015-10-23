@@ -1,6 +1,6 @@
 import webdriverio from "webdriverio";
 
-function World(callback) {
+function World(next) {
 
   	this.driver = webdriverio.remote({
     	desiredCapabilities: {
@@ -8,7 +8,7 @@ function World(callback) {
     	}
 	});
 
-  	callback();
+  	next();
 }
 
 export default function() {

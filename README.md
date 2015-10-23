@@ -5,9 +5,18 @@ Mirror Profesional
 
 ## Indicate for Use ##
 
-Install:
+Node v4.2.1
+
+Depencencies:
+```
+openjdk-7-jre-headless (for selenium-standalone)
+```
+
+Install environment:
 ```
 npm install
+npm install -g selenium-standalone
+selenium-standalone install
 ```
 
 Production:
@@ -18,12 +27,13 @@ npm run server
 
 Develop:
 ```
+selenium-standalone start
 npm run dev
-npm run watch (watch testing files)
+npm run watch (watch test files)
 ```
 
 CI
 ```
 npm run test:unit
-npm run test:functional
+npm run test:features
 ```

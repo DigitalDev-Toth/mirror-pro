@@ -4,6 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
 
 var config = {
+    
     entry: [
         "bootstrap-webpack!./bootstrap.config.js",
         "./src/index.js"

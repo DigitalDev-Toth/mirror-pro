@@ -2,6 +2,7 @@ var webpack = require("webpack");
 var path = require("path");
 
 var config = {
+    
     entry: [
         "webpack/hot/dev-server",
         "bootstrap-webpack!./bootstrap.config.js",

@@ -10,7 +10,7 @@
     "server": "node server",
     "dev": "./node_modules/.bin/webpack-dev-server",
     "test:unit": "./node_modules/.bin/istanbul cover ./node_modules/.bin/mocha -- --compilers js:babel/register --slow 3s --no-timeouts --recursive ./test/unit",
-    "test:functional": "./node_modules/.bin/babel-node --blacklist regenerator ./node_modules/.bin/cucumber-js ./test/features",
+    "test:features": "./node_modules/.bin/babel-node ./node_modules/.bin/cucumber-js ./test/features",
     "watch": "node watcher"
   },
   "dependencies": {
