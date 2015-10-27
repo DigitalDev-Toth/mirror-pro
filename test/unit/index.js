@@ -2,15 +2,9 @@ import chai from "chai";
 
 const expect = chai.expect;
 
-describe("App unit test", () => {
+describe("App unit test", function() {
 
-	before((done) => {
-
-    });
-
-
-
-	after((done) => {
-
-  	});
+	it("simple test", (done) => {
+		expect( true ).to.be.true;
+	})
 });
