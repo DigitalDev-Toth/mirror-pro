@@ -31,9 +31,3 @@ selenium-standalone start
 npm run dev
 npm run watch (watch test files)
 ```
-
-CI
-```
-npm run test:unit
-npm run test:features
-```
