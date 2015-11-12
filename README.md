@@ -29,5 +29,7 @@ Develop:
 ```
 selenium-standalone start
 npm run dev
-npm run watch (watch test files)
+npm run test:unit
+npm run test:features
 ```
+
