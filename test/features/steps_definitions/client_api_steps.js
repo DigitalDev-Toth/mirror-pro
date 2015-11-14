@@ -4,7 +4,7 @@ const expect = chai.expect;
 
 export default function () {
 
-    this.Given(/^I am on the Mirror Pro page$/, function(next) {
+    this.Given(/^I am developing for Mirror Pro$/, function(next) {
         
         this.driver
             .url( "http://localhost:3000" )
@@ -16,7 +16,7 @@ export default function () {
         next();
     });
 
-    this.Then(/^I should see if the "workspace" container exist$/, function(next) {
+    this.Then(/^I should know if the "workspace" container exist$/, function(next) {
     
         this.driver
             .execute(() => {
@@ -28,7 +28,7 @@ export default function () {
             .call( next );
     });
 
-    this.Then(/^I should see if the browser has support for WebGL context$/, function(next) {
+    this.Then(/^I should know if the browser has support for WebGL context$/, function(next) {
 
         this.driver
             .execute(() => {
@@ -40,7 +40,7 @@ export default function () {
             .call( next );
     });
 
-    this.Then(/^I should see the browser name I'm using$/, function(next) {
+    this.Then(/^I should know the browser name I'm using$/, function(next) {
 
         this.driver
             .execute(() => {
@@ -52,7 +52,7 @@ export default function () {
             .call( next );
     });
 
-    this.Then(/^I should fire the "numberofblockschange" event$/, function(next) {
+    this.Then(/^I should be able to fire the "numberofblockschange" event$/, function(next) {
 
         this.driver
             .execute(() => {

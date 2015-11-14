@@ -1,17 +1,15 @@
 import webdriverio from "webdriverio";
 
-function World(next) {
+function World() {
 
   	this.driver = webdriverio.remote({
     	desiredCapabilities: {
-        	browserName: 'chrome'
+        	browserName: "chrome"
     	}
 	});
-
-  	next();
 }
 
 export default function() {
 	
   	this.World = World;
-};
+}

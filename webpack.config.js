@@ -1,5 +1,5 @@
-var webpack = require("webpack");
-var path = require("path");
+var webpack = require( "webpack" );
+var path = require( "path" );
 
 var config = {
     
@@ -9,7 +9,7 @@ var config = {
         "./src/index.js"
     ],
     output: {
-        path: path.resolve(__dirname, "dev", "assets", "js"),   
+        path: path.resolve( __dirname, "dev", "assets", "js" ),   
         publicPath: "/assets/js/",
         filename: "mirror-pro.js"
     },
@@ -19,40 +19,40 @@ var config = {
                 test: /\.js$/,              
                 loader: "babel-loader",
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "bootstrap.config.js"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"), 
-                    path.resolve(__dirname, "style"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
-                ] 
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "bootstrap.config.js" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images"), 
+                    path.resolve(__dirname, "node_modules" ), 
+                    path.resolve( __dirname, "style" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
+                ]                
             },
             { 
                 test: /\.less$/, 
                 loader: "less-loader",
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"), 
-                    path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ), 
+                    path.resolve( __dirname, "src" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
                 ]
             },
             { 
                 test: /\.css$/, 
                 loader: "style-loader!css-loader",
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"), 
-                    path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ), 
+                    path.resolve( __dirname, "src" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
                 ]
             },
             {
@@ -61,7 +61,7 @@ var config = {
             },
             { 
                 test: /bootstrap\/js\//, 
-                loader: 'imports?jQuery=jquery' 
+                loader: "imports?jQuery=jquery" 
             },
             { 
                 test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   

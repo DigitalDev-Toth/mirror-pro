@@ -1,5 +1,3 @@
-/*require("babel").transform("code", { blacklist: ["regenerator"] });*/
-
 import chai from "chai";
 
 const expect = chai.expect;
@@ -39,4 +37,4 @@ export default function () {
             })
             .call( next );
     });
-};
+}

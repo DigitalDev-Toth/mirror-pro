@@ -6,5 +6,7 @@ describe("App unit test", function() {
 
 	it("simple test", (done) => {
 		expect( true ).to.be.true;
-	})
+
+		done();
+	});
 });

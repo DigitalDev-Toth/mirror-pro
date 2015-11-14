@@ -1,7 +1,7 @@
-var webpack = require("webpack");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var path = require("path");
+var webpack = require( "webpack" );
+var HtmlWebpackPlugin = require( "html-webpack-plugin" );
+var ExtractTextPlugin = require( "extract-text-webpack-plugin" );
+var path = require( "path" );
 
 var config = {
     
@@ -10,7 +10,7 @@ var config = {
         "./src/index.js"
     ],
     output: {
-        path: path.resolve(__dirname, "app", "assets"),   
+        path: path.resolve( __dirname, "app", "assets" ),   
         publicPath: "/assets",
         filename: "js/mirror-pro.js"
     },
@@ -20,40 +20,40 @@ var config = {
                 test: /\.js$/,              
                 loader: "babel-loader",
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "bootstrap.config.js"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"), 
-                    path.resolve(__dirname, "style"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
-                ] 
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "bootstrap.config.js" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ), 
+                    path.resolve( __dirname, "style" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
+                ]                
             },
             { 
                 test: /\.less$/, 
-                loader: ExtractTextPlugin.extract("less-loader"),
+                loader: ExtractTextPlugin.extract( "less-loader" ),
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"),
-                    path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ),
+                    path.resolve( __dirname, "src" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
                 ]
             },
             { 
                 test: /\.css$/, 
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
+                loader: ExtractTextPlugin.extract( "style-loader", "css-loader" ),
                 exclude: [
-                    path.resolve(__dirname, "app"),
-                    path.resolve(__dirname, "dev"),
-                    path.resolve(__dirname, "images"), 
-                    path.resolve(__dirname, "node_modules"),                    
-                    path.resolve(__dirname, "src"),
-                    path.resolve(__dirname, "templates"),
-                    path.resolve(__dirname, "test")
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ),                    
+                    path.resolve( __dirname, "src" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
                 ]
             },
             {
@@ -62,7 +62,7 @@ var config = {
             },
             { 
                 test: /bootstrap\/js\//, 
-                loader: 'imports?jQuery=jquery' 
+                loader: "imports?jQuery=jquery" 
             },
             { 
                 test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   
@@ -102,7 +102,7 @@ var config = {
             filename: "../index.html",
             inject: true
         }),
-        new ExtractTextPlugin("css/[hash].css")
+        new ExtractTextPlugin( "css/[hash].css" )
     ],
     devtool: "source-map"
 };
