@@ -15,16 +15,20 @@ export let Utils = {
 
 		try {
 			if ( !window.WebGLRenderingContext ) {
-				return false;
+				return "canvas2d";
 			}
 
 			let canvas = document.createElement( "canvas" ),
 				gl = canvas.getContext( "webgl", contextOptions ) || 
 					canvas.getContext( "experimental-webgl", contextOptions );
 
-			return !!( gl && gl.getContextAttributes().stencil );
+			if ( !!( gl && gl.getContextAttributes().stencil ) ) {
+				return "webgl";
+			} else {
+				return "canvas2d";
+			}
 		} catch (e) {
-			return false;
+			return "canvas2d";
 		}
 	},
 

@@ -28,14 +28,18 @@ export default function () {
             .call( next );
     });
 
-    this.Then(/^I should know if the browser has support for WebGL context$/, function(next) {
+    this.Then(/^I should know if the browser has support for WebGL context or just for Canvas2D$/, function(next) {
 
         this.driver
             .execute(() => {
-                return MIRROR.Utils.isWebGLSupported();
+                return MIRROR.Utils.isWebGLSupported(); 
             })                  
             .then((result) => {
-                expect( result.value ).to.be.true;                      
+                if ( result.value === "webgl" ) {
+                    expect( result.value ).to.equal( "webgl" );
+                } else {
+                    expect( result.value ).to.equal( "canvas2d" );
+                }                                      
             })
             .call( next );
     });
