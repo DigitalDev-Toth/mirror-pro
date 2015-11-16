@@ -15,21 +15,36 @@ export let Utils = {
 
 		try {
 			if ( !window.WebGLRenderingContext ) {
-				return "canvas2d";
+				return false;
 			}
 
 			let canvas = document.createElement( "canvas" ),
-				gl = canvas.getContext( "webgl", contextOptions ) || 
-					canvas.getContext( "experimental-webgl", contextOptions );
+				gl =	canvas.getContext( "webgl", contextOptions ) || 
+						canvas.getContext( "experimental-webgl", contextOptions );
 
-			if ( !!( gl && gl.getContextAttributes().stencil ) ) {
-				return "webgl";
-			} else {
-				return "canvas2d";
-			}
+			return !!( gl && gl.getContextAttributes().stencil );
 		} catch (e) {
-			return "canvas2d";
+			return false;
 		}
+	},
+
+	/**
+	 * [isCanvas2DSupported description]
+	 * @return {Boolean} [description]
+	 */
+	isCanvas2DSupported() {
+		try {
+			if ( !window.CanvasRenderingContext2D ) {
+				return false;
+			}
+
+			let canvas = document.createElement( "canvas" ),
+				context = canvas.getContext( "2d" );
+		
+			return !!(canvas.getContext && context);
+		} catch (e) {
+			return false;
+		}		
 	},
 
 	/**

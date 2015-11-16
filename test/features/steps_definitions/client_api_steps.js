@@ -32,14 +32,16 @@ export default function () {
 
         this.driver
             .execute(() => {
-                return MIRROR.Utils.isWebGLSupported(); 
+                if ( MIRROR.Utils.isWebGLSupported() ) {
+                    return true;
+                } else if ( MIRROR.Utils.isCanvas2DSupported() ) {
+                    return true;
+                } else {
+                    return false;
+                }                 
             })                  
             .then((result) => {
-                if ( result.value === "webgl" ) {
-                    expect( result.value ).to.equal( "webgl" );
-                } else {
-                    expect( result.value ).to.equal( "canvas2d" );
-                }                                      
+                expect( result.value ).to.be.true;                                
             })
             .call( next );
     });
