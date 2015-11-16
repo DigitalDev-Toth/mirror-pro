@@ -41,7 +41,7 @@ export let Utils = {
 			let canvas = document.createElement( "canvas" ),
 				context = canvas.getContext( "2d" );
 		
-			return !!(canvas.getContext && context);
+			return !!( canvas.getContext && context );
 		} catch (e) {
 			return false;
 		}		
