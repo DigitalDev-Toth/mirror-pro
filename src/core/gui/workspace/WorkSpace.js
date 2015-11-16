@@ -1,6 +1,10 @@
-import { Utils } from "../../core/utils";
-import { LookAndFeel } from "./LookAndFeel";
-import { Core } from "../../core";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { Core } from "../../../core";
+import { Utils } from "../../utils";
+import { WorkSpaceStructure } from "../components/WorkSpaceComponents.jsx";
+
 
 /**
  * 
@@ -58,7 +62,7 @@ export class WorkSpace {
 	 * @param  {Object} workspace [description]
 	 */
 	appendWorkSpaceToBody(workspaceDOM) {
-		document.body.appendChild( workspaceDOM );
+		document.body.appendChild( workspaceDOM );		
 	}
 
 	/**
@@ -87,7 +91,9 @@ export class WorkSpace {
 	 * @return {Object} [description]
 	 */
 	paintLookAndFeel(workspaceDOM) {
-		workspaceDOM.innerHTML = LookAndFeel.DOM;
+		/*workspaceDOM.innerHTML = LookAndFeel.DOM;*/		
+
+		ReactDOM.render( <WorkSpaceStructure />, document.getElementById( "workspace" ) );
 
 		return workspaceDOM;
 	}
@@ -105,12 +111,12 @@ export class WorkSpace {
 
 		panelBodyDOM.style.height = `${ window.innerHeight - 20 }px`; // 20px panelHeader height
 
-		let panelBodyMenuDOM = document.getElementById( "panel-body-menu" );
+		let panelBodyMenuDOM = document.getElementById( "panel-primary-menu" );
 
 		panelBodyMenuDOM.style.width = "140px";
 		panelBodyMenuDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
 
-		let panelBodyNavigatorbarDOM = document.getElementById( "panel-body-navigatorbar" );
+		let panelBodyNavigatorbarDOM = document.getElementById( "panel-navigatorbar" );
 
 		panelBodyNavigatorbarDOM.style.width = "20px";
 		panelBodyNavigatorbarDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
@@ -127,12 +133,12 @@ export class WorkSpace {
 		panelBodyMainDOM.style.width = `${ parseInt( workspaceDOM.style.width ) - panelBodyMainDOMSubstract }px`;
 		panelBodyMainDOM.style.height = `${ parseInt( panelBodyDOM.style.height ) - 3 }px`; // 3px border
 
-		let panelBodyMainMenuDOM = document.getElementById( "panel-body-main-menu" );
+		let panelBodyMainMenuDOM = document.getElementById( "panel-secondary-menu" );
 
 		panelBodyMainMenuDOM.style.width = `${ parseInt( panelBodyMainDOM.style.width ) }px`;
 		panelBodyMainMenuDOM.style.height = "35px";
 
-		let panelBodyMainContextsDOM = document.getElementById( "panel-body-main-contexts" );
+		let panelBodyMainContextsDOM = document.getElementById( "panel-contexts" );
 
 		panelBodyMainContextsDOM.style.width = `${ parseInt( panelBodyMainDOM.style.width ) }px`;
 		panelBodyMainContextsDOM.style.height = `${ parseInt( panelBodyMainDOM.style.height ) - parseInt( panelBodyMainMenuDOM.style.height ) }px`;

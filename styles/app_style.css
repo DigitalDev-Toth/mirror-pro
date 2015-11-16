@@ -33,7 +33,7 @@ body {
 	border-bottom: 3px solid #60287C;
 }
 
-#panel-body-menu {
+#panel-primary-menu {
 	margin: 0px;
 	padding: 0px;
 	background: #4C4C4C;	
@@ -45,49 +45,49 @@ body {
 	background: #6C6C6C;
 }
 
-#panel-body-navigatorbar {
+#panel-navigatorbar {
 	margin: 0px;
 	padding: 0px;
 	background: #4C4C4C;
 }
 
-#panel-body-main-contexts {
+#panel-contexts {
 	margin: 0px;
 	padding: 0px;
 	background: #6C6C6C;
 }
 
-#panel-body-main-menu {
+#panel-secondary-menu {
 	margin: 0px;
 	padding: 0px;
 	background: #4C4C4C;
 }
 
-#body-menu-container {
+#primary-menu-container {
 	margin: 0px;
 	padding: 0px;
 	position: relative;
 }
 
-#body-menu-content {
+#primary-menu-content {
 	margin: 0px;
 	padding: 0px;
 }
 
-#main-menu-container {
+#secondary-menu-container {
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
 	position: relative;
 }
 
-#main-menu-content {
+#secondary-menu-content {
 	margin: 0px;
 	padding: 0px;
 	overflow: hidden;
 }
 
-.body-block {
+.primary-block {
 	margin: 2px 5px 2px 2px;
 	padding: 2px;	
 	border-radius: 5px;
@@ -96,7 +96,7 @@ body {
 	width: 92%;
 }
 
-.main-block {
+.secondary-block {
 	margin: 2px -4px 2px 2px;
 	padding: 2px;
 	border-radius: 3px;

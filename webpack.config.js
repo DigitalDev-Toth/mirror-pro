@@ -16,7 +16,7 @@ var config = {
     module: {
         loaders: [
             { 
-                test: /\.js$/,              
+                test: /\.(js|jsx)$/,              
                 loader: "babel-loader",
                 exclude: [
                     path.resolve( __dirname, "app" ),

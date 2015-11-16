@@ -1,6 +1,5 @@
 import ps from "perfect-scrollbar";
 
-import { LookAndFeel } from "./LookAndFeel";
 import { Core } from "../../core";
 
 /**
