@@ -2,7 +2,7 @@ export class Maker {
 
 	constructor() {}
 
-	GUI() {
-		new global.MIRROR.GUI.WorkSpace();
+	UI() {
+		new global.MIRROR.UI.Container();
 	}
 }

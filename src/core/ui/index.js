@@ -1,11 +1,11 @@
-import { WorkSpace } from "./workspace/WorkSpace";
+import { Container } from "./Container";
 /*import { Menu } from "./menu/Menu";
 import { Block } from "./block/Block";
 import { Element } from "./element/Element";*/
 
-export let GUI = {
+export let UI = {
 	
-	WorkSpace/*,
+	Container/*,
 	Menu,
 	Block,
 	Element*/

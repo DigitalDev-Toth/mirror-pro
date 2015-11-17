@@ -1,101 +1,40 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Core } from "../../../core";
-import { Utils } from "../../utils";
-import { WorkSpaceStructure } from "../components/WorkSpaceComponents.jsx";
-
+import { ContainerStructure } from "./components/ContainerComponents.jsx";
 
 /**
  * 
  */
-export class WorkSpace {
+export class Container {
 	
 	/**
 	 * [constructor description]
-	 * @param  {String} workSpaceID [description]
 	 */
-	constructor(workSpaceID = "workspace") {
-		/**
-		 * [workSpaceID description]
-		 * @type {String}
-		 */
-		this.workSpaceID = workSpaceID;
+	constructor() {
+		this.createContainer();
+		this.createContainerStructure();
 	}
 
 	/**
-	 * [run description]
+	 * [createContainer description]
 	 */
-	run() {
-		let workspaceDOM = null;
-		
-		if ( !Utils.workSpaceDetection( this.workSpaceID ) ) {
-			workspaceDOM = this.createWorkSpace();
+	createContainer() {		
+		let mirrorPro = document.createElement( "div" );
+		mirrorPro.setAttribute( "id", "mirrorPro" );
 
-			this.appendWorkSpaceToBody( workspace );
-		} else {
-			workspaceDOM = this.getWorkSpace();
-		}
-		
-		workspaceDOM = this.setWorkSpaceSize( workspaceDOM );
-
-		workspaceDOM = this.paintLookAndFeel( workspaceDOM );
-
-		this.setLookAndFeelSizes( workspaceDOM );
-
-		this.setResponsiveSizes( workspaceDOM );
+		document.body.appendChild( mirrorPro );
 	}
 
 	/**
-	 * [createWorkSpace description]
-	 * @return {Object} [description]
+	 * [createContainerStructure description]
 	 */
-	createWorkSpace() {
-		let workspaceDOM = document.createElement( "div" );
-		workspaceDOM.setAttribute( "id", this.workSpaceID );
-
-		return workspaceDOM;
-	}
-
-	/**
-	 * [appendWorkSpaceToBody description]
-	 * @param  {Object} workspace [description]
-	 */
-	appendWorkSpaceToBody(workspaceDOM) {
-		document.body.appendChild( workspaceDOM );		
-	}
-
-	/**
-	 * [getWorkSpace description]
-	 * @return {Object} [description]
-	 */
-	getWorkSpace() {
-		return document.getElementById( this.workSpaceID );
-	}
-
-	/**
-	 * [setWorkSpaceSize description]
-	 * @param  {Object} workspace [description]
-	 * @return {Object} [description]
-	 */
-	setWorkSpaceSize(workspaceDOM) {
-		workspaceDOM.style.width = `${ window.innerWidth }px`;
-		workspaceDOM.style.height = `${ window.innerHeight }px`;
-		
-		return workspaceDOM;
-	}
-
-	/**
-	 * [paintLookAndFeel description]
-	 * @param {Object} workspace [description]
-	 * @return {Object} [description]
-	 */
-	paintLookAndFeel(workspaceDOM) {
-		/*workspaceDOM.innerHTML = LookAndFeel.DOM;*/		
-
-		ReactDOM.render( <WorkSpaceStructure />, document.getElementById( "workspace" ) );
-
-		return workspaceDOM;
+	createContainerStructure() {
+		console.log(ReactDOM);
+		ReactDOM.render( 
+			<ContainerStructure />, 
+			document.getElementById( "mirrorPro" ) 
+		);
 	}
 
 	/**
