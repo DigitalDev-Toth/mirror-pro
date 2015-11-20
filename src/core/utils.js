@@ -62,16 +62,5 @@ export let Utils = {
         	return "chrome";
     	}
     	return false;
-	},
-
-	/**
-	 * [workSpaceDetection description]
-	 * @param  {String} workSpaceId [description]
-	 * @return {Boolean}             [description]
-	 */
-	workSpaceDetection(workSpaceId) {
-		let workspaceDOM = document.getElementById( workSpaceId );
-
-		return ( workspaceDOM !== undefined || workspaceDOM !== null ) ? true : false; 
 	}
 };

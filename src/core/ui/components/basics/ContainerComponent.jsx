@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PrimaryMenuStructure, SecondaryMenuStructure } from "./MenuComponents.jsx";
+import { PrimaryMenuStructure, SecondaryMenuStructure } from "./MenuComponent.jsx";
 
 export class ContainerStructure extends React.Component {
 
@@ -93,7 +93,8 @@ export class ContainerStructure extends React.Component {
 						style={ this.state.panelBodySize }>
 						<div id="panel-primary-menu" className="col-xs-2" 
 							style={ this.state.panelPrimaryMenuSize }>
-							<PrimaryMenuStructure />
+							<PrimaryMenuStructure 
+                                primaryBlocks={ this.props.primaryBlocks } />
 						</div>
 						<div id="panel-workspace" className="col-xs-9" 
 							style={ this.state.panelWorSpaceSize }>
@@ -101,7 +102,8 @@ export class ContainerStructure extends React.Component {
 								style={ this.state.panelContextsSize }></div>
 							<div id="panel-secondary-menu" className="row" 
 								style={ this.state.panelSecondaryMenuSize }>
-								<SecondaryMenuStructure />
+								<SecondaryMenuStructure 
+                                    secondaryBlocks={ this.props.secondaryBlocks } />
 							</div>
 						</div>
 						<div id="panel-navigatorbar" className="col-xs-1" 

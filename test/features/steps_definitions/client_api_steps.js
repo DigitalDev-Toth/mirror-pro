@@ -16,18 +16,6 @@ export default function () {
         next();
     });
 
-    this.Then(/^I should know if the "workspace" container exist$/, function(next) {
-    
-        this.driver
-            .execute(() => {
-                return MIRROR.Utils.workSpaceDetection( "workspace" );
-            })
-            .then((result) => {
-                expect( result.value ).to.be.true;
-            })
-            .call( next );
-    });
-
     this.Then(/^I should know if the browser has support for WebGL context or just for Canvas2D$/, function(next) {
 
         this.driver
@@ -54,26 +42,6 @@ export default function () {
             })                  
             .then((result) => {
                 expect( result.value ).to.be.equal( "chrome" );
-            })
-            .call( next );
-    });
-
-    this.Then(/^I should be able to fire the "numberofblockschange" event$/, function(next) {
-
-        this.driver
-            .execute(() => {
-                let checkFireEvent = false;
-
-                MIRROR.Instances.customEvents.onNumberOfBlocksChange( window, () => {
-                    checkFireEvent = true;
-                });
-
-                MIRROR.Instances.customEvents.dispatchNumberOfBlocksChange( window );
-        
-                return checkFireEvent;
-            })
-            .then((result) => {
-                expect( result.value ).to.be.true;
             })
             .call( next );
     });

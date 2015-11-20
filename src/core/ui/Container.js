@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { ContainerStructure } from "./components/ContainerComponents.jsx";
+import { ContainerStructure } from "./components/basics/ContainerComponent.jsx";
 
 /**
  * 
@@ -11,9 +11,9 @@ export class Container {
 	/**
 	 * [constructor description]
 	 */
-	constructor() {
+	constructor( primaryBlocks, secondaryBlocks ) {
 		this.createContainer();
-		this.createContainerStructure();
+		this.createContainerStructure( primaryBlocks, secondaryBlocks );
 	}
 
 	/**
@@ -21,7 +21,8 @@ export class Container {
 	 */
 	createContainer() {		
 		let mirrorPro = document.createElement( "div" );
-		mirrorPro.setAttribute( "id", "mirrorPro" );
+		
+		mirrorPro.setAttribute( "id", "mirror-pro" );
 
 		document.body.appendChild( mirrorPro );
 	}
@@ -29,10 +30,14 @@ export class Container {
 	/**
 	 * [createContainerStructure description]
 	 */
-	createContainerStructure() {
+	createContainerStructure( primaryBlocks, secondaryBlocks ) {
 		ReactDOM.render( 
-			<ContainerStructure />, 
-			document.getElementById( "mirrorPro" ) 
+			<ContainerStructure 
+				primaryBlocks={ primaryBlocks } 
+				secondaryBlocks={ secondaryBlocks } />, 
+			document.getElementById( "mirror-pro" ) 
 		);
 	}
+
+
 }

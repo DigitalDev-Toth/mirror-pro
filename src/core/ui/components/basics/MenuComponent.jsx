@@ -1,7 +1,7 @@
 import React from "react";
 import ps from "perfect-scrollbar";
 
-import { PrimaryBlockStructure, SecondaryBlockStructure } from "./BlockComponents.jsx";
+import { PrimaryBlockStructure, SecondaryBlockStructure } from "./BlockComponent.jsx";
 
 export class PrimaryMenuStructure extends React.Component {
 
@@ -35,7 +35,8 @@ export class PrimaryMenuStructure extends React.Component {
      */
     componentDidMount() {
         window.addEventListener( "resize", this.handleResize.bind( this ) );
-        this.perfectScrollbar.initialize( document.getElementById( "primary-menu-container" ) );
+        
+        this.perfectScrollbar.initialize( document.getElementById( "primary-menu-container" ) ); 
     }
 
     /**
@@ -46,6 +47,15 @@ export class PrimaryMenuStructure extends React.Component {
     }
 
     /**
+     * [componentDidUpdate description]
+     */
+    componentDidUpdate() {
+        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        
+        this.perfectScrollbar.update( document.getElementById( "primary-menu-container" ) );
+    }
+
+    /**
      * [getSizes description]
      */
     getSizes() {
@@ -53,8 +63,7 @@ export class PrimaryMenuStructure extends React.Component {
             menuContainerSize: {
             	width: "140px",
             	height: `${ window.innerHeight - 23 }px`
-            },
-            menuContainerContentSize: { width: "140px" }
+            }
         };
     }
 
@@ -65,10 +74,8 @@ export class PrimaryMenuStructure extends React.Component {
 		return ( 
 			<div id="primary-menu-container" 
 				style={ this.state.menuContainerSize }>
-				<div id="primary-menu-content" 
-					style={ this.state.menuContainerContentSize }>
-					<PrimaryBlockStructure />
-				</div>
+				<PrimaryBlockStructure 
+                    primaryBlocks={ this.props.primaryBlocks } />
 			</div>
 		);
 	}
@@ -106,7 +113,10 @@ export class SecondaryMenuStructure extends React.Component {
      */
     componentDidMount() {
         window.addEventListener( "resize", this.handleResize.bind( this ) );
+
         this.perfectScrollbar.initialize( document.getElementById( "secondary-menu-container" ) );
+
+        document.getElementsByClassName( "ps-scrollbar-x-rail" )[1].style.top = "0px";
     }
 
     /**
@@ -117,6 +127,15 @@ export class SecondaryMenuStructure extends React.Component {
     }
 
     /**
+     * [componentDidUpdate description]
+     */
+    componentDidUpdate() {
+        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+
+        this.perfectScrollbar.update( document.getElementById( "secondary-menu-container" ) );
+    }
+
+    /**
      * [getSizes description]
      */
     getSizes() {
@@ -124,8 +143,7 @@ export class SecondaryMenuStructure extends React.Component {
             menuContainerSize: {
             	width: "100%",
             	height: "35px"
-            },
-            menuContainerContentSize: { height: "35px" }
+            }
         };
     }
 
@@ -136,10 +154,8 @@ export class SecondaryMenuStructure extends React.Component {
 		return ( 
 			<div id="secondary-menu-container" 
 				style={ this.state.menuContainerSize }>
-				<div id="secondary-menu-content" 
-					style={ this.state.menuContainerContentSize }>
-					<SecondaryBlockStructure />
-				</div>
+				<SecondaryBlockStructure 
+                    secondaryBlocks={ this.props.secondaryBlocks } />
 			</div>
 		);
 	}

@@ -1,8 +1,8 @@
-@import url('http://fonts.googleapis.com/css?family=Oswald');
+@import url("http://fonts.googleapis.com/css?family=Oswald");
 
 body {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	overflow: hidden;
 }
 
@@ -13,13 +13,13 @@ body {
 }
 
 .container-fluid {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .row {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 #panel-header {
@@ -34,57 +34,59 @@ body {
 }
 
 #panel-primary-menu {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	background: #4C4C4C;	
 }
 
 #panel-workspace {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	background: #6C6C6C;
 }
 
 #panel-navigatorbar {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	background: #4C4C4C;
 }
 
 #panel-contexts {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	background: #6C6C6C;
 }
 
 #panel-secondary-menu {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	background: #4C4C4C;
 }
 
 #primary-menu-container {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	position: relative;
 }
 
 #primary-menu-content {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 #secondary-menu-container {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	width: 100%;
 	position: relative;
 }
 
 #secondary-menu-content {
-	margin: 0px;
-	padding: 0px;
+	margin-top: 6px;
+	padding: 0;
 	overflow: hidden;
+	float: left; 
+	white-space: nowrap;
 }
 
 .primary-block {
@@ -97,7 +99,7 @@ body {
 }
 
 .secondary-block {
-	margin: 2px -4px 2px 2px;
+	margin: 2px 1px 2px 1px;
 	padding: 2px;
 	border-radius: 3px;
 	background: #5D5D5D;

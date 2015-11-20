@@ -16,47 +16,47 @@ export default function () {
         next();
     });
 
-    this.Then(/^it should have a "workspace" container$/, function(next) {
+    this.Then(/^it should have a "mirror-pro" container$/, function(next) {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "workspace" );
+                return document.getElementById( "mirror-pro" );
             })
-            .then((workspaceDOM) => {
-                expect( workspaceDOM ).to.be.an( "object" );                
+            .then((mirrorProContainer) => {
+                expect( mirrorProContainer ).to.be.an( "object" );                
             })
             .call( next );
     });
 
-    this.Then(/^the container should have a "LookAndFeel" sizes greater than zero$/, function(next) {
+    this.Then(/^the container should have a "Component" sizes greater than zero$/, function(next) {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "panel-body-main-contexts" ).offsetHeight;
+                return document.getElementById( "panel-contexts" ).offsetHeight;
             })
-            .then((panelBodyMainContextsDOMHeight) => {
-                expect( panelBodyMainContextsDOMHeight.value ).to.be.above(0);                
+            .then((panelContextsHeight) => {
+                expect( panelContextsHeight.value ).to.be.above(0);                 
             })
             .execute(() => {
-                return document.getElementById( "panel-body-main-menu" ).offsetHeight;
+                return document.getElementById( "panel-secondary-menu" ).offsetHeight;
             })
-            .then((panelBodyMainMenuDOMHeight) => {
-                expect( panelBodyMainMenuDOMHeight.value ).to.be.above(0);                
+            .then((panelSecondaryMenuHeight) => {
+                expect( panelSecondaryMenuHeight.value ).to.be.above(0);                
             })
             .call( next ); 
     });
 
-    this.Then(/^the menu should have a "LookAndFeel" sizes greater than zero$/, function(next) {
+    this.Then(/^the menu should have a "Component" sizes greater than zero$/, function(next) {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "body-menu-container" ).offsetHeight;
+                return document.getElementById( "primary-menu-container" ).offsetHeight;
             })
             .then((menuContainerBodyDOMHeight) => {
                 expect( menuContainerBodyDOMHeight.value ).to.be.above(0);                
             })
             .execute(() => {
-                return document.getElementById( "main-menu-container" ).offsetHeight;
+                return document.getElementById( "secondary-menu-container" ).offsetHeight;
             })
             .then((menuContainerMainDOMHeight) => {
                 expect( menuContainerMainDOMHeight.value ).to.be.above(0);                
@@ -64,11 +64,11 @@ export default function () {
             .call( next ); 
     });
 
-    this.Then(/^the menu should have sizes greater than zero in the "body" panel$/, function(next) {
+    this.Then(/^the menu should have sizes greater than zero in the "primary" panel$/, function(next) {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "body-menu-content" ).offsetHeight;
+                return document.getElementById( "primary-menu-content" ).offsetHeight;
             })
             .then((menuContainerBodyContentDOMHeight) => {
                 expect( menuContainerBodyContentDOMHeight.value ).to.be.above(0);                
@@ -76,11 +76,11 @@ export default function () {
             .call( next ); 
     });
 
-    this.Then(/^the menu should have sizes greater than zero in the "main" panel$/, function(next) {
+    this.Then(/^the menu should have sizes greater than zero in the "secondary" panel$/, function(next) {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "main-menu-content" ).offsetHeight;
+                return document.getElementById( "secondary-menu-content" ).offsetHeight;
             })
             .then((menuContainerMainContentDOMHeight) => {
                 expect( menuContainerMainContentDOMHeight.value ).to.be.above(0);                
@@ -92,7 +92,7 @@ export default function () {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "body-menu-content" ).children.length;
+                return document.getElementById( "primary-menu-content" ).children.length;
             })
             .then((menuContainerBodyContentDOMChildrenLength) => {
                 expect( menuContainerBodyContentDOMChildrenLength.value ).to.be.above(0);                
