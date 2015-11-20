@@ -106,3 +106,10 @@ body {
 	color: #FFF;
 	display: inline-block;
 }
+
+.btn-mirror-pro {
+	width: 40px;
+	color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}

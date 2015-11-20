@@ -28,9 +28,9 @@ export default function () {
     this.Then(/^I should see the "perfect scrollbar" when the mouse pointer it's over the menu$/, function(next) {
 
         this.driver
-            .moveToObject( "#secondary-menu-content", 100, 100 )
+            .moveToObject( "#primary-menu-content", 100, 100 )
             .execute(() => {
-                return document.defaultView.getComputedStyle( document.querySelector( ".ps-scrollbar-y-rail" ), null ).getPropertyValue( "opacity" );
+                return document.defaultView.getComputedStyle( document.querySelector( ".ps-scrollbar-x-rail" ), null ).getPropertyValue( "opacity" );
             })
             .then((opacity) => {
                 expect( parseFloat( opacity.value ) ).to.be.above(0);

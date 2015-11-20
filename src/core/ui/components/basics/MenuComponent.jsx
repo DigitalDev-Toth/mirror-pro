@@ -74,8 +74,7 @@ export class PrimaryMenuStructure extends React.Component {
 		return ( 
 			<div id="primary-menu-container" 
 				style={ this.state.menuContainerSize }>
-				<PrimaryBlockStructure 
-                    primaryBlocks={ this.props.primaryBlocks } />
+                <div id="primary-menu-content"></div>
 			</div>
 		);
 	}
@@ -154,8 +153,7 @@ export class SecondaryMenuStructure extends React.Component {
 		return ( 
 			<div id="secondary-menu-container" 
 				style={ this.state.menuContainerSize }>
-				<SecondaryBlockStructure 
-                    secondaryBlocks={ this.props.secondaryBlocks } />
+				<div id="secondary-menu-content"></div>
 			</div>
 		);
 	}
