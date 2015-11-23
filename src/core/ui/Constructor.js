@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { ContainerStructure } from "./components/basics/ContainerComponent.jsx";
-import { DesktopTool } from "./components/tools/DesktopComponent.jsx";
+import { Layout } from "./components/basics/LayoutComponent.jsx";
+import { DesktopTool } from "./components/tools/DesktopTool.jsx";
+import { TotalDesktopTool } from "./components/tools/TotalDesktopTool.jsx";
 
 export class Constructor {
 	
@@ -15,6 +17,8 @@ export class Constructor {
 		this.createContainer();
 		this.createStructure();
 
+		this.createLayout();
+
 		this.createTool( "primary" );
 		this.createTool( "primary" );
 		this.createTool( "primary" );
@@ -28,6 +32,15 @@ export class Constructor {
 		this.createTool( "primary" );
 		this.createTool( "primary" );
 		this.createTool( "primary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
+		this.createTool( "secondary" );
 		this.createTool( "secondary" );
 	}
 
@@ -52,32 +65,34 @@ export class Constructor {
 		);
 	}
 
+	createLayout() {
+		ReactDOM.render( 
+			<Layout />, 
+			document.getElementById( "panel-contexts" ) 
+		);
+	}
+
 	createTool(where = "primary") {
-		if ( where === "primary" ) {
-			let blockContainer = document.getElementById( "primary-menu-content" ),
-				blockToolContainer = document.createElement( "div" );
+		let blockContainer = document.getElementById( `${ where }-menu-content` ),
+			blockToolContainer = document.createElement( "div" );
 
-			blockToolContainer.setAttribute( "id", `block-tool-container-${ this.blockToolContainerCount }` );
+		blockToolContainer.setAttribute( "id", `block-tool-container-${ this.blockToolContainerCount }` );
 
-			blockContainer.appendChild( blockToolContainer );
+		blockContainer.appendChild( blockToolContainer );
 
+		if (where === "primary") {
 			ReactDOM.render( 
 				<DesktopTool click={ `block-tool-container-${ this.blockToolContainerCount }` } />, 
 				document.getElementById( `block-tool-container-${ this.blockToolContainerCount }` )
 			);
-		} else if ( where === "secondary" ) {
-			let blockContainer = document.getElementById( "secondary-menu-content" ),
-				blockToolContainer = document.createElement( "div" );
-
-			blockToolContainer.setAttribute( "id", `block-tool-container-${ this.blockToolContainerCount }` );
-
-			blockContainer.appendChild( blockToolContainer );
+		} else {
+			blockToolContainer.setAttribute( "class", "secondary-block" );
 
 			ReactDOM.render( 
-				<DesktopTool click={ `block-tool-container-${ this.blockToolContainerCount }` } />, 
+				<TotalDesktopTool />, 
 				document.getElementById( `block-tool-container-${ this.blockToolContainerCount }` )
 			);
-		}	
+		}		
 
 		this.blockToolContainerCount++;	
 	}

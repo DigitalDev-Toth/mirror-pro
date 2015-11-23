@@ -1,13 +1,11 @@
-import { Events } from "./events";
-import { UI } from "./ui";
 import { CONST } from "./const";
-import { Instances } from "./instances";
+import { VARS } from "./vars";
 import { Utils } from "./utils";
+import { UI } from "./ui";
 
 export const Core = Object.assign(CONST, {
 	
-	Events,
-	UI,
-	Instances,
-	Utils
+	VARS,
+	Utils,
+	UI	
 });

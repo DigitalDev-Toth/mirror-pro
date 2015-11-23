@@ -42,6 +42,8 @@
     "preceptor": "^0.9.9",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-draggable": "^1.1.1",
+    "react-resizable": "^1.0.1",
     "serve-static": "^1.10.0",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",

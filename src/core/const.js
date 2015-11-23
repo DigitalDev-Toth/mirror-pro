@@ -12,5 +12,7 @@ export const CONST = {
 	LICENCE				: "MIT",
 
 	RENDER_TYPE			: "WebGL",
-	LIBRARY				: "ThreeJS" 
+	LIBRARY				: "ThreeJS", 
+
+	MAX_DESKTOPS_SUPP	: 20
 };

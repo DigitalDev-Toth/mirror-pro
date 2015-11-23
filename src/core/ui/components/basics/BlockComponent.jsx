@@ -25,13 +25,13 @@ export class PrimaryBlockStructure extends React.Component {
 	render() {
 		return ( 							
 			<div className="primary-block" 
-				key={ "primary-block-asd" }>
-				<div id={ "primary-block-title-asd" }
+				key={ "primary-block" }>
+				<div id={ "primary-block-title" }
 					className="primary-block-title" 
-					key={ "primary-block-title-asd" }>{ this.props.title }</div>
-				<div id={ "primary-block-content-asd" } 
+					key={ "primary-block-title" }>{ this.props.title }</div>
+				<div id={ "primary-block-content" } 
 					className="primary-block-content" 
-					key={ "primary-block-content-asd" }>{ this.props.children }</div>
+					key={ "primary-block-content" }>{ this.props.children }</div>
 			</div>
 		);
 	}
@@ -60,11 +60,10 @@ export class SecondaryBlockStructure extends React.Component {
 	 */
 	render() {
 		return ( 
-			<div className="secondary-block" 
-				key={ "secondary-block-" }>
-				<div id={ "secondary-block-content-" } 
+			<div key={ "secondary-block" }>
+				<div id={ "secondary-block-content" } 
 					className="secondary-block-content" 
-					key={ "secondary-block-content-" }>{ this.props.children }</div>
+					key={ "secondary-block-content" }>{ this.props.children }</div>
 			</div>
 		);
 	}
