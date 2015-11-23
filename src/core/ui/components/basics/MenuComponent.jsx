@@ -1,9 +1,7 @@
 import React from "react";
 import ps from "perfect-scrollbar";
 
-import { PrimaryBlockStructure, SecondaryBlockStructure } from "./BlockComponent.jsx";
-
-export class PrimaryMenuStructure extends React.Component {
+export class PrimaryMenuComponent extends React.Component {
 
 	/**
 	 * [constructor description]
@@ -80,7 +78,7 @@ export class PrimaryMenuStructure extends React.Component {
 	}
 }
 
-export class SecondaryMenuStructure extends React.Component {
+export class SecondaryMenuComponent extends React.Component {
 	
 	/**
 	 * [constructor description]

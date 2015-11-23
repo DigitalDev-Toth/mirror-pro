@@ -1,7 +1,8 @@
 import React from "react";
 
-import { PrimaryBlockStructure } from "../basics/BlockComponent.jsx";
-import { Button } from "../basics/ButtonComponent.jsx";
+import { Core } from "../../../../core";
+import { PrimaryBlockComponent } from "../basics/BlockComponent.jsx";
+import { ButtonComponent } from "../basics/ButtonComponent.jsx";
 
 export class DesktopTool extends React.Component {
 
@@ -13,21 +14,38 @@ export class DesktopTool extends React.Component {
   		console.log(this.props.click);
   	}
 
+  	/**
+  	 * [handleClick description]
+  	 * @param  {Object} event [description]
+  	 */
+  	handleClick(operation, event) {
+  		if ( operation === "-" && Core.VARS.desktopsInScreen > 1 ) {
+  			Core.VARS.desktopsInScreen--;
+  		} else if ( operation === "+" ) {
+  			Core.VARS.desktopsInScreen++;
+  		}
+
+  		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+  	}
+
 	/**
 	 * [render description]
 	 */
 	render() {
 		return ( 
-			<PrimaryBlockStructure title="Escritorios">
+			<PrimaryBlockComponent title="Escritorios">
 				<div className="text-center">
-					<Button handleMouseDown={ this.handleMouseDown.bind( this ) }>1</Button>
-					<Button>2</Button>
-					<Button>3</Button>
-					<Button>4</Button>
-					<Button>-</Button>
-					<Button>+</Button>
+					<ButtonComponent>a</ButtonComponent>
+					<ButtonComponent>b</ButtonComponent>
+					<ButtonComponent>c</ButtonComponent>
+					<ButtonComponent handleMouseDown={ this.handleMouseDown.bind( this ) }>1</ButtonComponent>
+					<ButtonComponent>2</ButtonComponent>
+					<ButtonComponent>3</ButtonComponent>
+					<ButtonComponent>4</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, "-" ) }>-</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, "+" ) }>+</ButtonComponent>
 				</div>
-			</PrimaryBlockStructure>
+			</PrimaryBlockComponent>
 		);
 	}
 }

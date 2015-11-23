@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Core } from "../../../../core";
-import { PrimaryMenuStructure, SecondaryMenuStructure } from "./MenuComponent.jsx";
+import { PrimaryMenuComponent, SecondaryMenuComponent } from "./MenuComponent.jsx";
 
-export class ContainerStructure extends React.Component {
+export class ContainerComponent extends React.Component {
 
 	/**
 	 * [constructor description]
@@ -13,14 +13,6 @@ export class ContainerStructure extends React.Component {
 
         this.state = this.getSizes();
     }
-
-    /**
-     * [handleResize description]
-     * @param  {Object} event [description]
-     */
-  	handleResize(event) {
-    	this.setState( this.getSizes() );
-  	}
 
   	/**
   	 * [componentWillMount description]
@@ -42,6 +34,14 @@ export class ContainerStructure extends React.Component {
     componentWillUnmount() {
         window.removeEventListener( "resize", this.handleResize.bind( this ) );
     }
+
+    /**
+     * [handleResize description]
+     * @param  {Object} event [description]
+     */
+  	handleResize(event) {
+    	this.setState( this.getSizes() );
+  	}
 
     /**
      * [getSizes description]
@@ -70,7 +70,7 @@ export class ContainerStructure extends React.Component {
             	width: `${ window.innerWidth - 166 }px`,
             	height: "35px"
             },
-            panelContextsSize: {
+            panelLayoutSize: {
             	width: `${ window.innerWidth - 166 }px`,
             	height: `${ window.innerHeight - 58 }px`
             }
@@ -94,15 +94,15 @@ export class ContainerStructure extends React.Component {
 						style={ this.state.panelBodySize }>
 						<div id="panel-primary-menu" className="col-xs-2" 
 							style={ this.state.panelPrimaryMenuSize }>
-							<PrimaryMenuStructure />
+							<PrimaryMenuComponent />
 						</div>
 						<div id="panel-workspace" className="col-xs-9" 
 							style={ this.state.panelWorSpaceSize }>
-							<div id="panel-contexts" className="row" 
-								style={ this.state.panelContextsSize }></div>
+							<div id="panel-layout" className="row" 
+								style={ this.state.panelLayoutSize }></div>
 							<div id="panel-secondary-menu" className="row" 
 								style={ this.state.panelSecondaryMenuSize }>
-								<SecondaryMenuStructure />
+								<SecondaryMenuComponent />
 							</div>
 						</div>
 						<div id="panel-navigatorbar" className="col-xs-1" 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SecondaryBlockStructure } from "../basics/BlockComponent.jsx";
+import { SecondaryBlockComponent } from "../basics/BlockComponent.jsx";
 
 export class TotalDesktopTool extends React.Component {
 
@@ -9,9 +9,9 @@ export class TotalDesktopTool extends React.Component {
 	 */
 	render() {
 		return ( 
-			<SecondaryBlockStructure>
+			<SecondaryBlockComponent>
 				<span>Total de escritorios: 3</span>
-			</SecondaryBlockStructure>
+			</SecondaryBlockComponent>
 		);
 	}
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export class Button extends React.Component {
+export class ButtonComponent extends React.Component {
 
 	/**
 	 * [render description]
@@ -10,7 +10,8 @@ export class Button extends React.Component {
 			<button 
 				className="btn btn-mirror-pro" 
 				type="button" 
-				onMouseDown={ this.props.handleMouseDown }>{ this.props.children }</button>
+				onMouseDown={ this.props.handleMouseDown }
+				onClick={ this.props.handleClick }>{ this.props.children }</button>
 		);
 	}
 }

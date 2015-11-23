@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { ContainerStructure } from "./components/basics/ContainerComponent.jsx";
-import { Layout } from "./components/basics/LayoutComponent.jsx";
+import { Core } from "../../core";
+import { ContainerComponent } from "./components/basics/ContainerComponent.jsx";
+import { LayoutComponent } from "./components/basics/LayoutComponent.jsx";
 import { DesktopTool } from "./components/tools/DesktopTool.jsx";
 import { TotalDesktopTool } from "./components/tools/TotalDesktopTool.jsx";
 
@@ -60,18 +61,25 @@ export class Constructor {
 	 */
 	createStructure() {
 		ReactDOM.render( 
-			<ContainerStructure />, 
+			<ContainerComponent />, 
 			document.getElementById( "mirror-pro" ) 
 		);
 	}
 
+	/**
+	 * [createLayout description]
+	 */
 	createLayout() {
 		ReactDOM.render( 
-			<Layout />, 
-			document.getElementById( "panel-contexts" ) 
+			<LayoutComponent />, 
+			document.getElementById( "panel-layout" ) 
 		);
 	}
 
+	/**
+	 * [createTool description]
+	 * @param  {String} where [description]
+	 */
 	createTool(where = "primary") {
 		let blockContainer = document.getElementById( `${ where }-menu-content` ),
 			blockToolContainer = document.createElement( "div" );

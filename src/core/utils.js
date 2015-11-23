@@ -62,5 +62,56 @@ export let Utils = {
         	return "chrome";
     	}
     	return false;
-	}
+	},
+
+	/**
+	 * [isPrimeNumber description]
+	 * @param  {Number}  number [description]
+	 * @return {Boolean}        [description]
+	 */
+	isPrimeNumber(number) {
+    	for( let i = 2; i < number; i++ ) {
+        	if ( number % i === 0 ) {
+            	return false;
+        	}
+    	}
+    	return number > 2;
+    },
+
+    getTheCoupleOfFactorsWidthLowerDiff(number) {
+		let factors = [],
+			quotient = 0;
+
+  		for( let i = 1; i <= number; i++ ) {
+    		quotient = number / i;
+
+    		if ( quotient === Math.floor( quotient ) ){
+      			factors.push( i ); 
+    		}
+  		}
+
+  		factors.shift();
+
+  		let coupleOfFactors = [];
+
+  		if ( factors.length > 1 ) {
+  			for ( let i = 0; i < factors.length; i++ ) {
+  				let factor1 = factors[i],
+  					factor2 = number / factor1;
+
+				if ( coupleOfFactors.length === 0 ) {
+					coupleOfFactors.push( factor2 );
+					coupleOfFactors.push( factor1 );
+				} else if ( Math.abs( factor1 - factor2 ) < Math.abs( coupleOfFactors[0] - coupleOfFactors[1] ) ) {
+					coupleOfFactors[0] = factor2;
+					coupleOfFactors[1] = factor1;
+				}
+  			}
+  		} else {
+  			coupleOfFactors.push( factors[0] );
+  			coupleOfFactors.push( 1 );
+  		}
+
+    	return coupleOfFactors;
+    }
 };
