@@ -15,7 +15,7 @@ export class LayoutComponent extends React.Component {
             desktopsSizes: []
     	};
 
-        this.largeDesktopBound = null;
+        this.setLargeDesktopBound = false;
     }
 
     /**
@@ -52,8 +52,8 @@ export class LayoutComponent extends React.Component {
             desktopsSizes: []
     	});
 
-        this.largeDesktopBound = null;
-        this.setDesktopsBounds();
+        this.setLargeDesktopBound = false;
+        this.setDesktopsBounds(Core.VARS.desktopsInScreen);        
     }
 
     /**
@@ -61,8 +61,10 @@ export class LayoutComponent extends React.Component {
      * @param  {Object} event [description]
      */
     handleDesktopsBoundingFinish(event) {  
-        if ( this.largeDesktopBound !== null ) {
-            Core.VARS.desktopsSizes.push( this.largeDesktopBound );
+        if ( this.setLargeDesktopBound ) {
+            Core.VARS.desktopsSizes.push( 
+            	this.getLargeDesktopBound( Core.VARS.desktopsInScreen, Core.VARS.desktopsSizes ) 
+        	);
         } 
 
         this.setState({
@@ -85,78 +87,84 @@ export class LayoutComponent extends React.Component {
     }
 
     /**
-     * [getDesktopsBounds description]
-     * @return {Array} [description]
+     * [setDesktopsBounds description]
+     * @param {Integer} desktopsInScreen [description]
      */
-    setDesktopsBounds() {
-    	let panelLayoutSize = this.getPanelLayoutSize();
+    setDesktopsBounds(desktopsInScreen) {
+    	let panelLayoutSize = this.getPanelLayoutSize(),
+    		containerSize = {},
+			desktopSize = {},
+			largeDesktopSize = {},
+            desktopsInContainer = desktopsInScreen;
 
-		let containerWidth = 0,
-			containerHeight = 0,
-			desktopWidth = 0,
-			desktopHeight = 0,
-			largeDesktopWidth = 0,
-			largeDesktopHeight = 0,
-            desktopsInContainer = this.state.desktopsInScreen;
-
-		if ( this.state.desktopsInScreen === 1 ) {
-			containerWidth = panelLayoutSize.width;
-			containerHeight = panelLayoutSize.height;
-			desktopWidth = panelLayoutSize.width;
-			desktopHeight = panelLayoutSize.height;
+		if ( desktopsInScreen === 1 ) {
+			containerSize = panelLayoutSize;
+			desktopSize = panelLayoutSize;
 		}
 
-		if ( this.state.desktopsInScreen === 2 ) {
-			containerWidth = panelLayoutSize.width;
-			containerHeight = panelLayoutSize.height;
-			desktopWidth = panelLayoutSize.width / 2;
-			desktopHeight = panelLayoutSize.height;
+		if ( desktopsInScreen === 2 ) {
+			containerSize = panelLayoutSize;
+			desktopSize.width = parseInt( ( panelLayoutSize.width / 2 ).toFixed(5) );
+			desktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
 		}
 
-		if ( this.state.desktopsInScreen === 3 ) {
-			largeDesktopWidth = panelLayoutSize.width * 0.4;
-			largeDesktopHeight = panelLayoutSize.height;
-			containerWidth = panelLayoutSize.width - largeDesktopWidth;
-			containerHeight = panelLayoutSize.height;
-			desktopWidth = containerWidth;
-			desktopHeight = containerHeight / 2;
-            desktopsInContainer = this.state.desktopsInScreen - 1;
+		if ( desktopsInScreen === 3 ) {
+			largeDesktopSize.width = parseInt( ( panelLayoutSize.width * 0.4 ).toFixed(5) );
+			largeDesktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+			containerSize.width = parseInt( ( panelLayoutSize.width - largeDesktopSize.width ).toFixed(5) );
+			containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+			desktopSize.width = parseInt( ( containerSize.width ).toFixed(5) );
+			desktopSize.height = parseInt( ( containerSize.height / 2 ).toFixed(5) );
+
+            desktopsInContainer = desktopsInScreen - 1;
+            this.setLargeDesktopBound = true;
 		}
 
-		if ( this.state.desktopsInScreen > 3 ) {			
-			if ( Core.Utils.isPrimeNumber( this.state.desktopsInScreen ) ) {
-				let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( this.state.desktopsInScreen - 1 );
-				largeDesktopWidth = parseInt( ( panelLayoutSize.width * 0.4 ).toFixed(5) );
-				largeDesktopHeight = panelLayoutSize.height;
-				containerWidth = parseInt( ( panelLayoutSize.width - largeDesktopWidth ).toFixed(5) );
-				containerHeight = panelLayoutSize.height;
-				desktopWidth = containerWidth / dimensions[0];
-				desktopHeight = containerHeight / dimensions[1];
-                desktopsInContainer = this.state.desktopsInScreen - 1;
+		if ( desktopsInScreen > 3 ) {			
+			if ( Core.Utils.isPrimeNumber( desktopsInScreen ) ) {
+				let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen - 1 );
+
+				largeDesktopSize.width = parseInt( ( panelLayoutSize.width * 0.4 ).toFixed(5) );
+				largeDesktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+				containerSize.width = parseInt( ( panelLayoutSize.width - largeDesktopSize.width ).toFixed(5) );
+				containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+				desktopSize.width = parseInt( ( containerSize.width / dimensions[0] ).toFixed(5) );
+				desktopSize.height = parseInt( ( containerSize.height / dimensions[1] ).toFixed(5) );
+
+                desktopsInContainer = desktopsInScreen - 1;
+                this.setLargeDesktopBound = true;
 			} else {
-                let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( this.state.desktopsInScreen );
-                containerWidth = panelLayoutSize.width;
-                containerHeight = panelLayoutSize.height;
-                desktopWidth = containerWidth / dimensions[0];
-                desktopHeight = containerHeight / dimensions[1];                
+                let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen );
+
+                containerSize.width = parseInt( ( panelLayoutSize.width ).toFixed(5) );
+                containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+                desktopSize.width = parseInt( ( containerSize.width / dimensions[0] ).toFixed(5) );
+                desktopSize.height = parseInt( ( containerSize.height / dimensions[1] ).toFixed(5) );                
 			}
 		}		
 
-    	new Core.DesktopsSizes.Bounding(
-            parseInt( ( containerWidth ).toFixed(5) ), 
-            parseInt( ( containerHeight ).toFixed(5) ), 
-            parseInt( ( desktopWidth ).toFixed(5) ), 
-            parseInt( ( desktopHeight ).toFixed(5) ), 
-            desktopsInContainer).initBounds();
+    	new Core.DesktopsSizes.Bounding(containerSize, desktopSize, desktopsInContainer).initBounds();
+    }
 
-    	if (largeDesktopWidth > 0 && largeDesktopHeight > 0) {
-    		this.largeDesktopBound = {
-    			width: `${ parseInt( ( largeDesktopWidth ).toFixed(5) ) }px`,
-    			height: `${ parseInt( ( largeDesktopHeight ).toFixed(5) ) }px`,
-    			left: `${ parseInt( ( containerWidth ).toFixed(5) ) }px`,
-    			top: "0px"
-    		};
+    getLargeDesktopBound(desktopsInScreen, desktopsSizes) {
+    	let panelLayoutSize = this.getPanelLayoutSize(),
+    		largeDesktopBound = {};
+
+    	if ( desktopsInScreen > 3 ) {
+    		let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen - 1 );
+
+    		largeDesktopBound.width = `${ panelLayoutSize.width - ( parseInt( desktopsSizes[0].width ) * dimensions[0] ) }px`;
+    		largeDesktopBound.height = `${ parseInt( desktopsSizes[0].height ) * dimensions[1] }px`;
+    		largeDesktopBound.left = `${ parseInt( desktopsSizes[0].width ) * dimensions[0] }px`;
+    		largeDesktopBound.top = "0px";
+    	} else {
+    		largeDesktopBound.width = `${ panelLayoutSize.width - parseInt( desktopsSizes[0].width ) }px`;
+    		largeDesktopBound.height = `${ parseInt( desktopsSizes[0].height ) * 2 }px`;
+    		largeDesktopBound.left = `${ parseInt( desktopsSizes[0].width ) }px`;
+    		largeDesktopBound.top = "0px";
     	}
+
+    	return largeDesktopBound;
     }
 
     /**

@@ -66,8 +66,8 @@ export let Utils = {
 
 	/**
 	 * [isPrimeNumber description]
-	 * @param  {Number}  number [description]
-	 * @return {Boolean}        [description]
+	 * @param  {Integer}  number [description]
+	 * @return {Boolean}         [description]
 	 */
 	isPrimeNumber(number) {
     	for( let i = 2; i < number; i++ ) {
@@ -78,6 +78,11 @@ export let Utils = {
     	return number > 2;
     },
 
+    /**
+     * [getTheCoupleOfFactorsWidthLowerDiff description]
+     * @param  {Integer} number [description]
+     * @return {Array}          [description]
+     */
     getTheCoupleOfFactorsWidthLowerDiff(number) {
 		let factors = [],
 			quotient = 0;

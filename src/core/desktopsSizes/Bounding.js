@@ -9,17 +9,15 @@ export class Bounding {
 
     /**
      * [constructor description]
-     * @param  {Number} containerWidth        [description]
-     * @param  {Number} containerHeight       [description]
-     * @param  {Number} desktopWidth          [description]
-     * @param  {Number} desktopHeight         [description]  
-     * @param  {Number} desktopsInContainer   [description]    
+     * @param  {Object} containerSize          [description]
+     * @param  {Object} desktopSize            [description] 
+     * @param  {Integer} desktopsInContainer   [description]    
      */
-    constructor(containerWidth, containerHeight, desktopWidth, desktopHeight, desktopsInContainer) {
-        this.containerWidth = containerWidth;
-        this.containerHeight = containerHeight;
-        this.desktopWidth = desktopWidth;
-        this.desktopHeight = desktopHeight;
+    constructor(containerSize, desktopSize, desktopsInContainer) {
+        this.containerWidth = containerSize.width;
+        this.containerHeight = containerSize.height;
+        this.desktopWidth = desktopSize.width;
+        this.desktopHeight = desktopSize.height;
 
         this.desktopsInContainer = desktopsInContainer;
 

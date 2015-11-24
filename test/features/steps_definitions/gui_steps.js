@@ -32,7 +32,7 @@ export default function () {
         
         this.driver
             .execute(() => {
-                return document.getElementById( "panel-contexts" ).offsetHeight;
+                return document.getElementById( "panel-layout" ).offsetHeight;
             })
             .then((panelContextsHeight) => {
                 expect( panelContextsHeight.value ).to.be.above(0);                 

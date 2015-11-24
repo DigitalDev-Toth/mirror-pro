@@ -19,14 +19,17 @@ export class DesktopTool extends React.Component {
   	 * @param  {Object} event [description]
   	 */
   	handleClick(operation, event) {
-  		if ( operation === "-" && Core.VARS.desktopsInScreen > 1 ) {
+  		if ( operation === "-" ) {
   			Core.VARS.desktopsInScreen--;
-  			Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
   		} else if ( operation === "+" ) {
-  			Core.VARS.desktopsInScreen++;
-  			Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+  			Core.VARS.desktopsInScreen++;  			
   		}  	
-  		console.log(Core.VARS.desktopsInScreen);
+
+      	if ( Core.VARS.desktopsInScreen > 0 ) {
+      		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+      	} else {
+      		Core.VARS.desktopsInScreen = 1;
+      	}
   	}
 
 	/**
