@@ -12,10 +12,11 @@ export class Custom {
 		 * @type {CustomEvent}
 		 */
 		this.desktopsInScreenChange = new CustomEvent( "desktopsinscreenchange" );
+		this.desktopsBoundingFinish = new CustomEvent( "desktopsboundingfinish" );
 	}
 
 	/**
-	 * [onNumberOfBlocksChange description]
+	 * [onDesktopsInScreenChange description]
 	 * @param  {Object}   objectDOM [description]
 	 * @param  {Function} callback  [description]
 	 */
@@ -24,7 +25,7 @@ export class Custom {
 	}
 
 	/**
-	 * [offNumberOfBlocksChange description]
+	 * [offDesktopsInScreenChange description]
 	 * @param  {Object}   objectDOM [description]
 	 * @param  {Function} callback  [description]
 	 */
@@ -33,10 +34,36 @@ export class Custom {
 	}
 
 	/**
-	 * [dispatchNumberOfBlocksChange description]
+	 * [dispatchDesktopsInScreenChange description]
 	 * @param  {Object} objectDOM [description]
 	 */
 	dispatchDesktopsInScreenChange(objectDOM) {
 		objectDOM.dispatchEvent( this.desktopsInScreenChange );
+	}
+
+	/**
+	 * [onDesktopsBoundingFinish description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onDesktopsBoundingFinish(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsboundingfinish", callback );
+	}
+
+	/**
+	 * [offDesktopsBoundingFinish description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offDesktopsBoundingFinish(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsboundingfinish", callback );
+	}
+
+	/**
+	 * [dispatchDesktopsBoundingFinish description]
+	 * @param  {Object} objectDOM [description]
+	 */
+	dispatchDesktopsBoundingFinish(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsBoundingFinish );
 	}
 }

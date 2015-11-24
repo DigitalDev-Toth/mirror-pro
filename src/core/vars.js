@@ -4,5 +4,6 @@
  */
 export let VARS = {
 	
-	desktopsInScreen: 1
+	desktopsInScreen: 1,
+	desktopsSizes: null
 };

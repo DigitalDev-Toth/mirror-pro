@@ -21,11 +21,12 @@ export class DesktopTool extends React.Component {
   	handleClick(operation, event) {
   		if ( operation === "-" && Core.VARS.desktopsInScreen > 1 ) {
   			Core.VARS.desktopsInScreen--;
+  			Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
   		} else if ( operation === "+" ) {
   			Core.VARS.desktopsInScreen++;
-  		}
-
-  		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+  			Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+  		}  	
+  		console.log(Core.VARS.desktopsInScreen);
   	}
 
 	/**
