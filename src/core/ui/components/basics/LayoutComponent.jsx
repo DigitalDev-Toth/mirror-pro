@@ -24,6 +24,7 @@ export class LayoutComponent extends React.Component {
   	componentWillMount() {
         this.handleDesktopsInScreenChange();
         this.handleDesktopsBoundingFinish();
+        this.handleResize();
     }
 
     /**
@@ -32,6 +33,7 @@ export class LayoutComponent extends React.Component {
     componentDidMount() {
         Core.Events.CustomEvents.onDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );        
         Core.Events.CustomEvents.onDesktopsBoundingFinish( window, this.handleDesktopsBoundingFinish.bind( this ) );
+        window.addEventListener( "resize", this.handleResize.bind( this ) );
     }
 
     /**
@@ -40,7 +42,8 @@ export class LayoutComponent extends React.Component {
     componentWillUnmount() {
         Core.Events.CustomEvents.offDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );
         Core.Events.CustomEvents.offDesktopsBoundingFinish( window, this.handleDesktopsBoundingFinish.bind( this ) );
-    }
+        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+    } 
 
     /**
      * [handleDesktopsInScreenChange description]
@@ -74,6 +77,14 @@ export class LayoutComponent extends React.Component {
     }
 
     /**
+     * [handleResize description]
+     * @param  {Object} event [description]
+     */
+  	handleResize(event) {
+    	this.setDesktopsBounds(Core.VARS.desktopsInScreen);
+  	}
+
+    /**
      * [getPanelLayoutSize description]
      * @return {Object} [description]
      */
@@ -81,8 +92,8 @@ export class LayoutComponent extends React.Component {
     	let panelLayoutDOM = document.getElementById( "panel-layout" );
 
     	return {
-    		width: parseInt( panelLayoutDOM.style.width ) - 6,
-    		height: parseInt( panelLayoutDOM.style.height ) - 6
+    		width: parseFloat( panelLayoutDOM.style.width ) - 6,
+    		height: parseFloat( panelLayoutDOM.style.height ) - 6
     	};
     }
 
@@ -104,45 +115,45 @@ export class LayoutComponent extends React.Component {
 
 		if ( desktopsInScreen === 2 ) {
 			containerSize = panelLayoutSize;
-			desktopSize.width = parseInt( ( panelLayoutSize.width / 2 ).toFixed(5) );
-			desktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
+			desktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.width / 2 );
+			desktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.height );
 		}
 
 		if ( desktopsInScreen === 3 ) {
-			largeDesktopSize.width = parseInt( ( panelLayoutSize.width * 0.4 ).toFixed(5) );
-			largeDesktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
-			containerSize.width = parseInt( ( panelLayoutSize.width - largeDesktopSize.width ).toFixed(5) );
-			containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
-			desktopSize.width = parseInt( ( containerSize.width ).toFixed(5) );
-			desktopSize.height = parseInt( ( containerSize.height / 2 ).toFixed(5) );
+			largeDesktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.width * 0.4 );
+			largeDesktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.height );
+			containerSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.width - largeDesktopSize.width );
+			containerSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.height );
+			desktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.width );
+			desktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.height / 2 );
 
             desktopsInContainer = desktopsInScreen - 1;
-            this.setLargeDesktopBound = true;
+            this.setLargeDesktopBound = true;            
 		}
 
 		if ( desktopsInScreen > 3 ) {			
 			if ( Core.Utils.isPrimeNumber( desktopsInScreen ) ) {
 				let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen - 1 );
 
-				largeDesktopSize.width = parseInt( ( panelLayoutSize.width * 0.4 ).toFixed(5) );
-				largeDesktopSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
-				containerSize.width = parseInt( ( panelLayoutSize.width - largeDesktopSize.width ).toFixed(5) );
-				containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
-				desktopSize.width = parseInt( ( containerSize.width / dimensions[0] ).toFixed(5) );
-				desktopSize.height = parseInt( ( containerSize.height / dimensions[1] ).toFixed(5) );
+				largeDesktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.width * 0.4 );
+				largeDesktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.height );
+				containerSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.width - largeDesktopSize.width );
+				containerSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.height );
+				desktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.width / dimensions[0] );
+				desktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.height / dimensions[1] );
 
                 desktopsInContainer = desktopsInScreen - 1;
-                this.setLargeDesktopBound = true;
+                this.setLargeDesktopBound = true;  
 			} else {
                 let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen );
 
-                containerSize.width = parseInt( ( panelLayoutSize.width ).toFixed(5) );
-                containerSize.height = parseInt( ( panelLayoutSize.height ).toFixed(5) );
-                desktopSize.width = parseInt( ( containerSize.width / dimensions[0] ).toFixed(5) );
-                desktopSize.height = parseInt( ( containerSize.height / dimensions[1] ).toFixed(5) );                
+                containerSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.width );
+                containerSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( panelLayoutSize.height );
+                desktopSize.width = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.width / dimensions[0] );
+                desktopSize.height = Core.Utils.getNumberWithTwoDecimalsTruncated( containerSize.height / dimensions[1] );            
 			}
 		}		
-
+  
     	new Core.DesktopsSizes.Bounding(containerSize, desktopSize, desktopsInContainer).initBounds();
     }
 

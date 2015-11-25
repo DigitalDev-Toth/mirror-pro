@@ -118,5 +118,28 @@ export let Utils = {
   		}
 
     	return coupleOfFactors;
-    }
+    },
+
+    /**
+     * [getNumberWidthTwoDecimalsTruncate description]
+     * @param  {Number} number [description]
+     * @return {Float}        [description]
+     */
+    getNumberWithTwoDecimalsTruncated(number) {
+    	if ( this.isFloat( number ) ) {
+    		number = number.toString();
+        	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );
+    	}    	
+        
+        return Number(number);
+    },
+
+    /**
+     * [isFloat description]
+     * @param  {Number}  number [description]
+     * @return {Boolean}        [description]
+     */
+    isFloat(number) {
+    	return number === Number(number) && number % 1 !== 0;
+	}
 };
