@@ -129,9 +129,10 @@ export let Utils = {
     	if ( this.isFloat( number ) ) {
     		number = number.toString();
         	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );
+            number = number - 0.01;
     	}    	
         
-        return Number(number) - 0.01;
+        return Number(number);
     },
 
     /**

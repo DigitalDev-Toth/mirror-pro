@@ -4,7 +4,7 @@ import { Utils } from "../../src/core/utils";
 
 const expect = chai.expect;
 
-describe("Utils test", function() {
+describe("Utils functionalities", function() {
 
 	it("should know if a number is prime or not", (done) => {
 		let prime = Utils.isPrimeNumber( 7 ),
