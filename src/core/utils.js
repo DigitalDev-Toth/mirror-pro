@@ -127,9 +127,9 @@ export let Utils = {
      */
     getNumberWithTwoDecimalsTruncated(number) {
     	if ( this.isFloat( number ) ) {
-    		number = number.toString();
-        	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );
             number = number - 0.01;
+    		number = number.toString();
+        	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );            
     	}    	
         
         return Number(number);
