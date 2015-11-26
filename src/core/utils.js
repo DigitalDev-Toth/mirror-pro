@@ -131,7 +131,7 @@ export let Utils = {
         	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );
     	}    	
         
-        return Number(number);
+        return Number(number) - 0.01;
     },
 
     /**

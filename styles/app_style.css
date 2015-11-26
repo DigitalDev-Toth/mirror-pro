@@ -63,7 +63,16 @@ body {
 
 #panel-layout div div {
 	position: absolute;
-	border: 2px solid #7A4196;
+	border: 2px solid #6C6C6C; /*#7A4196*/
+	background-color: #616161; /*#616161*/
+}
+
+.desktop-unselected {
+	opacity: 1;
+}
+
+.desktop-selected {
+	opacity: 0.4;
 }
 
 #panel-secondary-menu {
@@ -126,22 +135,4 @@ body {
 .box {
 	background: #1C4FC1;
 	display: inline-block;
-}
-
-.react-resizable {
-  position: relative;
-}
-.react-resizable-handle {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  bottom: 0;
-  right: 0;
-  background: green;
-  background-position: bottom right;
-  padding: 0 3px 3px 0;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-  box-sizing: border-box;
-  cursor: se-resize;
 }

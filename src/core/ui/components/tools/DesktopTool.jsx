@@ -14,10 +14,11 @@ export class DesktopTool extends React.Component {
   		console.log(this.props.click);
   	}
 
-  	/**
-  	 * [handleClick description]
-  	 * @param  {Object} event [description]
-  	 */
+    /**
+     * [handleClick description]
+     * @param  {String} operation [description]
+     * @param  {Object} event     [description]
+     */
   	handleClick(operation, event) {
   		if ( operation === "-" ) {
   			Core.VARS.desktopsInScreen--;

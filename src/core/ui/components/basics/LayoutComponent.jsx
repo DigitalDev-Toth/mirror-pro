@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Core } from "../../../../core";
+import { DesktopComponent } from "./DesktopComponent.jsx";
 
 export class LayoutComponent extends React.Component {
 
@@ -15,6 +16,7 @@ export class LayoutComponent extends React.Component {
             desktopsSizes: []
     	};
 
+    	this.lastPanelLayoutSize = this.getPanelLayoutSize();
         this.setLargeDesktopBound = false;
     }
 
@@ -24,7 +26,6 @@ export class LayoutComponent extends React.Component {
   	componentWillMount() {
         this.handleDesktopsInScreenChange();
         this.handleDesktopsBoundingFinish();
-        this.handleResize();
     }
 
     /**
@@ -56,7 +57,7 @@ export class LayoutComponent extends React.Component {
     	});
 
         this.setLargeDesktopBound = false;
-        this.setDesktopsBounds(Core.VARS.desktopsInScreen);        
+        this.setDesktopsBounds( Core.VARS.desktopsInScreen );        
     }
 
     /**
@@ -81,7 +82,31 @@ export class LayoutComponent extends React.Component {
      * @param  {Object} event [description]
      */
   	handleResize(event) {
-    	this.setDesktopsBounds(Core.VARS.desktopsInScreen);
+  		let panelLayoutSize = this.getPanelLayoutSize(),
+  			panelLayoutSizeChangeRatio = {};
+
+		panelLayoutSizeChangeRatio.width = panelLayoutSize.width / this.lastPanelLayoutSize.width;
+		panelLayoutSizeChangeRatio.height = panelLayoutSize.height / this.lastPanelLayoutSize.height;
+
+		for ( let i = 0; i < Core.VARS.desktopsSizes.length; i++ ) {
+			Core.VARS.desktopsSizes[i] = {
+				width: `${ parseFloat( Core.VARS.desktopsSizes[i].width ) * panelLayoutSizeChangeRatio.width }px`,
+				height: `${ parseFloat( Core.VARS.desktopsSizes[i].height ) * panelLayoutSizeChangeRatio.height }px`,
+				left: `${ parseFloat( Core.VARS.desktopsSizes[i].left ) * panelLayoutSizeChangeRatio.width }px`,
+				top: `${ parseFloat( Core.VARS.desktopsSizes[i].top ) * panelLayoutSizeChangeRatio.height }px`
+			};
+		}
+
+		this.lastPanelLayoutSize = panelLayoutSize;
+
+		this.setState({
+            desktopsInScreen: Core.VARS.desktopsInScreen,
+            desktopsSizes: Core.VARS.desktopsSizes
+        });
+  	}
+
+  	handleClick(event) {
+  		console.log("asdasdasd");
   	}
 
     /**
@@ -164,14 +189,14 @@ export class LayoutComponent extends React.Component {
     	if ( desktopsInScreen > 3 ) {
     		let dimensions = Core.Utils.getTheCoupleOfFactorsWidthLowerDiff( desktopsInScreen - 1 );
 
-    		largeDesktopBound.width = `${ panelLayoutSize.width - ( parseInt( desktopsSizes[0].width ) * dimensions[0] ) }px`;
-    		largeDesktopBound.height = `${ parseInt( desktopsSizes[0].height ) * dimensions[1] }px`;
-    		largeDesktopBound.left = `${ parseInt( desktopsSizes[0].width ) * dimensions[0] }px`;
+    		largeDesktopBound.width = `${ panelLayoutSize.width - ( parseFloat( desktopsSizes[0].width ) * dimensions[0] ) }px`;
+    		largeDesktopBound.height = `${ parseFloat( desktopsSizes[0].height ) * dimensions[1] }px`;
+    		largeDesktopBound.left = `${ parseFloat( desktopsSizes[0].width ) * dimensions[0] }px`;
     		largeDesktopBound.top = "0px";
     	} else {
-    		largeDesktopBound.width = `${ panelLayoutSize.width - parseInt( desktopsSizes[0].width ) }px`;
-    		largeDesktopBound.height = `${ parseInt( desktopsSizes[0].height ) * 2 }px`;
-    		largeDesktopBound.left = `${ parseInt( desktopsSizes[0].width ) }px`;
+    		largeDesktopBound.width = `${ panelLayoutSize.width - parseFloat( desktopsSizes[0].width ) }px`;
+    		largeDesktopBound.height = `${ parseFloat( desktopsSizes[0].height ) * 2 }px`;
+    		largeDesktopBound.left = `${ parseFloat( desktopsSizes[0].width ) }px`;
     		largeDesktopBound.top = "0px";
     	}
 
@@ -182,15 +207,16 @@ export class LayoutComponent extends React.Component {
      * [render description]
      */
 	render() {
-		let desktops = [];
-
-		for ( let i = 0; i < this.state.desktopsSizes.length; i++ ) {
-			desktops.push(<div key={ `desktop_${ i }` } style={ this.state.desktopsSizes[i] }></div>);	        
-		}
-
 	    return (
 			<div>	
-				{ desktops }
+				{ this.state.desktopsSizes.map(( desktopSize, i ) => {
+          			return (
+      					<DesktopComponent 
+      						key={ `desktop_${ i }` } 
+      						style={ desktopSize }
+      						handleClick={ this.handleClick.bind( this ) } />
+      				);      				
+        		}) }
 			</div>
 	    );
   	}
