@@ -10,8 +10,10 @@ export class DesktopTool extends React.Component {
      * [handleResize description]
      * @param  {Object} event [description]
      */
-  	handleMouseDown(event) {
-  		console.log(this.props.click);
+  	handleMouseDown(num, event) {
+	    if ( Object.keys( Core.VARS.desktopsSelected ).length === 2 ) {
+            Core.Events.CustomEvents.dispatchDesktopsSelectedMerge( window );
+        }       
   	}
 
     /**
@@ -31,6 +33,8 @@ export class DesktopTool extends React.Component {
       	} else {
       		Core.VARS.desktopsInScreen = 1;
       	}
+
+        Core.VARS.desktopsSelected = {};
   	}
 
 	/**
@@ -43,7 +47,7 @@ export class DesktopTool extends React.Component {
 					<ButtonComponent>a</ButtonComponent>
 					<ButtonComponent>b</ButtonComponent>
 					<ButtonComponent>c</ButtonComponent>
-					<ButtonComponent handleMouseDown={ this.handleMouseDown.bind( this ) }>1</ButtonComponent>
+					<ButtonComponent handleMouseDown={ this.handleMouseDown.bind( this, "1" ) }>1</ButtonComponent>
 					<ButtonComponent>2</ButtonComponent>
 					<ButtonComponent>3</ButtonComponent>
 					<ButtonComponent>4</ButtonComponent>

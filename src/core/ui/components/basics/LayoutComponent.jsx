@@ -34,6 +34,7 @@ export class LayoutComponent extends React.Component {
     componentDidMount() {
         Core.Events.CustomEvents.onDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );        
         Core.Events.CustomEvents.onDesktopsBoundingFinish( window, this.handleDesktopsBoundingFinish.bind( this ) );
+        Core.Events.CustomEvents.onDesktopsSelectedMerge( window, this.handleDesktopsSelectedMerge.bind( this ) );
         window.addEventListener( "resize", this.handleResize.bind( this ) );
     }
 
@@ -43,6 +44,7 @@ export class LayoutComponent extends React.Component {
     componentWillUnmount() {
         Core.Events.CustomEvents.offDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );
         Core.Events.CustomEvents.offDesktopsBoundingFinish( window, this.handleDesktopsBoundingFinish.bind( this ) );
+        Core.Events.CustomEvents.offDesktopsSelectedMerge( window, this.handleDesktopsSelectedMerge.bind( this ) );
         window.removeEventListener( "resize", this.handleResize.bind( this ) );
     } 
 
@@ -50,14 +52,19 @@ export class LayoutComponent extends React.Component {
      * [handleDesktopsInScreenChange description]
      * @param  {Object} event [description]
      */
-    handleDesktopsInScreenChange(event) {  	
-    	this.setState({
-    		desktopsInScreen: Core.VARS.desktopsInScreen,
-            desktopsSizes: []
-    	});
+    handleDesktopsInScreenChange(event) { 
+    	this.setLargeDesktopBound = false;
+        
+        if ( !Core.VARS.layoutCustom ) {
+        	this.setDesktopsBounds( Core.VARS.desktopsInScreen );
+        } else {
+        	this.setState({
+    			desktopsInScreen: Core.VARS.desktopsInScreen,
+	            desktopsSizes: Core.VARS.desktopsSizes
+	    	});
 
-        this.setLargeDesktopBound = false;
-        this.setDesktopsBounds( Core.VARS.desktopsInScreen );        
+	    	Core.VARS.layoutCustom = false;
+        }               
     }
 
     /**
@@ -76,6 +83,67 @@ export class LayoutComponent extends React.Component {
             desktopsSizes: Core.VARS.desktopsSizes
         });
     }
+
+    /**
+     * [handleDesktopsSelectedMerge description]
+     * @param  {Object} event [description]
+     */
+    handleDesktopsSelectedMerge(event) { 
+    	console.log(Core.VARS.desktopsSelected); 		
+  		let desktopSelected_1 = {},
+  			desktopSelected_2 = {},
+  			objectPosition = 0,
+  			newDesktopSize = {},  			
+  			newDesktopsSizes = [];
+
+  		for ( let i in Core.VARS.desktopsSelected ) {
+  			if ( objectPosition === 0 ) {
+  				desktopSelected_1 = Core.VARS.desktopsSelected[i];
+  			} else {
+  				desktopSelected_2 = Core.VARS.desktopsSelected[i];
+  			}  			
+
+  			objectPosition++;
+  		} 
+
+  		if ( parseFloat( desktopSelected_1.left ) <= parseFloat( desktopSelected_2.left ) ) {
+  			newDesktopSize.left = desktopSelected_1.left;
+  			newDesktopSize.width = `${ parseFloat( desktopSelected_2.left ) + parseFloat( desktopSelected_2.width ) - parseFloat( newDesktopSize.left ) }px`;
+  		} else {
+  			newDesktopSize.left = desktopSelected_2.left;
+  			newDesktopSize.width = `${ parseFloat( desktopSelected_1.left ) + parseFloat( desktopSelected_1.width ) - parseFloat( newDesktopSize.left ) }px`;
+  		}
+
+  		if ( parseFloat( desktopSelected_1.top ) <= parseFloat( desktopSelected_2.top ) ) {
+  			newDesktopSize.top = desktopSelected_1.top;
+  			newDesktopSize.height = `${ parseFloat( desktopSelected_2.top ) + parseFloat( desktopSelected_2.height ) - parseFloat( newDesktopSize.top ) }px`;
+  		} else {
+  			newDesktopSize.top = desktopSelected_2.top;
+  			newDesktopSize.height = `${ parseFloat( desktopSelected_1.top ) + parseFloat( desktopSelected_1.height ) - parseFloat( newDesktopSize.top ) }px`;
+  		}  		
+
+  		for ( let i = 0; i < Core.VARS.desktopsSizes.length; i++ ) {
+  			if ( Core.VARS.desktopsSizes[i].left === newDesktopSize.left && Core.VARS.desktopsSizes[i].top === newDesktopSize.top ) {
+  				newDesktopsSizes.push( newDesktopSize );
+  			} else if ( ( parseFloat( Core.VARS.desktopsSizes[i].left ) < parseFloat( newDesktopSize.left ) || 
+  						  parseFloat( Core.VARS.desktopsSizes[i].left ) >= parseFloat( newDesktopSize.width ) ) ) {
+				newDesktopsSizes.push( Core.VARS.desktopsSizes[i] );
+				
+  			} else if ( ( parseFloat( Core.VARS.desktopsSizes[i].top ) < parseFloat( newDesktopSize.top ) || 
+  						  parseFloat( Core.VARS.desktopsSizes[i].top ) >= parseFloat( newDesktopSize.height ) ) ) {
+  				newDesktopsSizes.push( Core.VARS.desktopsSizes[i] );
+  			}
+  		}
+
+  		console.log(newDesktopsSizes, Core.VARS.desktopsSizes);
+
+  		Core.VARS.desktopsSizes = newDesktopsSizes;
+  		Core.VARS.desktopsInScreen = Core.VARS.desktopsSizes.length;
+  		Core.VARS.desktopsSelected = {};
+  		Core.VARS.layoutCustom = true;
+
+  		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window ); 		
+  	}
 
     /**
      * [handleResize description]
@@ -103,10 +171,6 @@ export class LayoutComponent extends React.Component {
             desktopsInScreen: Core.VARS.desktopsInScreen,
             desktopsSizes: Core.VARS.desktopsSizes
         });
-  	}
-
-  	handleClick(event) {
-  		console.log("asdasdasd");
   	}
 
     /**
@@ -212,9 +276,9 @@ export class LayoutComponent extends React.Component {
 				{ this.state.desktopsSizes.map(( desktopSize, i ) => {
           			return (
       					<DesktopComponent 
+      						desktop={ i }
       						key={ `desktop_${ i }` } 
-      						style={ desktopSize }
-      						handleClick={ this.handleClick.bind( this ) } />
+      						style={ desktopSize } />
       				);      				
         		}) }
 			</div>

@@ -5,5 +5,7 @@
 export let VARS = {
 	
 	desktopsInScreen: 1,
-	desktopsSizes: null
+	desktopsSizes: [],
+	desktopsSelected: {},
+	layoutCustom: false
 };

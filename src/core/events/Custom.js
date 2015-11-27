@@ -13,6 +13,8 @@ export class Custom {
 		 */
 		this.desktopsInScreenChange = new CustomEvent( "desktopsinscreenchange" );
 		this.desktopsBoundingFinish = new CustomEvent( "desktopsboundingfinish" );
+		this.desktopsSelectedChange = new CustomEvent( "desktopsselectedchange" );
+		this.desktopsSelectedMerge = new CustomEvent( "desktopsselectedmerge" );
 	}
 
 	/**
@@ -65,5 +67,57 @@ export class Custom {
 	 */
 	dispatchDesktopsBoundingFinish(objectDOM) {
 		objectDOM.dispatchEvent( this.desktopsBoundingFinish );
+	}
+
+	/**
+	 * [onDesktopsSelectedChange description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onDesktopsSelectedChange(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsselectedchange", callback );
+	}
+
+	/**
+	 * [offDesktopsSelectedChange description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offDesktopsSelectedChange(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsselectedchange", callback );
+	}
+
+	/**
+	 * [dispatchDesktopsSelectedChange description]
+	 * @param  {Object} objectDOM [description]
+	 */
+	dispatchDesktopsSelectedChange(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsSelectedChange );
+	}
+
+	/**
+	 * [onDesktopsSelectedMerge description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onDesktopsSelectedMerge(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsselectedmerge", callback );
+	}
+
+	/**
+	 * [offDesktopsSelectedMerge description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offDesktopsSelectedMerge(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsselectedmerge", callback );
+	}
+
+	/**
+	 * [dispatchDesktopsSelectedMerge description]
+	 * @param  {Object} objectDOM [description]
+	 */
+	dispatchDesktopsSelectedMerge(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsSelectedMerge );
 	}
 }
