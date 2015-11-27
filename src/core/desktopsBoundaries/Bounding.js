@@ -60,8 +60,8 @@ export class Bounding {
         }
 
         if( this.desktopsInContainer === this.bounds.length ) {
-            Core.VARS.desktopsSizes = this.bounds;
-            Core.Events.CustomEvents.dispatchDesktopsBoundingFinish( window );
+            Core.UI.desktopsBoundaries = this.bounds;
+            Core.Events.CustomEvents.dispatchDesktopsBoundariesFinish( window );
 
             return this.bounds;
         } else {

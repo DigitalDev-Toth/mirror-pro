@@ -12,8 +12,10 @@ export class Custom {
 		 * @type {CustomEvent}
 		 */
 		this.desktopsInScreenChange = new CustomEvent( "desktopsinscreenchange" );
-		this.desktopsBoundingFinish = new CustomEvent( "desktopsboundingfinish" );
+		this.desktopsBoundariesFinish = new CustomEvent( "desktopsboundariesfinish" );
 		this.desktopsSelectedChange = new CustomEvent( "desktopsselectedchange" );
+		this.desktopsSelection = new CustomEvent( "desktopsselection" );
+		this.desktopsResize = new CustomEvent( "desktopsresize" );
 		this.desktopsSelectedMerge = new CustomEvent( "desktopsselectedmerge" );
 	}
 
@@ -44,29 +46,29 @@ export class Custom {
 	}
 
 	/**
-	 * [onDesktopsBoundingFinish description]
+	 * [onDesktopsBoundariesFinish description]
 	 * @param  {Object}   objectDOM [description]
 	 * @param  {Function} callback  [description]
 	 */
-	onDesktopsBoundingFinish(objectDOM, callback) {
-		objectDOM.addEventListener( "desktopsboundingfinish", callback );
+	onDesktopsBoundariesFinish(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsboundariesfinish", callback );
 	}
 
 	/**
-	 * [offDesktopsBoundingFinish description]
+	 * [offDesktopsBoundariesFinish description]
 	 * @param  {Object}   objectDOM [description]
 	 * @param  {Function} callback  [description]
 	 */
-	offDesktopsBoundingFinish(objectDOM, callback) {
-		objectDOM.removeEventListener( "desktopsboundingfinish", callback );
+	offDesktopsBoundariesFinish(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsboundariesfinish", callback );
 	}
 
 	/**
-	 * [dispatchDesktopsBoundingFinish description]
+	 * [dispatchDesktopsBoundariesFinish description]
 	 * @param  {Object} objectDOM [description]
 	 */
-	dispatchDesktopsBoundingFinish(objectDOM) {
-		objectDOM.dispatchEvent( this.desktopsBoundingFinish );
+	dispatchDesktopsBoundariesFinish(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsBoundariesFinish );
 	}
 
 	/**
@@ -119,5 +121,57 @@ export class Custom {
 	 */
 	dispatchDesktopsSelectedMerge(objectDOM) {
 		objectDOM.dispatchEvent( this.desktopsSelectedMerge );
+	}
+
+	/**
+	 * [onDesktopsSelection description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onDesktopsSelection(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsselection", callback );
+	}
+
+	/**
+	 * [offDesktopsSelection description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offDesktopsSelection(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsselection", callback );
+	}
+
+	/**
+	 * [dispatchDesktopsSelection description]
+	 * @param  {Object} objectDOM [description]
+	 */
+	dispatchDesktopsSelection(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsSelection );
+	}
+
+	/**
+	 * [onDesktopsResize description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onDesktopsResize(objectDOM, callback) {
+		objectDOM.addEventListener( "desktopsresize", callback );
+	}
+
+	/**
+	 * [offDesktopsResize description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offDesktopsResize(objectDOM, callback) {
+		objectDOM.removeEventListener( "desktopsresize", callback );
+	}
+
+	/**
+	 * [dispatchDesktopsResize description]
+	 * @param  {Object} objectDOM [description]
+	 */
+	dispatchDesktopsResize(objectDOM) {
+		objectDOM.dispatchEvent( this.desktopsResize );
 	}
 }

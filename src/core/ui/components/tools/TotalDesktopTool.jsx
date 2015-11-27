@@ -12,7 +12,7 @@ export class TotalDesktopTool extends React.Component {
         super();
 
         this.state = {
-    		desktopsInScreen: Core.VARS.desktopsInScreen
+    		desktopsInScreen: Core.UI.desktopsInScreen
     	};
     }
 
@@ -43,7 +43,7 @@ export class TotalDesktopTool extends React.Component {
      */
     handleDesktopsInScreenChange(event) {  	
     	this.setState({
-    		desktopsInScreen: Core.VARS.desktopsInScreen
+    		desktopsInScreen: Core.UI.desktopsInScreen
     	});       
     }
 

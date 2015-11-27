@@ -6,35 +6,61 @@ import { ButtonComponent } from "../basics/ButtonComponent.jsx";
 
 export class DesktopTool extends React.Component {
 
-    /**
-     * [handleResize description]
-     * @param  {Object} event [description]
-     */
-  	handleMouseDown(num, event) {
-	    if ( Object.keys( Core.VARS.desktopsSelected ).length === 2 ) {
-            Core.Events.CustomEvents.dispatchDesktopsSelectedMerge( window );
-        }       
-  	}
+	/**
+	 * [constructor description]
+	 */
+	constructor() {
+        super();
+
+        Core.UI.desktopsSelection = false;
+        Core.UI.desktopsResize = false;
+    }
 
     /**
      * [handleClick description]
      * @param  {String} operation [description]
      * @param  {Object} event     [description]
      */
-  	handleClick(operation, event) {
-  		if ( operation === "-" ) {
-  			Core.VARS.desktopsInScreen--;
-  		} else if ( operation === "+" ) {
-  			Core.VARS.desktopsInScreen++;  			
-  		}  	
+  	handleClick(option, operation, event) {
+  		if ( option === 1 ) {
+  			if ( operation === "-" ) {
+	  			Core.UI.desktopsInScreen--;
+	  		} else if ( operation === "+" ) {
+	  			Core.UI.desktopsInScreen++;  			
+	  		}  	
 
-      	if ( Core.VARS.desktopsInScreen > 0 ) {
-      		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
-      	} else {
-      		Core.VARS.desktopsInScreen = 1;
-      	}
+	      	if ( Core.UI.desktopsInScreen > 0 ) {
+	      		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window );
+	      	} else {
+	      		Core.UI.desktopsInScreen = 1;
+	      	}
 
-        Core.VARS.desktopsSelected = {};
+	        Core.UI.desktopsSelected = {};
+  		} else if ( option === 2 ) {
+  			if ( Object.keys( Core.UI.desktopsSelected ).length === 2 ) {
+        		Core.Events.CustomEvents.dispatchDesktopsSelectedMerge( window );
+    		} 
+  		} else if ( option === 3 ) {
+  			if ( !Core.UI.desktopsResize ) {
+  				if ( Core.UI.desktopsSelection ) {  				
+	  				Core.UI.desktopsSelection = false;
+	  			} else {
+	  				Core.UI.desktopsSelection = true;
+	  			}
+
+	  			Core.Events.CustomEvents.dispatchDesktopsSelection( window );
+  			}  			
+  		} else if ( option === 4 ) {
+  			if ( !Core.UI.desktopsSelection ) {
+  				if ( Core.UI.desktopsResize ) {  				
+	  				Core.UI.desktopsResize = false;
+	  			} else {
+	  				Core.UI.desktopsResize = true;
+	  			}
+
+	  			Core.Events.CustomEvents.dispatchDesktopsResize( window );
+  			}  			
+  		}		
   	}
 
 	/**
@@ -47,12 +73,12 @@ export class DesktopTool extends React.Component {
 					<ButtonComponent>a</ButtonComponent>
 					<ButtonComponent>b</ButtonComponent>
 					<ButtonComponent>c</ButtonComponent>
-					<ButtonComponent handleMouseDown={ this.handleMouseDown.bind( this, "1" ) }>1</ButtonComponent>
-					<ButtonComponent>2</ButtonComponent>
-					<ButtonComponent>3</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, 2 ) }>1</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, 3 ) }>2</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, 4 ) }>3</ButtonComponent>
 					<ButtonComponent>4</ButtonComponent>
-					<ButtonComponent handleClick={ this.handleClick.bind( this, "-" ) }>-</ButtonComponent>
-					<ButtonComponent handleClick={ this.handleClick.bind( this, "+" ) }>+</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, "-" ) }>-</ButtonComponent>
+					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, "+" ) }>+</ButtonComponent>
 				</div>
 			</PrimaryBlockComponent>
 		);

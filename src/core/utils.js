@@ -132,7 +132,7 @@ export let Utils = {
         	number = number.slice( 0, ( number.indexOf( "." ) ) + 3 );            
     	}    	
         
-        return Number(number);
+        return Number( number );
     },
 
     /**
@@ -141,6 +141,34 @@ export let Utils = {
      * @return {Boolean}        [description]
      */
     isFloat(number) {
-    	return number === Number(number) && number % 1 !== 0;
-	}
+    	return number === Number( number ) && number % 1 !== 0;
+	},
+
+    /**
+     * [isInsideOfBox description]
+     * @param  {Object}  box    [description]
+     * @param  {Object}  inside [description]
+     * @return {Boolean}        [description]
+     */
+    isInsideOfBox(box, inside) {
+        box = this.boundToFloat( box );
+        inside = this.boundToFloat( inside );
+
+        return inside.left >= box.left && inside.left + inside.width <= box.left + box.width
+                && inside.top >= box.top && inside.top + inside.height <= box.top + box.height;
+    },
+
+    /**
+     * [boundToFloat description]
+     * @param  {Object} bound [description]
+     * @return {Object}       [description]
+     */
+    boundToFloat(bound) {
+        return {
+            width: parseFloat( bound.width ),
+            height: parseFloat( bound.height ),
+            left: parseFloat( bound.left ),
+            top: parseFloat( bound.top )
+        };
+    }
 };

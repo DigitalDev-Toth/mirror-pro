@@ -15,19 +15,26 @@ export class DesktopComponent extends React.Component {
     	};
     }
 
+    /**
+     * [componentWillUpdate description]
+     */
+    componentWillUpdate() {
+    	this.state.selection = "desktop-unselected";
+    }
+
 	/**
 	 * [handleClick description]
 	 * @param  {Object} event [description]
 	 */
   	handleClick(event) {
   		if ( this.state.selection === "desktop-unselected" ) {
-  			Core.VARS.desktopsSelected[ this.props.desktop ] = this.props.style;
+  			Core.UI.desktopsSelected[ this.props.index ] = this.props.style;
 
   			this.setState({
 	    		selection: "desktop-selected"
 	    	});
   		} else {
-  			delete Core.VARS.desktopsSelected[ this.props.desktop ];
+  			delete Core.UI.desktopsSelected[ this.props.index ];
 
   			this.setState({
 	    		selection: "desktop-unselected"
@@ -45,7 +52,7 @@ export class DesktopComponent extends React.Component {
 			<div  
 				className={ this.state.selection }
 				style={ this.props.style }
-				onClick={ this.handleClick.bind( this ) }></div>
+				onClick={ this.props.desktopSelection ? this.handleClick.bind( this ) : null }></div>
 		);
 	}
 }

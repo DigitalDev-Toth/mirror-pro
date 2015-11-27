@@ -12,7 +12,7 @@ export class TotalDesktopTool extends React.Component {
         super();
 
         this.state = {
-    		desktopsSelected: Core.VARS.desktopsSelected
+    		desktopsSelected: Core.UI.desktopsSelected
     	};
     }
 
@@ -43,7 +43,7 @@ export class TotalDesktopTool extends React.Component {
      */
     handleDesktopsSelectedChange(event) {  	
     	this.setState({
-    		desktopsSelected: Core.VARS.desktopsSelected
+    		desktopsSelected: Core.UI.desktopsSelected
     	});       
     }
 
