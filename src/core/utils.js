@@ -154,8 +154,24 @@ export let Utils = {
         box = this.boundToFloat( box );
         inside = this.boundToFloat( inside );
 
-        return inside.left >= box.left && inside.left + inside.width <= box.left + box.width
-                && inside.top >= box.top && inside.top + inside.height <= box.top + box.height;
+        return 	inside.left >= box.left && inside.left + inside.width <= box.left + box.width &&
+                inside.top >= box.top && inside.top + inside.height <= box.top + box.height;
+    },
+
+    /**
+     * [isIntersectionOfBox description]
+     * @param  {Object}  box          [description]
+     * @param  {Object}  intersection [description]
+     * @return {Boolean}              [description]
+     */
+    isIntersectionOfBox(box, intersection) {
+    	box = this.boundToFloat( box );
+        intersection = this.boundToFloat( intersection );
+
+        return ( intersection.left < box.left + box.width && 
+           		 box.left < intersection.left + intersection.width && 
+           		 intersection.top < box.top + box.height &&
+           		 box.top < intersection.top + intersection.height );
     },
 
     /**

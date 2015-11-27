@@ -8,7 +8,7 @@ export class Custom {
 	 */
 	constructor() {
 		/**
-		 * [numberOfBlocksChange description]
+		 * [desktopsInScreenChange description]
 		 * @type {CustomEvent}
 		 */
 		this.desktopsInScreenChange = new CustomEvent( "desktopsinscreenchange" );

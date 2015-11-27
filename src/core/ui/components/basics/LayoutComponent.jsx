@@ -11,21 +11,25 @@ export class LayoutComponent extends React.Component {
 	constructor() {
         super();
 
-        this.state = {
-    		desktopsInScreen: Core.UI.desktopsInScreen,
+        this._state = {
+        	desktopsInScreen: Core.UI.desktopsInScreen,
             desktopsBoundaries: [],
             desktopsSelection: Core.UI.desktopsSelection,
             desktopsResize: Core.UI.desktopsResize,
             mouseMoveState: false
-    	};
+        };        
 
     	this.lastPanelLayoutSize = this.getPanelLayoutSize();
         this.setLargeDesktopBound = false;
 
         this.pointResize = null;
-        this.lastPos = null;
+        this.lastPos = {};
+        this.lastPos2 = {};
         this.lastCoords = null;
         this.desktopsResizables = [];
+        this.desktopsResizables2 = [];
+
+        this.state = this._state;
     }
 
     /**
@@ -69,13 +73,9 @@ export class LayoutComponent extends React.Component {
         if ( !Core.UI.layoutCustom ) {
         	this.setDesktopsBounds( Core.UI.desktopsInScreen );
         } else {
-        	this.setState({
-    			desktopsInScreen: Core.UI.desktopsInScreen,
-	            desktopsBoundaries: Core.UI.desktopsBoundaries,
-                desktopsSelection: Core.UI.desktopsSelection,
-                desktopsResize: Core.UI.desktopsResize,
-                mouseMoveState: false
-	    	});
+        	this._state.desktopsInScreen = Core.UI.desktopsInScreen;
+        	this._state.desktopsBoundaries = Core.UI.desktopsBoundaries;
+        	this.setState(this._state);
 
 	    	Core.UI.layoutCustom = false;
         }               
@@ -92,33 +92,18 @@ export class LayoutComponent extends React.Component {
         	);
         } 
 
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: false
-        });
+        this._state.desktopsBoundaries = Core.UI.desktopsBoundaries;
+        this.setState(this._state);
     }
 
     handleDesktopsSelection(event) {
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: false
-        });
+    	this._state.desktopsSelection = Core.UI.desktopsSelection;
+        this.setState(this._state);
     }
 
     handleDesktopsResize(event) {
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: false
-        });
+    	this._state.desktopsResize = Core.UI.desktopsResize;
+        this.setState(this._state);
     }
 
     /**
@@ -129,7 +114,9 @@ export class LayoutComponent extends React.Component {
   		let desktopSelected_1 = Core.UI.desktopsSelected[ Object.keys( Core.UI.desktopsSelected )[0] ],
   			desktopSelected_2 = Core.UI.desktopsSelected[ Object.keys( Core.UI.desktopsSelected )[1] ],
   			newDesktopBound = {},  			
-  			newDesktopsBoundaries = [];
+  			newDesktopsBoundaries = [],
+  			insertNewDesktopBound = false,
+  			desktopsIntersect = false;
 
   		if ( parseFloat( desktopSelected_1.left ) <= parseFloat( desktopSelected_2.left ) ) {
   			newDesktopBound.left = desktopSelected_1.left;
@@ -150,17 +137,26 @@ export class LayoutComponent extends React.Component {
   		for ( let i = 0; i < Core.UI.desktopsBoundaries.length; i++ ) {
   			if ( Core.UI.desktopsBoundaries[i].left === newDesktopBound.left && Core.UI.desktopsBoundaries[i].top === newDesktopBound.top ) {
   				newDesktopsBoundaries.push( newDesktopBound );
-  			} else if ( !Core.Utils.isInsideOfBox( newDesktopBound, Core.UI.desktopsBoundaries[i]) ) {
-                newDesktopsBoundaries.push( Core.UI.desktopsBoundaries[i] );
+  				insertNewDesktopBound = true;
+  			} else if ( !Core.Utils.isInsideOfBox( newDesktopBound, Core.UI.desktopsBoundaries[i] ) ) {
+                newDesktopsBoundaries.push( Core.UI.desktopsBoundaries[i] );                
+
+                if ( Core.Utils.isIntersectionOfBox( newDesktopBound, Core.UI.desktopsBoundaries[i] ) ) {
+                	desktopsIntersect = true;
+
+                	break;
+                }
             }
   		}
 
-  		Core.UI.desktopsBoundaries = newDesktopsBoundaries;
-  		Core.UI.desktopsInScreen = Core.UI.desktopsBoundaries.length;
-  		Core.UI.desktopsSelected = [];
-  		Core.UI.layoutCustom = true;
+  		if ( insertNewDesktopBound && !desktopsIntersect ) {
+  			Core.UI.desktopsBoundaries = newDesktopsBoundaries;
+	  		Core.UI.desktopsInScreen = Core.UI.desktopsBoundaries.length;
+	  		Core.UI.desktopsSelected = [];
+	  		Core.UI.layoutCustom = true;
 
-  		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window ); 		
+	  		Core.Events.CustomEvents.dispatchDesktopsInScreenChange( window ); 		
+  		}  		
   	}
 
     /**
@@ -187,13 +183,8 @@ export class LayoutComponent extends React.Component {
 
 		this.lastPanelLayoutSize = panelLayoutSize;
 
-		this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: false
-        });
+		this._state.desktopsBoundaries = Core.UI.desktopsBoundaries;
+		this.setState(this._state);
   	}
 
     /**
@@ -210,29 +201,36 @@ export class LayoutComponent extends React.Component {
         for ( let i = 0; i < Core.UI.desktopsBoundaries.length; i++ ) {
             let desktopBound = Core.Utils.boundToFloat( Core.UI.desktopsBoundaries[i] );
 
-            if ( coords.x >= (desktopBound.left - 10) && coords.x <= (desktopBound.left + 10) ) {
+            if ( (coords.x >= (desktopBound.left - 10) && coords.x <= (desktopBound.left + 10) ) ) {
                 this.pointResize = {
                     x: coords.x,
                     y: coords.y
                 }
                 this.desktopsResizables.push( Core.UI.desktopsBoundaries[i] ); 
-                this.lastPos = {
+                this.lastPos[i] = {
                     left: parseFloat(Core.UI.desktopsBoundaries[i].left) + parseFloat(Core.UI.desktopsBoundaries[i].width),
                     top: parseFloat(Core.UI.desktopsBoundaries[i].top) + parseFloat(Core.UI.desktopsBoundaries[i].height)
                 };
                 this.lastCoords = coords;     
+            } 
+
+            if ( (coords.y >= (desktopBound.top - 10) && coords.y <= (desktopBound.top + 10)) ) {
+            	this.pointResize = {
+                    x: coords.x,
+                    y: coords.y
+                }
+                this.desktopsResizables2.push( Core.UI.desktopsBoundaries[i] ); 
+                this.lastPos2[i] = {
+                    left: parseFloat(Core.UI.desktopsBoundaries[i].left) + parseFloat(Core.UI.desktopsBoundaries[i].width),
+                    top: parseFloat(Core.UI.desktopsBoundaries[i].top) + parseFloat(Core.UI.desktopsBoundaries[i].height)
+                };
+                this.lastCoords = coords;    
             }
         }
 
-        let a = Core.UI.desktopsBoundaries;
-
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: true
-        });
+        this._state.desktopsBoundaries = Core.UI.desktopsBoundaries;
+        this._state.mouseMoveState = true;
+		this.setState(this._state);
     }
 
     handleMouseMove(event) {
@@ -242,21 +240,23 @@ export class LayoutComponent extends React.Component {
                 y: event.clientY - event.target.parentNode.getBoundingClientRect().top
             };
             let change = null;
+            let change2 = null;
 
             for ( let i = 0; i < this.desktopsResizables.length; i++ ) {
                 for ( let j = 0; j < Core.UI.desktopsBoundaries.length; j++ ) {
                     if ( this.desktopsResizables[i].left === Core.UI.desktopsBoundaries[j].left ) {                        
                         Core.UI.desktopsBoundaries[j] = {
-                            width: `${ this.lastPos.left - coords.x }px`,
+                            width: `${ this.lastPos[j].left - coords.x }px`,
                             height: Core.UI.desktopsBoundaries[j].height,
                             left: `${ coords.x }px`,
                             top: Core.UI.desktopsBoundaries[j].top
                         }
                         change = Core.UI.desktopsBoundaries[j];
-                    }
-                    let pos = parseFloat(Core.UI.desktopsBoundaries[j].left) + parseFloat(Core.UI.desktopsBoundaries[j].width)
+                    } 
+
+                    let pos1 = parseFloat(Core.UI.desktopsBoundaries[j].left) + parseFloat(Core.UI.desktopsBoundaries[j].width)
                         
-                    if ( parseFloat(this.desktopsResizables[i].left) === pos )  {
+                    if ( parseFloat(this.desktopsResizables[i].left) === pos1 )  {
                         Core.UI.desktopsBoundaries[j] = {
                             width: `${ coords.x - parseFloat(Core.UI.desktopsBoundaries[j].left) }px`,
                             height: Core.UI.desktopsBoundaries[j].height,
@@ -267,28 +267,47 @@ export class LayoutComponent extends React.Component {
                 }
                 this.desktopsResizables[i] = change;
             }
-            this.lastCoords = coords;
+
+            for ( let i = 0; i < this.desktopsResizables2.length; i++ ) {
+                for ( let j = 0; j < Core.UI.desktopsBoundaries.length; j++ ) {
+                    if ( this.desktopsResizables2[i].top === Core.UI.desktopsBoundaries[j].top ) {                        
+                        Core.UI.desktopsBoundaries[j] = {
+                            width: Core.UI.desktopsBoundaries[j].width,
+                            height: `${ this.lastPos2[j].top - coords.y }px`,
+                            left: Core.UI.desktopsBoundaries[j].left,
+                            top: `${ coords.y }px`
+                        }
+                        change2 = Core.UI.desktopsBoundaries[j];
+                    }
+
+                    let pos2 = parseFloat(Core.UI.desktopsBoundaries[j].top) + parseFloat(Core.UI.desktopsBoundaries[j].height)
+                        
+                    if ( parseFloat(this.desktopsResizables2[i].top) === pos2 )  {
+                        Core.UI.desktopsBoundaries[j] = {
+                            width: Core.UI.desktopsBoundaries[j].width,
+                            height: `${ coords.y - parseFloat(Core.UI.desktopsBoundaries[j].top) }px`,
+                            left: Core.UI.desktopsBoundaries[j].left,
+                            top: Core.UI.desktopsBoundaries[j].top
+                        }
+                    }
+                }
+                this.desktopsResizables2[i] = change2;
+            }
         }
 
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: true
-        });
+        this._state.desktopsBoundaries = Core.UI.desktopsBoundaries;
+        this._state.mouseMoveState = true;
+		this.setState(this._state);
     }
 
     handleMouseUp(event) {
         this.desktopsResizables = [];
+        this.desktopsResizables2 = [];
+        this.lastPos = {};
+        this.lastPos2 = {};
 
-        this.setState({
-            desktopsInScreen: Core.UI.desktopsInScreen,
-            desktopsBoundaries: Core.UI.desktopsBoundaries,
-            desktopsSelection: Core.UI.desktopsSelection,
-            desktopsResize: Core.UI.desktopsResize,
-            mouseMoveState: false
-        });
+        this._state.mouseMoveState = false;
+		this.setState(this._state);
     }
 
     /**
