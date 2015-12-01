@@ -168,10 +168,10 @@ export let Utils = {
     	box = this.boundToFloat( box );
         intersection = this.boundToFloat( intersection );
 
-        return ( intersection.left < box.left + box.width && 
-           		 box.left < intersection.left + intersection.width && 
-           		 intersection.top < box.top + box.height &&
-           		 box.top < intersection.top + intersection.height );
+        return 	intersection.left < box.left + box.width && 
+           		box.left < intersection.left + intersection.width && 
+           		intersection.top < box.top + box.height &&
+           		box.top < intersection.top + intersection.height;
     },
 
     /**
@@ -185,6 +185,20 @@ export let Utils = {
             height: parseFloat( bound.height ),
             left: parseFloat( bound.left ),
             top: parseFloat( bound.top )
+        };
+    },
+
+    /**
+     * [boundToString description]
+     * @param  {Object} bound [description]
+     * @return {Object}       [description]
+     */
+    boundToString(bound) {
+        return {
+            width: `${ bound.width }px`,
+            height: `${ bound.height }px`,
+            left: `${ bound.left }px`,
+            top: `${ bound.top }px`
         };
     }
 };

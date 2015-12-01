@@ -3,6 +3,9 @@ import React from "react";
 import { Core } from "../../../../core";
 import { PrimaryMenuComponent, SecondaryMenuComponent } from "./MenuComponent.jsx";
 
+/**
+ * 
+ */
 export class ContainerComponent extends React.Component {
 
 	/**
@@ -18,33 +21,34 @@ export class ContainerComponent extends React.Component {
   	 * [componentWillMount description]
   	 */
   	componentWillMount() {
-        this.handleResize();
+        this.handleWindowResize();
     }
 
     /**
      * [componentDidMount description]
      */
     componentDidMount() {
-        window.addEventListener( "resize", this.handleResize.bind( this ) );
+        window.addEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
     /**
      * [componentWillUnmount description]
      */
     componentWillUnmount() {
-        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
     /**
-     * [handleResize description]
+     * [handleWindowResize description]
      * @param  {Object} event [description]
      */
-  	handleResize(event) {
+  	handleWindowResize(event) {
     	this.setState( this.getSizes() );
   	}
 
     /**
      * [getSizes description]
+     * @return {Object} [description]
      */
     getSizes() {
     	return {

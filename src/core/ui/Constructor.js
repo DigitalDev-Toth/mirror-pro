@@ -4,45 +4,49 @@ import ReactDOM from "react-dom";
 import { Core } from "../../core";
 import { ContainerComponent } from "./components/basics/ContainerComponent.jsx";
 import { LayoutComponent } from "./components/basics/LayoutComponent.jsx";
-import { DesktopTool } from "./components/tools/DesktopTool.jsx";
-import { TotalDesktopTool } from "./components/tools/TotalDesktopTool.jsx";
+import { LayoutTools } from "./components/tools/LayoutTools.jsx";
+import { LayoutTotalsTools } from "./components/tools/LayoutTotalsTools.jsx";
 
+/**
+ * 
+ */
 export class Constructor {
 	
 	/**
 	 * [constructor description]
 	 */
 	constructor() {
-		this.blockToolContainerCount = 0;
+		this.blockToolContainerID = 0;
 
 		this.createContainer();
-		this.createStructure();
-
+		this.createStructure();		
 		this.createLayout();
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
+		this.createTool( "primary", LayoutTools );
 
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "primary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
-		this.createTool( "secondary" );
+
+
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
+		this.createTool( "secondary", LayoutTotalsTools );
 	}
 
 	/**
@@ -80,28 +84,28 @@ export class Constructor {
 	 * [createTool description]
 	 * @param  {String} where [description]
 	 */
-	createTool(where = "primary") {
+	createTool(where = "primary", Component) {
 		let blockContainer = document.getElementById( `${ where }-menu-content` ),
 			blockToolContainer = document.createElement( "div" );
 
-		blockToolContainer.setAttribute( "id", `block-tool-container-${ this.blockToolContainerCount }` );
+		blockToolContainer.setAttribute( "id", `block-tool-container-${ this.blockToolContainerID }` );
 
 		blockContainer.appendChild( blockToolContainer );
 
 		if (where === "primary") {
 			ReactDOM.render( 
-				<DesktopTool click={ `block-tool-container-${ this.blockToolContainerCount }` } />, 
-				document.getElementById( `block-tool-container-${ this.blockToolContainerCount }` )
+				<Component />, 
+				document.getElementById( `block-tool-container-${ this.blockToolContainerID }` )
 			);
 		} else {
 			blockToolContainer.setAttribute( "class", "secondary-block" );
 
 			ReactDOM.render( 
-				<TotalDesktopTool />, 
-				document.getElementById( `block-tool-container-${ this.blockToolContainerCount }` )
+				<Component />, 
+				document.getElementById( `block-tool-container-${ this.blockToolContainerID }` )
 			);
 		}		
 
-		this.blockToolContainerCount++;	
+		this.blockToolContainerID++;	
 	}
 }

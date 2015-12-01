@@ -1,6 +1,9 @@
 import React from "react";
 import ps from "perfect-scrollbar";
 
+/**
+ * 
+ */
 export class PrimaryMenuComponent extends React.Component {
 
 	/**
@@ -13,26 +16,18 @@ export class PrimaryMenuComponent extends React.Component {
         this.perfectScrollbar = ps;
     }
 
-    /**
-     * [handleResize description]
-     * @param  {Object} event [description]
-     */
-  	handleResize(event) {
-    	this.setState( this.getSizes() );
-  	}
-
   	/**
   	 * [componentWillMount description]
   	 */
   	componentWillMount() {
-        this.handleResize();
+        this.handleWindowResize();
     }
 
     /**
      * [componentDidMount description]
      */
     componentDidMount() {
-        window.addEventListener( "resize", this.handleResize.bind( this ) );
+        window.addEventListener( "resize", this.handleWindowResize.bind( this ) );
         
         this.perfectScrollbar.initialize( document.getElementById( "primary-menu-container" ) ); 
     }
@@ -41,21 +36,30 @@ export class PrimaryMenuComponent extends React.Component {
      * [componentWillUnmount description]
      */
     componentWillUnmount() {
-        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
     /**
      * [componentDidUpdate description]
      */
     componentDidUpdate() {
-        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
         
         this.perfectScrollbar.update( document.getElementById( "primary-menu-container" ) );
     }
 
     /**
-     * [getSizes description]
+     * [handleWindowResize description]
+     * @param  {Object} event [description]
      */
+  	handleWindowResize(event) {
+    	this.setState( this.getSizes() );
+  	}
+
+  	/**
+  	 * [getSizes description]
+  	 * @return {Object} [description]
+  	 */
     getSizes() {
     	return {
             menuContainerSize: {
@@ -78,6 +82,9 @@ export class PrimaryMenuComponent extends React.Component {
 	}
 }
 
+/**
+ * 
+ */
 export class SecondaryMenuComponent extends React.Component {
 	
 	/**
@@ -90,26 +97,18 @@ export class SecondaryMenuComponent extends React.Component {
         this.perfectScrollbar = ps;
     }
 
-    /**
-     * [handleResize description]
-     * @param  {Object} event [description]
-     */
-  	handleResize(event) {
-    	this.setState( this.getSizes() );
-  	}
-
   	/**
   	 * [componentWillMount description]
   	 */
   	componentWillMount() {
-        this.handleResize();
+        this.handleWindowResize();
     }
 
     /**
      * [componentDidMount description]
      */
     componentDidMount() {
-        window.addEventListener( "resize", this.handleResize.bind( this ) );
+        window.addEventListener( "resize", this.handleWindowResize.bind( this ) );
 
         this.perfectScrollbar.initialize( document.getElementById( "secondary-menu-container" ) );
 
@@ -120,20 +119,29 @@ export class SecondaryMenuComponent extends React.Component {
      * [componentWillUnmount description]
      */
     componentWillUnmount() {
-        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
     /**
      * [componentDidUpdate description]
      */
     componentDidUpdate() {
-        window.removeEventListener( "resize", this.handleResize.bind( this ) );
+        window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
 
         this.perfectScrollbar.update( document.getElementById( "secondary-menu-container" ) );
     }
 
     /**
+     * [handleWindowResize description]
+     * @param  {Object} event [description]
+     */
+  	handleWindowResize(event) {
+    	this.setState( this.getSizes() );
+  	}
+
+    /**
      * [getSizes description]
+     * @return {Object} [description]
      */
     getSizes() {
     	return {

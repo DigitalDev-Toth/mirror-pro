@@ -1,4 +1,4 @@
-import { Core } from "../../core";
+import { Core } from "../../../core";
 import { Rect } from "./Rect";
 import { Node } from "./Node";
 
@@ -9,17 +9,17 @@ export class Bounding {
 
     /**
      * [constructor description]
-     * @param  {Object} containerSize          [description]
-     * @param  {Object} desktopSize            [description] 
-     * @param  {Integer} desktopsInContainer   [description]    
+     * @param  {Object} containerSize     [description]
+     * @param  {Object} deskpSize         [description] 
+     * @param  {Integer} desksInContainer [description]    
      */
-    constructor(containerSize, desktopSize, desktopsInContainer) {
+    constructor(containerSize, deskSize, desksInContainer) {
         this.containerWidth = containerSize.width;
         this.containerHeight = containerSize.height;
-        this.desktopWidth = desktopSize.width;
-        this.desktopHeight = desktopSize.height;
+        this.deskWidth = deskSize.width;
+        this.deskHeight = deskSize.height;
 
-        this.desktopsInContainer = desktopsInContainer;
+        this.desksInContainer = desksInContainer;
 
         this.totalArea = this.containerWidth * this.containerHeight;
         this.filledArea = 0;
@@ -31,10 +31,10 @@ export class Bounding {
     }
 
     /**
-     * [getBounds description]
+     * [getBoundaries description]
      * @return {Object} [description]
      */
-    initBounds() {
+    initBoundaries() {
         this.iteration();
     }
 
@@ -43,25 +43,20 @@ export class Bounding {
      * @return {Object} [description]
      */
     iteration() {
-        let rect = new Rect( 0, 0, this.desktopWidth, this.desktopHeight ),
+        let rect = new Rect( 0, 0, this.deskWidth, this.deskHeight ),
             node = this.startNode.addRect( rect );
 
         if( node ) {
             let bound = node.rect;
 
-            this.bounds.push({
-                width: `${ bound.width }px`,
-                height: `${ bound.height }px`,
-                left: `${ bound.left }px`,
-                top: `${ bound.top }px`
-            });
+            this.bounds.push( Core.Utils.boundToString( bound ) );
 
             this.filledArea += bound.width * bound.height;
         }
 
-        if( this.desktopsInContainer === this.bounds.length ) {
-            Core.UI.desktopsBoundaries = this.bounds;
-            Core.Events.CustomEvents.dispatchDesktopsBoundariesFinish( window );
+        if( this.desksInContainer === this.bounds.length ) {
+            Core.UI.desksBoundaries = this.bounds;
+            Core.Events.CustomEvents.dispatchLayoutBoundariesFinish( window );
 
             return this.bounds;
         } else {

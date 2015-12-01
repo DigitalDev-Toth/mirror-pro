@@ -1,7 +1,13 @@
-import { GLOBALS } from "./globals";
 import { Constructor } from "./Constructor";
 
-export let UI = Object.assign(GLOBALS, {
-	
-	Constructor
-});
+/**
+ * [UI description]
+ * @type {[type]}
+ */
+export let UI = {
+	Constructor,
+	desksInScreen: 1,
+	desksBoundaries: [],
+	desksSelected: [],
+	layoutCustom: false
+};

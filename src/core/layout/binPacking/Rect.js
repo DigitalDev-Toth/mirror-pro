@@ -20,7 +20,7 @@ export class Rect {
 	/**
 	 * [fitsIn description]
 	 * @param  {Object} outer [description]
-	 * @return {Boolean}       [description]
+	 * @return {Boolean}      [description]
 	 */
 	fitsIn(outer) {
 		return outer.width >= this.width && outer.height >= this.height;
@@ -29,7 +29,7 @@ export class Rect {
 	/**
 	 * [sameSizeAs description]
 	 * @param  {Object} other [description]
-	 * @return {Boolean}       [description]
+	 * @return {Boolean}      [description]
 	 */
 	sameSizeAs(other) {
 		return this.width == other.width && this.height == other.height;

@@ -3,7 +3,10 @@ import React from "react";
 import { Core } from "../../../../core";
 import { SecondaryBlockComponent } from "../basics/BlockComponent.jsx";
 
-export class TotalDesktopTool extends React.Component {
+/**
+ * 
+ */
+export class LayoutTotalsTools extends React.Component {
 
 	/**
 	 * [constructor description]
@@ -12,7 +15,7 @@ export class TotalDesktopTool extends React.Component {
         super();
 
         this.state = {
-    		desktopsInScreen: Core.UI.desktopsInScreen
+    		desksInScreen: Core.UI.desksInScreen
     	};
     }
 
@@ -20,30 +23,30 @@ export class TotalDesktopTool extends React.Component {
   	 * [componentWillMount description]
   	 */
   	componentWillMount() {
-        this.handleDesktopsInScreenChange();
+        this.handleLayoutChange();
     }
 
     /**
      * [componentDidMount description]
      */
     componentDidMount() {
-        Core.Events.CustomEvents.onDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );        
+        Core.Events.CustomEvents.onLayoutChange( window, this.handleLayoutChange.bind( this ) );        
     }
 
     /**
      * [componentWillUnmount description]
      */
     componentWillUnmount() {
-        Core.Events.CustomEvents.offDesktopsInScreenChange( window, this.handleDesktopsInScreenChange.bind( this ) );
+        Core.Events.CustomEvents.offLayoutChange( window, this.handleLayoutChange.bind( this ) );
     }
 
     /**
-     * [handleDesktopsInScreenChange description]
+     * [handleDesksInScreenChange description]
      * @param  {Object} event [description]
      */
-    handleDesktopsInScreenChange(event) {  	
+    handleLayoutChange(event) {  	
     	this.setState({
-    		desktopsInScreen: Core.UI.desktopsInScreen
+    		desksInScreen: Core.UI.desksInScreen
     	});       
     }
 
@@ -53,7 +56,7 @@ export class TotalDesktopTool extends React.Component {
 	render() {
 		return ( 
 			<SecondaryBlockComponent>
-				<span>Total de escritorios: { this.state.desktopsInScreen }</span>
+				<span>Total de escritorios: { this.state.desksInScreen }</span>
 			</SecondaryBlockComponent>
 		);
 	}

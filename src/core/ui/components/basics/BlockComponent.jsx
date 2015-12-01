@@ -1,6 +1,9 @@
 import React from "react";
 import ps from "perfect-scrollbar";
 
+/**
+ * 
+ */
 export class PrimaryBlockComponent extends React.Component {
 
 	/**
@@ -37,6 +40,9 @@ export class PrimaryBlockComponent extends React.Component {
 	}
 }
 
+/**
+ * 
+ */
 export class SecondaryBlockComponent extends React.Component {
 
 	/**

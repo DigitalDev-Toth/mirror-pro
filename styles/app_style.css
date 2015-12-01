@@ -67,11 +67,11 @@ body {
 	background-color: #616161; /*#616161*/
 }
 
-.desktop-unselected {
+.desk-unselected {
 	opacity: 1;
 }
 
-.desktop-selected {
+.desk-selected {
 	opacity: 0.4;
 }
 
