@@ -63,7 +63,7 @@ export class PrimaryMenuComponent extends React.Component {
     getSizes() {
     	return {
             menuContainerSize: {
-            	width: "140px",
+            	width: "160px",
             	height: `${ window.innerHeight - 23 }px`
             }
         };

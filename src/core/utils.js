@@ -200,5 +200,43 @@ export let Utils = {
             left: `${ bound.left }px`,
             top: `${ bound.top }px`
         };
+    },
+
+    /**
+     * [deleteLastPartOfArray description]
+     * @param  {Array} array   [description]
+     * @param  {Integer} index [description]
+     * @return {Array}         [description]
+     */
+    deleteLastPartOfArray(array, index) {
+    	let newArray = [];
+
+    	for ( let i = 0; i <= index; i++ ) {
+    		newArray.push( array[i] );
+    	}
+
+    	return newArray;
+    },
+
+    /**
+     * [isBoundariesMinSize description]
+     * @param  {Array}  boundaries   [description]
+     * @param  {Number}  minDeskSize [description]
+     * @return {Boolean}             [description]
+     */
+    isBoundariesMinSize(boundaries, minDeskSize) {    	
+    	for ( let i = 0; i < boundaries.length; i++ ) {
+    		boundaries[i] = this.boundToFloat( boundaries[i] );
+    		
+    		if ( boundaries[i].width <= minDeskSize ) {
+    			return true;
+    		}
+
+    		if ( boundaries[i].height <= minDeskSize ) {
+    			return true;
+    		}
+    	} 
+
+    	return false;
     }
 };

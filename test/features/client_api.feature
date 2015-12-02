@@ -1,7 +1,7 @@
 Feature: Mirror Pro API
 	As a developer of Mirror Pro
 	I want to use the API
-	So that I can check some cool informations
+	So that I can check some cool stuffs
 
     Scenario: Get Information From The API
         Given I am developing for Mirror Pro

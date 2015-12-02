@@ -14,6 +14,8 @@ export class ContainerComponent extends React.Component {
 	constructor() {
         super();
 
+        this.globalSize = {};
+
         this.state = this.getSizes();
     }
 
@@ -28,6 +30,7 @@ export class ContainerComponent extends React.Component {
      * [componentDidMount description]
      */
     componentDidMount() {
+    	Core.Events.CustomEvents.onContainerGenericEvent( window, this.handleContainerGenericEvent.bind( this ) );  
         window.addEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
@@ -35,6 +38,7 @@ export class ContainerComponent extends React.Component {
      * [componentWillUnmount description]
      */
     componentWillUnmount() {
+    	Core.Events.CustomEvents.offContainerGenericEvent( window, this.handleContainerGenericEvent.bind( this ) ); 
         window.removeEventListener( "resize", this.handleWindowResize.bind( this ) );
     }
 
@@ -46,37 +50,45 @@ export class ContainerComponent extends React.Component {
     	this.setState( this.getSizes() );
   	}
 
+  	/**
+  	 * [handleContainerGenericEvent description]
+  	 * @param  {Object} event [description]
+  	 */
+  	handleContainerGenericEvent(event) {
+    	this.setState( this.getSizes( event.options.width, event.options.height ) );
+  	}
+
     /**
      * [getSizes description]
      * @return {Object} [description]
      */
-    getSizes() {
+    getSizes(globalWidth = window.innerWidth, globalHeight = window.innerHeight ) {
     	return {
         	containerSize: {
-        		width: `${ window.innerWidth }px`,
-        		height: `${ window.innerHeight }px`
+        		width: `${ globalWidth }px`,
+        		height: `${ globalHeight }px`
         	},
             panelHeaderSize: { height: "20px" },
-            panelBodySize: { height: `${ window.innerHeight - 20 }px` },
+            panelBodySize: { height: `${ globalHeight - 20 }px` },
             panelPrimaryMenuSize: { 
-            	width: "140px",
-            	height: `${ window.innerHeight - 23 }px`
+            	width: "160px",
+            	height: `${ globalHeight - 23 }px`
             },
             panelNavigatorbarSize: {
             	width: "20px",
-            	height: `${ window.innerHeight - 23 }px`
+            	height: `${ globalHeight - 23 }px`
             },
             panelWorSpaceSize: {
-            	width: `${ window.innerWidth - 166 }px`,
-            	height: `${ window.innerHeight - 23 }px`
+            	width: `${ globalWidth - 186 }px`,
+            	height: `${ globalHeight - 23 }px`
             },
             panelSecondaryMenuSize: {
-            	width: `${ window.innerWidth - 166 }px`,
+            	width: `${ globalWidth - 186 }px`,
             	height: "35px"
             },
             panelLayoutSize: {
-            	width: `${ window.innerWidth - 166 }px`,
-            	height: `${ window.innerHeight - 58 }px`
+            	width: `${ globalWidth - 186 }px`,
+            	height: `${ globalHeight - 58 }px`
             }
         };
     }

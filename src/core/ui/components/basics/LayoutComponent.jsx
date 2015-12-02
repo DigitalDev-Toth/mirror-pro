@@ -21,8 +21,14 @@ export class LayoutComponent extends React.Component {
             mouseMoveState: false
         };        
 
+        this.containerMinSize = false;
+        this.deskToSmall = false;
+
     	this.lastPanelLayoutSize = this.getPanelLayoutSize();
         this.setLargeDeskBound = false;
+
+        this.desksBoundariesPile = [];
+        this.index = 0;
 
         this.desksToResize = false;
 
@@ -62,7 +68,7 @@ export class LayoutComponent extends React.Component {
      * @param  {Object} event [description]
      */
     handleWindowResize(event) {
-        Core.UI.desksBoundaries = Core.Layout.LayoutUtils.resizeDesksBoundaries( 
+    	Core.UI.desksBoundaries = Core.Layout.LayoutUtils.resizeDesksBoundaries( 
             Core.UI.desksBoundaries,
             this.getPanelLayoutSize(),
             this.lastPanelLayoutSize
@@ -70,8 +76,20 @@ export class LayoutComponent extends React.Component {
 
         this.lastPanelLayoutSize = this.getPanelLayoutSize();
 
-        this._state.desksBoundaries = Core.UI.desksBoundaries;
-        this.setState(this._state);
+        this.deskToSmall = Core.Utils.isBoundariesMinSize( Core.UI.desksBoundaries, Core.MIN_DESK_SIZE );
+
+        if ( this.deskToSmall ) {
+        	if ( !this.containerMinSize ) {
+        		this.containerMinSize = this.getContainerSize();
+        	}    		
+
+        	Core.Events.CustomEvents.dispatchContainerGenericEvent( window, { width: this.containerMinSize.width, height: this.containerMinSize.height } );
+        } else {
+        	this.containerMinSize = false;
+
+	        this._state.desksBoundaries = Core.UI.desksBoundaries;
+	        this.setState(this._state);
+        }       
     }
 
     /**
@@ -81,16 +99,17 @@ export class LayoutComponent extends React.Component {
     handleLayoutChange(event) { 
     	this.setLargeDeskBound = false;
         
-        if ( !Core.UI.layoutCustom ) {
+        if ( !Core.UI.layoutCustomizing ) {
             this.setLargeDeskBound = Core.Layout.LayoutUtils.setDesksBoundaries( 
-                Core.UI.desksInScreen, this.getPanelLayoutSize() 
+                Core.UI.desksInScreen, this.getPanelLayoutSize(),
+                event 
             );
         } else {
         	this._state.desksInScreen = Core.UI.desksInScreen;
         	this._state.desksBoundaries = Core.UI.desksBoundaries;
         	this.setState(this._state);
 
-	    	Core.UI.layoutCustom = false;
+	    	Core.UI.layoutCustomizing = false;
         }               
     }
 
@@ -107,6 +126,7 @@ export class LayoutComponent extends React.Component {
             );
         } 
 
+        Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
         this._state.desksBoundaries = Core.UI.desksBoundaries;
         this.setState(this._state);
     }
@@ -116,17 +136,25 @@ export class LayoutComponent extends React.Component {
      * @param  {Object} event [description]
      */
     handleLayoutGenericEvent(event) {
-        switch( event.option ) {
+        switch( event.options.tool ) {
             case "selectable":
                 this.handleLayoutSelectable();
                 break;
 
-            case "resizable":
-                this.handleLayoutResizable();
-                break;
-
             case "merge":
                 this.handleDesksSelectedMerge();
+                break;
+
+            case "undone":
+            	this.handleDesksHistorial(-1);
+            	break;
+
+        	case "redone":
+        		this.handleDesksHistorial(1);
+    			break;
+
+            case "resizable":
+                this.handleLayoutResizable();
                 break;
         }        
     }
@@ -135,22 +163,18 @@ export class LayoutComponent extends React.Component {
      * [handleLayoutSelectable description]
      */
     handleLayoutSelectable() {
-        this._state.layoutTools = Core.UI.layoutTools;
-        this.setState(this._state);
-    }
+    	this.desksBoundariesPile = []; 
+    	this.desksBoundariesPile.push( Core.UI.desksBoundaries );
+  		this.index = this.desksBoundariesPile.length - 1;   
 
-    /**
-     * [handleLayoutResizable description]
-     */
-    handleLayoutResizable() {
-    	this._state.layoutTools = Core.UI.layoutTools;
+        this._state.layoutTools = Core.UI.layoutTools;
         this.setState(this._state);
     }
 
     /**
      * [handleDesktopsSelectedMerge description]
      */
-    handleDesksSelectedMerge(event) { 
+    handleDesksSelectedMerge() { 
         let isNewDesksBoundaries = Core.Layout.LayoutUtils.mergeDesksBoundaries(
             Core.UI.desksBoundaries,
             Core.UI.desksSelected
@@ -160,11 +184,50 @@ export class LayoutComponent extends React.Component {
   			Core.UI.desksBoundaries = isNewDesksBoundaries;
 	  		Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
 	  		Core.UI.desksSelected = [];
-	  		Core.UI.layoutCustom = true;
+	  		Core.UI.layoutCustomizing = true;
+
+	  		if ( this.desksBoundariesPile.length > 0 ) {
+	  			this.desksBoundariesPile = Core.Utils.deleteLastPartOfArray( this.desksBoundariesPile, this.index );
+	  		}
+
+	  		this.desksBoundariesPile.push( Core.UI.desksBoundaries );
+	  		this.index = this.desksBoundariesPile.length - 1;
 
 	  		Core.Events.CustomEvents.dispatchLayoutChange( window ); 		
   		}  		
   	}
+
+  	/**
+  	 * [handleDesksHistorial description]
+  	 * @param  {Number} operation [description]
+  	 */
+  	handleDesksHistorial(operation) {
+  		if ( this.desksBoundariesPile.length > 0 ) {
+  			this.index += operation;
+
+	  		if (this.index < 0) {
+	  			this.index = 0;
+	  		}
+
+	  		if (this.index >= this.desksBoundariesPile.length ) {
+	  			this.index = this.desksBoundariesPile.length - 1;
+	  		}
+
+	  		Core.UI.desksBoundaries = this.desksBoundariesPile[this.index];
+	  		Core.UI.layoutCustomizing = true;
+	  		
+	  		Core.Events.CustomEvents.dispatchLayoutChange( window );
+  		}
+  	}
+
+  	/**
+     * [handleLayoutResizable description]
+     */
+    handleLayoutResizable() {
+    	this.desksBoundariesPile = [];
+    	this._state.layoutTools = Core.UI.layoutTools;
+        this.setState(this._state);
+    }
 
     /**
      * [handleMouseDown description]
@@ -229,6 +292,19 @@ export class LayoutComponent extends React.Component {
     	return {
     		width: parseFloat( panelLayoutDOM.style.width ) - 6,
     		height: parseFloat( panelLayoutDOM.style.height ) - 6
+    	};
+    }
+
+    /**
+     * [getContainerSize description]
+     * @return {Object} [description]
+     */
+    getContainerSize() {
+    	let containerDOM = document.getElementById( "container" );
+
+    	return {
+    		width: parseFloat( containerDOM.style.width ),
+    		height: parseFloat( containerDOM.style.height )
     	};
     }
 

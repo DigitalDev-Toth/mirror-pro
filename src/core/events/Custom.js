@@ -8,9 +8,39 @@ export class Custom {
 	 */
 	constructor() {
 
+		this.containerGenericEvent = new CustomEvent( "containergenericevent" );
 		this.layoutChange = new CustomEvent( "layoutchange" );
 		this.layoutBoundariesFinish = new CustomEvent( "layoutboundariesfinish" );
 		this.layoutGenericEvent = new CustomEvent( "layoutgenericevent" );
+	}
+
+	/**
+	 * [onContainerGenericEvent description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onContainerGenericEvent(objectDOM, callback) {
+		objectDOM.addEventListener( "containergenericevent", callback );
+	}
+
+	/**
+	 * [offContainerGenericEvent description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offContainerGenericEvent(objectDOM, callback) {
+		objectDOM.removeEventListener( "containergenericevent", callback );
+	}
+
+	/**
+	 * [dispatchContainerGenericEvent description]
+	 * @param  {Object} objectDOM [description]
+	 * @param  {Object} options   [description]
+	 */
+	dispatchContainerGenericEvent(objectDOM, options) {
+		this.containerGenericEvent.options = options
+
+		objectDOM.dispatchEvent( this.containerGenericEvent );
 	}
 
 	/**
@@ -34,8 +64,11 @@ export class Custom {
 	/**
 	 * [dispatchLayoutChange description]
 	 * @param  {Object} objectDOM [description]
+	 * @param  {Object} options   [description]
 	 */
-	dispatchLayoutChange(objectDOM) {
+	dispatchLayoutChange(objectDOM, options) {
+		this.layoutChange.options = options
+
 		objectDOM.dispatchEvent( this.layoutChange );
 	}
 
@@ -86,10 +119,10 @@ export class Custom {
 	/**
 	 * [dispatchLayoutGenericEvent description]
 	 * @param  {Object} objectDOM [description]
-	 * @param  {Object} options [description]
+	 * @param  {Object} options   [description]
 	 */
-	dispatchLayoutGenericEvent(objectDOM, option) {
-		this.layoutGenericEvent.option = option;
+	dispatchLayoutGenericEvent(objectDOM, options) {
+		this.layoutGenericEvent.options = options;
 
 		objectDOM.dispatchEvent( this.layoutGenericEvent );
 	}

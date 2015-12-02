@@ -9,20 +9,45 @@ export class LayoutUtils {
 	 * [setDesksBoundaries description]
 	 * @param  {Integer} desksInScreen  [description]
 	 * @param  {Object} panelLayoutSize [description]
+	 * @param  {Number} operation       [description]
 	 * @return {Boolean}                [description]
 	 */
-	static setDesksBoundaries(desksInScreen, panelLayoutSize) {
-		let desksSizes = null,
-			desksInContainer = desksInScreen,
-            setLargeDeskBound = false;
+	static setDesksBoundaries(desksInScreen, panelLayoutSize, event) {
+		let desksInScreenBackup = desksInScreen,
+			desksSizes = null,
+			desksInContainer,
+            setLargeDeskBound = false,
+            deskSizeIsFine = false,
+            countLoop = 0;
 		
-		if ( Core.Utils.isPrimeNumber( desksInScreen ) && desksInScreen !== 1 && desksInScreen !== 2 ) {            
-            desksInContainer = desksInScreen - 1;  
+		while( !deskSizeIsFine && countLoop < 10 ) {
+			desksInContainer = desksInScreen;
 
-            setLargeDeskBound = true;  
-		} 	
+			if ( Core.Utils.isPrimeNumber( desksInScreen ) && desksInScreen !== 1 && desksInScreen !== 2 ) {            
+	            desksInContainer = desksInScreen - 1;  
 
-		desksSizes = this.setSizeForDesksBoundaries( desksInScreen, desksInContainer, panelLayoutSize );
+	            setLargeDeskBound = true;  
+			} 	
+
+			desksSizes = this.setSizeForDesksBoundaries( desksInScreen, desksInContainer, panelLayoutSize );
+
+			if ( ( desksSizes[1].width > Core.MIN_DESK_SIZE && desksSizes[1].height > Core.MIN_DESK_SIZE ) ||
+				  event === undefined ) {
+				deskSizeIsFine = true;
+			} else {
+				setLargeDeskBound = false;
+			}
+
+			if ( event !== undefined ) {
+				desksInScreen += event.options.operation;				
+			}
+
+			if ( countLoop === 8 ) {
+				desksInScreen = desksInScreenBackup - 1;
+			}
+
+			countLoop++;			
+		}		
 
     	new Core.Layout.DesksBoundaries.Bounding(...desksSizes, desksInContainer).initBoundaries();
 
@@ -296,7 +321,7 @@ export class LayoutUtils {
 	    			if ( diffBound[minBound] === undefined || 
 	    				 diffBound[minBound] > bound[minBound] - deskBound[minBound] ) {
 	    				diffBound[minBound] = bound[minBound] - deskBound[minBound];
-	    				boundLimits[minBound] = deskBound[minBound] + 40;
+	    				boundLimits[minBound] = deskBound[minBound] + Core.MIN_DESK_SIZE;
 	    			}
 	    		}
 
@@ -306,7 +331,7 @@ export class LayoutUtils {
 	    			if ( diffBound[maxBound] === undefined || 
 	    				 diffBound[maxBound] > newDiffBound ) {
 	    				diffBound[maxBound] = newDiffBound;
-	    				boundLimits[maxBound] = deskBound[minBound] + deskBound[maxBound] - 40;
+	    				boundLimits[maxBound] = deskBound[minBound] + deskBound[maxBound] - Core.MIN_DESK_SIZE;
 	    			}
 	    		}
 	    	}

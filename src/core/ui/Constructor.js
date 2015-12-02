@@ -22,20 +22,6 @@ export class Constructor {
 		this.createStructure();		
 		this.createLayout();
 		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-		this.createTool( "primary", LayoutTools );
-
-
 
 		this.createTool( "secondary", LayoutTotalsTools );
 		this.createTool( "secondary", LayoutTotalsTools );

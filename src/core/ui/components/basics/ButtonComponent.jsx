@@ -14,7 +14,8 @@ export class ButtonComponent extends React.Component {
 				className="btn btn-mirror-pro" 
 				type="button" 
 				onMouseDown={ this.props.handleMouseDown }
-				onClick={ this.props.handleClick }>{ this.props.children }</button>
+				onClick={ this.props.handleClick }
+				style={ this.props.display ? { display: "block" } : { display: "none" } }>{ this.props.children }</button>
 		);
 	}
 }

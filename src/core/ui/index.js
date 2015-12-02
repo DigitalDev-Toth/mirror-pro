@@ -5,9 +5,11 @@ import { Constructor } from "./Constructor";
  * @type {[type]}
  */
 export let UI = {
+	
 	Constructor,
 	desksInScreen: 1,
 	desksBoundaries: [],
 	desksSelected: [],
-	layoutCustom: false
+	layoutCustom: false,
+	layoutCustomizing: false 
 };

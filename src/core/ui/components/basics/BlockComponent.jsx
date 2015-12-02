@@ -32,6 +32,7 @@ export class PrimaryBlockComponent extends React.Component {
 				<div id={ "primary-block-title" }
 					className="primary-block-title" 
 					key={ "primary-block-title" }>{ this.props.title }</div>
+				<hr />
 				<div id={ "primary-block-content" } 
 					className="primary-block-content" 
 					key={ "primary-block-content" }>{ this.props.children }</div>
