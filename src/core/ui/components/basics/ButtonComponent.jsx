@@ -15,7 +15,9 @@ export class ButtonComponent extends React.Component {
 				type="button" 
 				onMouseDown={ this.props.handleMouseDown }
 				onClick={ this.props.handleClick }
-				style={ this.props.display ? { display: "block" } : { display: "none" } }>{ this.props.children }</button>
+				style={ this.props.display ? { display: "block" } : { display: "none" } }
+				data-toggle={ this.props.dataToggle }
+				data-target={ this.props.dataTarget }>{ this.props.children }</button>
 		);
 	}
 }

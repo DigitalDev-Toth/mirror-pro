@@ -42,7 +42,7 @@ export class DeskComponent extends React.Component {
   			this.setState({
 	    		selection: "desk-unselected"
 	    	});
-  		} 	
+  		} 
   	}
 
 	/**

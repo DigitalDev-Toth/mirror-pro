@@ -238,5 +238,28 @@ export let Utils = {
     	} 
 
     	return false;
+    },
+
+    /**
+     * [findBound description]
+     * @param  {Array} boundaries [description]
+     * @param  {Number} width     [description]
+     * @param  {Number} height    [description]
+     * @return {Boolean|Integer}  [description]
+     */
+    findBound(boundaries, width, height) {
+    	let position = false;
+
+    	for ( let i = 0; i < boundaries.length; i++ ) {
+    		boundaries[i] = this.boundToFloat( boundaries[i] );
+
+    		if ( width === boundaries[i].left && height === boundaries[i].top ) {
+    			position = i; 
+    		} 
+
+    		boundaries[i] = this.boundToString( boundaries[i] );
+    	}
+
+    	return position;
     }
 };

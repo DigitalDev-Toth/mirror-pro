@@ -32,6 +32,8 @@ export class LayoutComponent extends React.Component {
 
         this.desksToResize = false;
 
+        this.layoutPredetermined = false;
+
         this.state = this._state;
     }
 
@@ -107,7 +109,7 @@ export class LayoutComponent extends React.Component {
         } else {
         	this._state.desksInScreen = Core.UI.desksInScreen;
         	this._state.desksBoundaries = Core.UI.desksBoundaries;
-        	this.setState(this._state);
+        	this.setState( this._state );
 
 	    	Core.UI.layoutCustomizing = false;
         }               
@@ -128,7 +130,11 @@ export class LayoutComponent extends React.Component {
 
         Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
         this._state.desksBoundaries = Core.UI.desksBoundaries;
-        this.setState(this._state);
+        this.setState( this._state );
+
+        if ( this.layoutPredetermined !== false ) {
+        	this.handleLayoutPredetermined();
+    	}
     }
 
     /**
@@ -156,6 +162,10 @@ export class LayoutComponent extends React.Component {
             case "resizable":
                 this.handleLayoutResizable();
                 break;
+
+            case "predetermined":
+            	this.handleLayoutPredetermined( event.options.layout );
+            	break;
         }        
     }
 
@@ -227,6 +237,77 @@ export class LayoutComponent extends React.Component {
     	this.desksBoundariesPile = [];
     	this._state.layoutTools = Core.UI.layoutTools;
         this.setState(this._state);
+    }
+
+    /**
+     * [handleLayoutPredetermined description]
+     * @param  {Integer} layout [description]
+     */
+    handleLayoutPredetermined(layout) {
+    	if ( !this.layoutPredetermined ) {
+    		Core.UI.layoutCustomizing = false;
+    		this.layoutPredetermined = layout;	    	
+
+	    	if ( this.layoutPredetermined === 1 || this.layoutPredetermined === 2 ) { 
+	    		Core.UI.desksInScreen = 12;
+	    	} else if ( this.layoutPredetermined === 3 ) {
+	    		Core.UI.desksInScreen = 6;
+	    	}	    	
+
+	    	Core.Events.CustomEvents.dispatchLayoutChange( window, { operation: 1 } );
+    	} else {
+    		if ( this.layoutPredetermined === 1 ) {
+    			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
+	    			position = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, bound.height );
+
+	    		Core.UI.desksSelected[0] = Core.UI.desksBoundaries[0];
+	    		Core.UI.desksSelected[position] = Core.UI.desksBoundaries[position];
+
+	    		this.handleDesksSelectedMerge(Core.UI.desksBoundaries);
+    		} 
+
+    		if ( this.layoutPredetermined === 2 ) {
+    			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
+	    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, 0 ),
+	    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 3, bound.height );
+
+	    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
+	    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
+
+	    		this.handleDesksSelectedMerge(Core.UI.desksBoundaries);
+    		} 
+
+    		if ( this.layoutPredetermined === 3 ) {
+    			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
+	    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, 0, 0 ),
+	    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, 0, bound.height );
+
+	    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
+	    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
+
+	    		this.handleDesksSelectedMerge(Core.UI.desksBoundaries);
+    			
+				bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[1] );
+    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, 0 );
+    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, bound.height );
+
+	    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
+	    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
+
+	    		this.handleDesksSelectedMerge(Core.UI.desksBoundaries);
+
+	    		bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[2] );
+    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, 0 );
+    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, bound.height );
+
+	    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
+	    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
+
+	    		this.handleDesksSelectedMerge(Core.UI.desksBoundaries);
+    		}    		
+    		
+    		this.layoutPredetermined = false;
+    	}
     }
 
     /**
