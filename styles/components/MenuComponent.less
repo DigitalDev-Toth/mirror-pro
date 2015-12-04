@@ -1,0 +1,30 @@
+.menu-generic {
+	margin: 0;
+	padding: 0;
+}
+
+.panel-primary-menu:extend(.menu-generic) {	
+	background: @bg-color-body;
+
+	#primary-menu-container:extend(.menu-generic) {
+		position: relative;
+
+		#primary-menu-content:extend(.menu-generic) {}
+	}
+}
+
+.panel-secondary-menu:extend(.menu-generic) {
+	background: @bg-color-body;
+	
+	#secondary-menu-container:extend(.menu-generic) {
+		width: 100%;
+		position: relative;
+	
+		#secondary-menu-content:extend(.menu-generic) {
+			margin-top: 6px;
+			overflow: hidden;
+			float: left; 
+			white-space: nowrap;
+		}
+	}
+}

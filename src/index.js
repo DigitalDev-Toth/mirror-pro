@@ -1,8 +1,8 @@
 import { Core } from "./core";
 import making from "./maker";
 
-import "../styles/app_style.css";
-import "../styles/perfect_scrollbar.css";
+import "!style!css!less!../styles/app.less";
+import "!style!css!less!../styles/perfect_scrollbar.css";
 
 global.MIRROR = Core;
 

@@ -12,8 +12,11 @@ export class PrimaryMenuComponent extends React.Component {
 	constructor() {
         super();
 
-        this.state = this.getSizes();
+        this.primaryMenuWidth = 160;
+
         this.perfectScrollbar = ps;
+
+        this.state = this.getSizes();        
     }
 
   	/**
@@ -63,7 +66,7 @@ export class PrimaryMenuComponent extends React.Component {
     getSizes() {
     	return {
             menuContainerSize: {
-            	width: "160px",
+            	width: `${ this.primaryMenuWidth }px`,
             	height: `${ window.innerHeight - 23 }px`
             }
         };
@@ -93,8 +96,9 @@ export class SecondaryMenuComponent extends React.Component {
 	constructor() {
         super();
 
-        this.state = this.getSizes();
         this.perfectScrollbar = ps;
+
+        this.state = this.getSizes();        
     }
 
   	/**
