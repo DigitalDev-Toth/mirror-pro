@@ -23,14 +23,16 @@ export class LayoutTools extends React.Component {
         };
 
         this._state = {
-        	selectable: true,
-        	resizable: true,
-        	merge: true,
-        	undone: true,
-        	redone: true,
-        	less: true, 
-        	more: true,
-        	save: false,
+        	selectable: false,
+        	resizable: false,
+        	merge: false,
+        	undone: false,
+        	redone: false,
+        	less: false, 
+        	more: false,
+        	save: true,
+        	delete: true,
+        	reset: true,
         	selected: 0
         };
 
@@ -57,7 +59,7 @@ export class LayoutTools extends React.Component {
      */
     handleLayoutChange(event) { 
     	if ( Core.UI.layoutCustom ) {
-    		this.toolsAccessible(true, true, true, true, true, false, false, true);    		
+    		this.toolsAccessible( false, false, false, false, false, true, true, false, false, false );    		
 
   			this.setState(this._state);    
     	}    	 
@@ -130,29 +132,29 @@ export class LayoutTools extends React.Component {
   		if ( event.target.options.selectedIndex === 0 ) {
   			Core.UI.layoutCustom = false;
 
-  			this.toolsAccessible(true, true, true, true, true, true, true, false); 
+  			this.toolsAccessible( false, false, false, false, false, false, false, true, true, true ); 
   		} else if ( event.target.options.selectedIndex === 1 ) {
   			Core.UI.layoutCustom = false;
   			
-  			this.toolsAccessible(true, true, true, true, true, true, true, false); 
+  			this.toolsAccessible( false, false, false, false, false, false, false, true, true, true ); 
   			
   			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 1 } );
   		} else if ( event.target.options.selectedIndex === 2 ) {
   			Core.UI.layoutCustom = false;
   			
-  			this.toolsAccessible(true, true, true, true, true, true, true, false); 
+  			this.toolsAccessible( false, false, false, false, false, false, false, true, true, true ); 
   			
   			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 2 } );
 		} else if ( event.target.options.selectedIndex === 3 ) {
 			Core.UI.layoutCustom = false;
   			
-  			this.toolsAccessible(true, true, true, true, true, true, true, false); 
+  			this.toolsAccessible( false, false, false, false, false, false, false, true, true, true ); 
   			
   			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 3 } );
 		} else {
 			Core.UI.layoutCustom = true;
   			
-  			this.toolsAccessible(true, true, true, true, true, false, false, true); 
+  			this.toolsAccessible( false, false, false, false, false, true, true, false, false, false ); 
 		}
 
   		this.setState(this._state);
@@ -180,6 +182,8 @@ export class LayoutTools extends React.Component {
 		this._state.less = options[5];
 		this._state.more = options[6];
 		this._state.save = options[7];
+		this._state.delete = options[8];
+		this._state.reset = options[9];
   	}
 
 	/**
@@ -216,22 +220,31 @@ export class LayoutTools extends React.Component {
 			<PrimaryBlockComponent title="Escritorios">
 				<div>
 					<SelectComponent options={ optionsSelectComponent } handleChange={ this.handleChange.bind( this ) } />
-					<ButtonComponent display={ this.state.save } dataToggle="modal" dataTarget="#myModal">Guardar</ButtonComponent>
+					<ButtonComponent disabled={ this.state.save } 
+									 dataToggle="modal" 
+									 dataTarget="#myModal"
+									 class="btn-default btn-primary-block">Guardar</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 5 ) } 
-									 display={ this.state.undone }>Deshacer</ButtonComponent>
+									 disabled={ this.state.undone }
+									 class="btn-default btn-primary-block">Deshacer</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 6 ) } 
-					                 display={ this.state.redone }>Rehacer</ButtonComponent>					
+					                 disabled={ this.state.redone }
+					                 class="btn-default btn-primary-block">Rehacer</ButtonComponent>					
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 2 ) } 
-					                 display={ this.state.selectable }>Seleccionable</ButtonComponent>
+					                 disabled={ this.state.selectable }
+					                 class="btn-default btn-primary-block">Seleccionable</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 4 ) } 
-					                 display={ this.state.merge }>Unir</ButtonComponent>
+					                 disabled={ this.state.merge }
+					                 class="btn-default btn-primary-block">Unir</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 3 ) } 
-									 display={ this.state.resizable }>Redimensionable</ButtonComponent>
-					
+									 disabled={ this.state.resizable }
+									 class="btn-default btn-primary-block">Redimensionable</ButtonComponent>					
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, -1 ) } 
-									 display={ this.state.less }>-</ButtonComponent>
+									 disabled={ this.state.less }
+									 class="btn-default btn-primary-block">-</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, 1 ) } 
-									 display={ this.state.more }>+</ButtonComponent>
+									 disabled={ this.state.more }
+									 class="btn-default btn-primary-block">+</ButtonComponent>
 				</div>
 				{ Modal }
 			</PrimaryBlockComponent>			

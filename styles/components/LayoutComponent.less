@@ -1,15 +1,15 @@
 #panel-layout {
 	margin: 0;
 	padding: 3px;
-	background: #6C6C6C;
-}
+	background: @bg-color-layout;
 
-#panel-layout div {
-	position: relative;
-}
+	div {
+		position: relative;
 
-#panel-layout div div {
-	position: absolute;
-	border: 2px solid #6C6C6C; /*#7A4196*/
-	background-color: #616161; /*#616161*/
+		div {
+			position: absolute;
+			border: 2px solid @border-color-desk;
+			background-color: @bg-color-desk;
+		}
+	}
 }

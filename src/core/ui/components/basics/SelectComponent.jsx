@@ -10,7 +10,7 @@ export class SelectComponent extends React.Component {
 	 */
 	render() {
 		return ( 
-			<select className="form-control" onChange={ this.props.handleChange }>
+			<select className="form-control select-default" onChange={ this.props.handleChange }>
 				{ this.props.options.map(( optionParent, i ) => {
 					if ( typeof optionParent === "object" ) {
 						return (

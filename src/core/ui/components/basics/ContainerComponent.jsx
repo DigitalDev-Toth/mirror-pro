@@ -103,12 +103,14 @@ export class ContainerComponent extends React.Component {
 					<div id="panel-header" className="row" 
 						style={ this.state.panelHeaderSize }>
 						<div className="col-xs-2"></div>
-						<div className="col-xs-9"></div>
+						<div className="col-xs-9 text-right">
+							Toth Limitada 2015 &copy; Mirror Profesional [versión 0.0.0-dev]
+						</div>
 						<div className="col-xs-1"></div>
 					</div>
 					<div id="panel-body" className="row" 
 						style={ this.state.panelBodySize }>
-						<div className="col-xs-2 panel-primary-menu" 
+						<div id="panel-primary-menu" className="col-xs-2" 
 							style={ this.state.panelPrimaryMenuSize }>
 							<PrimaryMenuComponent />
 						</div>
@@ -116,7 +118,7 @@ export class ContainerComponent extends React.Component {
 							style={ this.state.panelWorSpaceSize }>
 							<div id="panel-layout" className="row" 
 								style={ this.state.panelLayoutSize }></div>
-							<div className="row panel-secondary-menu" 
+							<div id="panel-secondary-menu" className="row" 
 								style={ this.state.panelSecondaryMenuSize }>
 								<SecondaryMenuComponent />
 							</div>

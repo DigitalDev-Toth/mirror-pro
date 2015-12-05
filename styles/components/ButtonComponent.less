@@ -1,12 +1,29 @@
-.btn-mirror-pro {
-	width: 100%;
-	color: #FFF;
-    background-color: #8A8A8A;
-    border: 0px solid #727272;
-    padding: 6px 6px;
-    font-size: 13px;
+.btn-default-generic {
+	background-color: @bg-color-default;
+}
+
+.btn-default:extend(.btn-default-generic) {	
+	color: @text-color-default;    
+    border: 0;
+    padding: 4px 6px;
+    font-size: 12px;
     line-height: 1.428571429;
     border-radius: 4px;
     margin-top: 2px;
     margin-bottom: 2px;
+}
+
+.btn-default:focus:extend(.btn-default-generic),
+.btn-default[disabled]:hover:extend(.btn-default-generic) {
+	color: @text-color-default;
+}
+
+.btn-default:hover:extend(.btn-default-generic),
+.btn-default:active:extend(.btn-default-generic)
+ {
+    color: @text-color-default-states;
+}
+
+.btn-primary-block {
+	width: 100%;
 }

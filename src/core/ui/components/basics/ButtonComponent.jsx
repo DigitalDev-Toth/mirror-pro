@@ -11,11 +11,11 @@ export class ButtonComponent extends React.Component {
 	render() {
 		return ( 
 			<button 
-				className="btn btn-mirror-pro" 
+				className={ `btn ${ this.props.class }` } 
 				type="button" 
 				onMouseDown={ this.props.handleMouseDown }
 				onClick={ this.props.handleClick }
-				style={ this.props.display ? { display: "block" } : { display: "none" } }
+				disabled={ this.props.disabled ? "disabled" : "" }
 				data-toggle={ this.props.dataToggle }
 				data-target={ this.props.dataTarget }>{ this.props.children }</button>
 		);
