@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Core } from "../../../../core";
+import ProfileLayouts from "json!../../../layout/utils/LayoutsPredetermined.json";
 import { PrimaryBlockComponent } from "../basics/BlockComponent.jsx";
 import { ButtonComponent } from "../basics/ButtonComponent.jsx";
 import { SelectComponent } from "../basics/SelectComponent.jsx";
@@ -16,6 +17,10 @@ export class LayoutTools extends React.Component {
 	 */
 	constructor() {
         super();
+
+        this.customIndex = null;
+
+        this.predeterminedLayouts = Core.Utils.cloneObject(ProfileLayouts);
 
         Core.UI.layoutTools = {
         	layoutSelectable: false,
@@ -61,7 +66,7 @@ export class LayoutTools extends React.Component {
      * @param  {Object} event [description]
      */
     handleLayoutChange(event) { 
-    	if ( Core.UI.layoutCustom && !Core.UI.layoutPredetermined && !Core.UI.layoutProfile ) {
+    	if ( Core.UI.customLayout && !Core.UI.profileLayout ) {
     		let pileState = null;
 
     		if ( Core.UI.desksBoundariesPile.length > 0 ) {
@@ -72,7 +77,7 @@ export class LayoutTools extends React.Component {
     			false, false, null, pileState, pileState, true, true, false, true, true, false 
 			);
   			    
-    	} else if ( Core.UI.layoutCustom && Core.UI.layoutPredetermined && !Core.UI.layoutProfile ) {
+    	} else if ( Core.UI.customLayout && Core.UI.profileLayout ) {
     		let pileState = null;
 
     		if ( Core.UI.desksBoundariesPile.length > 0 ) {
@@ -82,14 +87,19 @@ export class LayoutTools extends React.Component {
     		this.toolsAccessible( 
     			false, false, null, pileState, pileState, true, true, false, true, false, true 
 			);
-    	} else if ( !Core.UI.layoutCustom ) {
+    	} else if ( !Core.UI.customLayout && Core.UI.profileLayout ) {
+    		Core.UI.layoutTools["layoutSelectable"] = false;
+    		Core.UI.layoutTools["layoutResizable"] = false;
+
+    		this.toolsAccessible( false, false, true, true, true, true, true, true, true, true, true );
+    	} else if ( !Core.UI.customLayout && !Core.UI.profileLayout ) {
     		Core.UI.layoutTools["layoutSelectable"] = false;
     		Core.UI.layoutTools["layoutResizable"] = false;
 
     		this.toolsAccessible( false, false, true, true, true, false, false, true, true, true, true ); 
     	}
 
-    	this.setState(this._state); 	 
+    	this.setState( this._state ); 	 
     }
 
     /**
@@ -106,18 +116,6 @@ export class LayoutTools extends React.Component {
 	        	}                             
                 break;
 
-            case "merge":
-                
-                break;
-
-            case "undone":
-            	
-            	break;
-
-        	case "redone":
-        		
-    			break;
-
             case "resizable":
                 if ( Core.UI.layoutTools["layoutSelectable"] ) {
             		this.toolsAccessible( null, null, false, null, null, null, null, null, null, null, null ); 
@@ -125,13 +123,9 @@ export class LayoutTools extends React.Component {
 	        		this.toolsAccessible( null, null, true, null, null, null, null, null, null, null, null ); 
 	        	}
                 break;
-
-            case "predetermined":
-            	
-            	break;
         } 
 
-        this.setState(this._state);           
+        this.setState( this._state );           
     }
 
     /**
@@ -177,20 +171,31 @@ export class LayoutTools extends React.Component {
     			break;
 
 			case 5:
-				if ( Core.UI.layoutCustom ) {
+				if ( Core.UI.customLayout ) {
 					Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "undone" } );
 				}
 				break;
 
 			case 6:
-				if ( Core.UI.layoutCustom ) {
+				if ( Core.UI.customLayout ) {
 					Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "redone" } );
 				}				
 				break;
 
 			case 7:
-				if ( Core.UI.layoutCustom ) {
+				if ( Core.UI.customLayout ) {
 					Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "cancel" } );
+				}	
+				break;
+
+			case 8:
+				if ( Core.UI.customLayout ) {
+					var layout = Core.Utils.cloneObject(ProfileLayouts[this.customIndex]);
+
+					Core.Events.CustomEvents.dispatchLayoutGenericEvent( 
+						window, 
+						{ tool: "reset", profileLayout: { panelLayoutSize: layout.panelLayoutSize, desksBoundaries: layout.desksBoundaries } }  
+					);
 				}	
 				break;
   		}		
@@ -201,42 +206,40 @@ export class LayoutTools extends React.Component {
   	 * @param  {Object} event [description]
   	 */
   	handleChange(event) {
-  		Core.UI.layoutCustom = false;
+  		Core.UI.customLayout = false;
   		Core.UI.desksBoundariesPile = [];
 		Core.UI.layoutTools["layoutSelectable"] = false;
 		Core.UI.layoutTools["layoutResizable"] = false;
 
   		if ( event.target.options.selectedIndex === 0 ) {  			
-  			Core.UI.layoutPredetermined = false;
-  			Core.UI.layoutProfile = false;  			
+  			Core.UI.profileLayout = false;			
 
   			this.toolsAccessible( false, false, true, true, true, false, false, true, true, true, true );
-  		} else if ( event.target.options.selectedIndex === 1 ) {
-  			Core.UI.layoutPredetermined = true;
-  			Core.UI.layoutProfile = false; 
+  		} else {
+  			Core.UI.profileLayout = true;
   			
   			this.toolsAccessible( false, false, true, true, true, true, true, true, true, true, true );
-  			
-  			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 1 } );
-  		} else if ( event.target.options.selectedIndex === 2 ) {
-  			Core.UI.layoutCustom = false;
-  			
-  			this.toolsAccessible( false, false, true, true, true, true, true, true, true, true ); 
-  			
-  			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 2 } );
-		} else if ( event.target.options.selectedIndex === 3 ) {
-			Core.UI.layoutCustom = false;
-  			
-  			this.toolsAccessible( false, false, true, true, true, true, true, true, true, true ); 
-  			
-  			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "predetermined", layout: 3 } );
-		} else {
-			Core.UI.layoutCustom = false;
-  			
-  			this.toolsAccessible( false, false, true, true, true, true, true, false, false, false ); 
-		}
 
-  		this.setState(this._state);
+  			let item = Core.Utils.findItemInObject( 
+  				ProfileLayouts, 
+  				"name", 
+  				event.target.options[event.target.options.selectedIndex].text
+			);
+
+  			if ( item !== false ) {
+  				let layout = Core.Utils.cloneObject(item[0]);
+				this.customIndex = item[1];
+
+				Core.Events.CustomEvents.dispatchLayoutGenericEvent( 
+	  				window, 
+	  				{ tool: "custom", profileLayout: { panelLayoutSize: layout.panelLayoutSize, desksBoundaries: layout.desksBoundaries } }
+				);
+  			} else {
+  				console.log("ERROR");
+  			}			
+  		} 
+
+  		this.setState( this._state );
   	}
 
   	/**
@@ -272,16 +275,17 @@ export class LayoutTools extends React.Component {
 	 * [render description]
 	 */
 	render() {
-		let optionsSelectComponent = [];
+		let optionsSelectComponent = [],
+			optionsPredeterminedLayouts = [];
+
+		for ( let i in this.predeterminedLayouts ) {
+			optionsPredeterminedLayouts.push( this.predeterminedLayouts[i].name );		
+		}
 
 		optionsSelectComponent.push( "Por Defecto" );
 		optionsSelectComponent.push({
 			label: "Predeterminados",
-			options: [
-				"Layout 1",
-				"Layout 2",
-				"Layout 3"
-			]
+			options: optionsPredeterminedLayouts
 		});
 		optionsSelectComponent.push({
 			label: "Personalizados",
@@ -306,9 +310,8 @@ export class LayoutTools extends React.Component {
 									 dataToggle="modal" 
 									 dataTarget="#myModal"
 									 class="btn-default btn-primary-block">Guardar</ButtonComponent>
-				 	<ButtonComponent disabled={ this.state.reset } 
-									 dataToggle="modal" 
-									 dataTarget="#myModal"
+				 	<ButtonComponent handleClick={ this.handleClick.bind( this, 8 ) } 
+									 disabled={ this.state.reset }
 									 class="btn-default btn-primary-block">Reiniciar</ButtonComponent>
 				 	<ButtonComponent disabled={ this.state.delete } 
 									 dataToggle="modal" 

@@ -1,0 +1,133 @@
+{
+	"0": {
+		"name": "Esquema 1",
+		"panelLayoutSize": {
+			"width": 1172, 
+			"height": 955
+		},
+		"desksBoundaries": [
+			{
+				"width": "879px",
+				"height": "636.64px",
+				"left": "0px",
+				"top": "0px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "0px",
+				"top": "636.64px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "879px",
+				"top": "0px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "293px",
+				"top": "636.64px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "879px",
+				"top": "318.32px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "586px",
+				"top": "636.64px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "879px",
+				"top": "636.64px"
+			}
+		]
+	},
+
+	"1": {
+		"name": "Esquema 2",
+		"panelLayoutSize": {
+			"width": 1172,
+			"height": 955
+		},
+		"desksBoundaries": [
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "0px",
+				"top": "0px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "0px",
+				"top": "318.32px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "0px",
+				"top": "636.64px"
+			},
+			{
+				"width": "879px",
+				"height": "636.64px",
+				"left": "293px",
+				"top": "0px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "293px",
+				"top": "636.64px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "586px",
+				"top": "636.64px"
+			},
+			{
+				"width": "293px",
+				"height": "318.32px",
+				"left": "879px",
+				"top": "636.64px"
+			}
+		]
+	},
+
+	"2": {
+		"name": "Esquema 3",
+		"panelLayoutSize": {
+			"width": 1172,
+			"height": 955
+		},
+		"desksBoundaries": [
+			{
+				"width": "390.65px",
+				"height": "954.98px",
+				"left": "0px",
+				"top": "0px"
+			},
+			{
+				"width": "390.65px",
+				"height": "954.98px",
+				"left": "390.65px",
+				"top": "0px"
+			},
+			{
+				"width": "390.64999999999986px",
+				"height": "954.98px",
+				"left": "781.3px",
+				"top": "0px"
+			}
+		]
+	}
+}

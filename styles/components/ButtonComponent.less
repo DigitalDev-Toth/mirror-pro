@@ -1,5 +1,5 @@
 .btn-default-generic {
-	background-color: @bg-color-default;
+	background-color: @bg-color-default !important;
 }
 
 .btn-default:extend(.btn-default-generic) {	
@@ -15,7 +15,7 @@
 
 .btn-default:focus:extend(.btn-default-generic),
 .btn-default[disabled]:hover:extend(.btn-default-generic) {
-	color: @text-color-default;
+	color: @text-color-default; 
 }
 
 .btn-default:hover:extend(.btn-default-generic),

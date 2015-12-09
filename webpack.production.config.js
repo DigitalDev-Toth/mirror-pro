@@ -17,7 +17,7 @@ var config = {
     module: {
         loaders: [
             { 
-                test: /\.js$/,              
+                test: /\.(js|jsx)$/,              
                 loader: "babel-loader",
                 exclude: [
                     path.resolve( __dirname, "app" ),
@@ -29,6 +29,19 @@ var config = {
                     path.resolve( __dirname, "templates" ),
                     path.resolve( __dirname, "test" )
                 ]                
+            },
+            {
+            	test: /\.json$/,
+            	loader: "json-loader",
+            	exclude: [
+                    path.resolve( __dirname, "app" ),
+                    path.resolve( __dirname, "dev" ),
+                    path.resolve( __dirname, "images" ), 
+                    path.resolve( __dirname, "node_modules" ), 
+                    path.resolve( __dirname, "src" ),
+                    path.resolve( __dirname, "templates" ),
+                    path.resolve( __dirname, "test" )
+                ]
             },
             { 
                 test: /\.less$/, 

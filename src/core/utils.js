@@ -224,20 +224,24 @@ export let Utils = {
      * @param  {Number}  minDeskSize [description]
      * @return {Boolean}             [description]
      */
-    isBoundariesMinSize(boundaries, minDeskSize) {    	
+    isBoundariesMinSize(boundaries, minDeskSize) {  
+    	let result = false;
+
     	for ( let i = 0; i < boundaries.length; i++ ) {
     		boundaries[i] = this.boundToFloat( boundaries[i] );
     		
     		if ( boundaries[i].width <= minDeskSize ) {
-    			return true;
+    			result = true;
     		}
 
     		if ( boundaries[i].height <= minDeskSize ) {
-    			return true;
+    			result = true;
     		}
+
+    		boundaries[i] = this.boundToString( boundaries[i] );
     	} 
 
-    	return false;
+    	return result;
     },
 
     /**
@@ -261,5 +265,38 @@ export let Utils = {
     	}
 
     	return position;
-    }
+    },
+
+    /**
+     * [findItemInObject description]
+     * @param  {Object} object            [description]
+     * @param  {String|Number} variable   [description]
+     * @param  {String|Number} comparison [description]
+     * @return {Boolean|Array}            [description]
+     */
+    findItemInObject(object, variable, comparison) {
+    	let result = false;
+
+    	for ( let i in object ) {
+    		if ( object[i][variable] === comparison ) {
+    			result = [object[i], i];
+    		}
+    	}
+
+    	return result;
+    },
+
+    cloneObject(object) {
+    	if (object === null || typeof object !== 'object') {
+        	return object;
+    	}
+ 
+    	let clone = object.constructor();
+    	
+    	for ( let key in object ) {
+        	clone[key] = this.cloneObject( object[key] );
+    	}
+ 
+    	return clone;
+	}
 };

@@ -11,8 +11,7 @@ export let UI = {
 	desksBoundaries: [],
 	desksSelected: [],
 	desksBoundariesPile: [],
-	layoutCustom: false,
-	layoutPredetermined: false,
-	layoutProfile: false,
-	layoutCustomizing: false 
+	customLayout: false,
+	customizingLayout: false,
+	profileLayout: false
 };

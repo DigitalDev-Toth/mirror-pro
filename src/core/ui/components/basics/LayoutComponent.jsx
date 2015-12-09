@@ -27,14 +27,9 @@ export class LayoutComponent extends React.Component {
     	this.lastPanelLayoutSize = this.getPanelLayoutSize();
         this.setLargeDeskBound = false;
 
-        Core.UI.desksBoundariesPile = [];
         this.index = 0;
 
-        this.predetermining = false;
-
         this.desksToResize = false;
-
-        this.layoutPredetermined = false;
 
         this.state = this._state;
     }
@@ -106,9 +101,9 @@ export class LayoutComponent extends React.Component {
     handleLayoutChange(event) { 
     	this.setLargeDeskBound = false;
         
-        if ( !Core.UI.layoutCustomizing ) {
+        if ( !Core.UI.customizingLayout ) {
             Core.UI.desksBoundariesPile = [];
-        	Core.UI.layoutCustom = false;
+        	Core.UI.customLayout = false;
 
             this.setLargeDeskBound = Core.Layout.LayoutUtils.setDesksBoundaries( 
                 Core.UI.desksInScreen, 
@@ -120,7 +115,7 @@ export class LayoutComponent extends React.Component {
         	this._state.desksBoundaries = Core.UI.desksBoundaries;
         	this.setState( this._state );
 
-	    	Core.UI.layoutCustomizing = false;
+	    	Core.UI.customizingLayout = false;
         }               
     }
 
@@ -140,10 +135,6 @@ export class LayoutComponent extends React.Component {
         Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
         this._state.desksBoundaries = Core.UI.desksBoundaries;
         this.setState( this._state );
-
-        if ( this.layoutPredetermined !== false ) {
-        	this.setLayoutPredetermined();
-    	}
     }
 
     /**
@@ -172,12 +163,16 @@ export class LayoutComponent extends React.Component {
                 this.handleLayoutResizable();
                 break;
 
-            case "predetermined":
-            	this.handleLayoutPredetermined( event.options.layout );
+            case "custom":            	
+            	this.handleCustomLayout( event.options.profileLayout )
             	break;
 
         	case "cancel":
         		this.handleLayoutCancel();
+        		break;
+
+    		case "reset":
+        		this.handleLayoutReset( event.options.profileLayout );
         		break;
         }        
     }
@@ -208,7 +203,7 @@ export class LayoutComponent extends React.Component {
   			Core.UI.desksBoundaries = isNewDesksBoundaries;
 	  		Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
 	  		Core.UI.desksSelected = [];
-	  		Core.UI.layoutCustomizing = true;	  		
+	  		Core.UI.customizingLayout = true;	  		
 
 	  		if ( Core.UI.desksBoundariesPile.length > 0 ) {
 	  			Core.UI.desksBoundariesPile = Core.Utils.deleteLastPartOfArray( 
@@ -217,11 +212,9 @@ export class LayoutComponent extends React.Component {
   				);
 	  		}
 
-	  		if ( !this.predetermining ) {
-	  			Core.UI.layoutCustom = true;
-	  			Core.UI.desksBoundariesPile.push( Core.UI.desksBoundaries );
-	  			this.index = Core.UI.desksBoundariesPile.length - 1;
-	  		}	  		
+  			Core.UI.customLayout = true;
+  			Core.UI.desksBoundariesPile.push( Core.UI.desksBoundaries );
+  			this.index = Core.UI.desksBoundariesPile.length - 1;	  		
 
 	  		Core.Events.CustomEvents.dispatchLayoutChange( window ); 		
   		}  		
@@ -244,7 +237,7 @@ export class LayoutComponent extends React.Component {
 	  		}
 
 	  		Core.UI.desksBoundaries = Core.UI.desksBoundariesPile[this.index];
-	  		Core.UI.layoutCustomizing = true;
+	  		Core.UI.customizingLayout = true;
 	  		
 	  		Core.Events.CustomEvents.dispatchLayoutChange( window );
   		}
@@ -260,97 +253,52 @@ export class LayoutComponent extends React.Component {
     }
 
     /**
-     * [handleLayoutPredetermined description]
-     * @param  {Integer} layout [description]
+     * [handleCustomLayout description]
+     * @param  {Object} customLayout [description]
      */
-    handleLayoutPredetermined(layout) {
-    	let panelLayoutSize = this.getPanelLayoutSize();
+    handleCustomLayout(profileLayout) {
+    	let desksBoundaries = profileLayout.desksBoundaries,
+    		lastPanelLayoutSize = profileLayout.panelLayoutSize;
 
-    	if ( panelLayoutSize.width > 800 && panelLayoutSize.height > 600 ) {
-    		Core.UI.layoutCustomizing = false;
-    		this.layoutPredetermined = layout;	    	
+    	desksBoundaries = Core.Layout.LayoutUtils.resizeDesksBoundaries( 
+            desksBoundaries,
+            this.getPanelLayoutSize(),
+            lastPanelLayoutSize
+        );
 
-	    	if ( this.layoutPredetermined === 1 || this.layoutPredetermined === 2 ) { 
-	    		Core.UI.desksInScreen = 12;
-	    	} else if ( this.layoutPredetermined === 3 ) {
-	    		Core.UI.desksInScreen = 6;
-	    	}	    	
+        let deskToSmall = Core.Utils.isBoundariesMinSize( desksBoundaries, Core.MIN_DESK_SIZE );
 
-	    	Core.Events.CustomEvents.dispatchLayoutChange( window, { operation: 1 } );
-    	} else {
-    		
-    	}
-    }
+        if ( !deskToSmall ) {
+        	Core.UI.customizingLayout = true;
+        	Core.UI.desksBoundaries = desksBoundaries;
 
-    /**
-     * [setLayoutPredetermined description]
-     */
-    setLayoutPredetermined() {
-    	this.predetermining = true;
-
-    	if ( this.layoutPredetermined === 1 ) {
-			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
-    			position = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, bound.height );
-
-    		Core.UI.desksSelected[0] = Core.UI.desksBoundaries[0];
-    		Core.UI.desksSelected[position] = Core.UI.desksBoundaries[position];
-
-    		this.handleDesksSelectedMerge( Core.UI.desksBoundaries );
-		} 
-
-		if ( this.layoutPredetermined === 2 ) {
-			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
-    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, 0 ),
-    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 3, bound.height );
-
-    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
-    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
-
-    		this.handleDesksSelectedMerge( Core.UI.desksBoundaries );
-		} 
-
-		if ( this.layoutPredetermined === 3 ) {
-			let bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[0] ),
-    			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, 0, 0 ),
-    			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, 0, bound.height );
-
-    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
-    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
-
-    		this.handleDesksSelectedMerge( Core.UI.desksBoundaries );
-			
-			bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[1] );
-			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, 0 );
-			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width, bound.height );
-
-    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
-    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
-
-    		this.handleDesksSelectedMerge( Core.UI.desksBoundaries );
-
-    		bound = Core.Utils.boundToFloat( Core.UI.desksBoundaries[2] );
-			position1 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, 0 );
-			position2 = Core.Utils.findBound( Core.UI.desksBoundaries, bound.width * 2, bound.height );
-
-    		Core.UI.desksSelected[position1] = Core.UI.desksBoundaries[position1];
-    		Core.UI.desksSelected[position2] = Core.UI.desksBoundaries[position2];
-
-    		this.handleDesksSelectedMerge( Core.UI.desksBoundaries );
-		}    		
-		
-		this.predetermining = false;
-		this.layoutPredetermined = false;
+        	Core.Events.CustomEvents.dispatchLayoutChange( window );
+        } else {
+        	console.log("ERROR")
+        }   
     }
 
     /**
      * [handleLayoutCancel description]
      */
     handleLayoutCancel() {
-    	Core.UI.layoutCustomizing = true;
-    	Core.UI.layoutCustom = false;
+    	Core.UI.customizingLayout = true;
+    	Core.UI.customLayout = false;
     	Core.UI.desksBoundariesPile = [];
 
     	Core.Events.CustomEvents.dispatchLayoutChange( window );
+    }
+
+    /**
+     * [handleLayoutReset description]
+     * @param  {Object} customLayout [description]
+     */
+    handleLayoutReset(profileLayout) {
+    	Core.UI.customizingLayout = true;
+    	Core.UI.customLayout = false;
+    	Core.UI.desksBoundariesPile = [];
+
+    	this.handleCustomLayout(profileLayout);
     }
 
     /**
@@ -390,7 +338,7 @@ export class LayoutComponent extends React.Component {
                 this.desksToResize
             );
 
-            Core.UI.layoutCustom = true;
+            Core.UI.customLayout = true;
 
             this._state.desksBoundaries = Core.UI.desksBoundaries;
             this.setState(this._state);    
@@ -406,8 +354,8 @@ export class LayoutComponent extends React.Component {
 
         this._state.mouseMoveState = false;
 
-        if ( Core.UI.layoutCustom ) {
-        	Core.UI.layoutCustomizing = true;
+        if ( Core.UI.customLayout ) {
+        	Core.UI.customizingLayout = true;
         	Core.Events.CustomEvents.dispatchLayoutChange( window );
         }        
     }
