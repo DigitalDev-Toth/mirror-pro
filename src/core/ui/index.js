@@ -10,6 +10,9 @@ export let UI = {
 	desksInScreen: 1,
 	desksBoundaries: [],
 	desksSelected: [],
+	desksBoundariesPile: [],
 	layoutCustom: false,
+	layoutPredetermined: false,
+	layoutProfile: false,
 	layoutCustomizing: false 
 };
