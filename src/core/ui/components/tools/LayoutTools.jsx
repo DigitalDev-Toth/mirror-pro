@@ -70,7 +70,7 @@ export class LayoutTools extends React.Component {
     		let pileState = null;
 
     		if ( Core.UI.desksBoundariesPile.length > 0 ) {
-    			pileState = false
+    			pileState = false;
     		}
 
     		this.toolsAccessible( 
@@ -81,20 +81,20 @@ export class LayoutTools extends React.Component {
     		let pileState = null;
 
     		if ( Core.UI.desksBoundariesPile.length > 0 ) {
-    			pileState = false
+    			pileState = false;
     		}
 
     		this.toolsAccessible( 
     			false, false, null, pileState, pileState, true, true, false, true, false, true 
 			);
     	} else if ( !Core.UI.customLayout && Core.UI.profileLayout ) {
-    		Core.UI.layoutTools["layoutSelectable"] = false;
-    		Core.UI.layoutTools["layoutResizable"] = false;
+    		Core.UI.layoutTools.layoutSelectable = false;
+    		Core.UI.layoutTools.layoutResizable = false;
 
     		this.toolsAccessible( false, false, true, true, true, true, true, true, true, true, true );
     	} else if ( !Core.UI.customLayout && !Core.UI.profileLayout ) {
-    		Core.UI.layoutTools["layoutSelectable"] = false;
-    		Core.UI.layoutTools["layoutResizable"] = false;
+    		Core.UI.layoutTools.layoutSelectable = false;
+    		Core.UI.layoutTools.layoutResizable = false;
 
     		this.toolsAccessible( false, false, true, true, true, false, false, true, true, true, true ); 
     	}
@@ -109,7 +109,7 @@ export class LayoutTools extends React.Component {
     handleLayoutGenericEvent(event) {
         switch( event.options.tool ) {
             case "selectable":
-            	if ( Core.UI.layoutTools["layoutSelectable"] ) {
+            	if ( Core.UI.layoutTools.layoutSelectable ) {
             		this.toolsAccessible( null, null, false, null, null, null, null, null, null, null, null ); 
 	        	} else {
 	        		this.toolsAccessible( null, null, true, null, null, null, null, null, null, null, null ); 
@@ -117,7 +117,7 @@ export class LayoutTools extends React.Component {
                 break;
 
             case "resizable":
-                if ( Core.UI.layoutTools["layoutSelectable"] ) {
+                if ( Core.UI.layoutTools.layoutSelectable ) {
             		this.toolsAccessible( null, null, false, null, null, null, null, null, null, null, null ); 
 	        	} else {
 	        		this.toolsAccessible( null, null, true, null, null, null, null, null, null, null, null ); 
@@ -151,7 +151,7 @@ export class LayoutTools extends React.Component {
 	        case 2:
 	        	this.toolsReset( "layoutSelectable" );
 
-        		Core.UI.layoutTools["layoutSelectable"] = !Core.UI.layoutTools["layoutSelectable"];
+        		Core.UI.layoutTools.layoutSelectable = !Core.UI.layoutTools.layoutSelectable;
 	        	
   				Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "selectable" } );
   				break;
@@ -159,7 +159,7 @@ export class LayoutTools extends React.Component {
 			case 3:
 				this.toolsReset( "layoutResizable" );
 
-  				Core.UI.layoutTools["layoutResizable"] = !Core.UI.layoutTools["layoutResizable"];
+  				Core.UI.layoutTools.layoutResizable = !Core.UI.layoutTools.layoutResizable;
 
   				Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "resizable" } );
   				break;
@@ -208,8 +208,8 @@ export class LayoutTools extends React.Component {
   	handleChange(event) {
   		Core.UI.customLayout = false;
   		Core.UI.desksBoundariesPile = [];
-		Core.UI.layoutTools["layoutSelectable"] = false;
-		Core.UI.layoutTools["layoutResizable"] = false;
+		Core.UI.layoutTools.layoutSelectable = false;
+		Core.UI.layoutTools.layoutResizable = false;
 
   		if ( event.target.options.selectedIndex === 0 ) {  			
   			Core.UI.profileLayout = false;			
@@ -235,7 +235,14 @@ export class LayoutTools extends React.Component {
 	  				{ tool: "custom", profileLayout: { panelLayoutSize: layout.panelLayoutSize, desksBoundaries: layout.desksBoundaries } }
 				);
   			} else {
-  				console.log("ERROR");
+  				Core.Events.CustomEvents.dispatchContainerGenericEvent( 
+        		window, 
+        		{ 
+        			subject: "alert", 
+        			title: "Error",
+        			message: "No se encontró el layout" 
+        		} 
+    		);
   			}			
   		} 
 

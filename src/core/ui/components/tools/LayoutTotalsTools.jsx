@@ -61,7 +61,7 @@ export class LayoutTotalsTools extends React.Component {
     	
         this.setState({
     		desksInScreen: Core.UI.desksInScreen
-    	}); 
+    	});
     }
 
 	/**

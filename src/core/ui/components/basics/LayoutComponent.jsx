@@ -83,8 +83,7 @@ export class LayoutComponent extends React.Component {
         	}    		
 
         	Core.Events.CustomEvents.dispatchContainerGenericEvent( 
-        		window, 
-        		{ width: this.containerMinSize.width, height: this.containerMinSize.height } 
+        		window, { subject: "containerMinSize", size: this.containerMinSize } 
     		);
         } else {
         	this.containerMinSize = false;
@@ -111,6 +110,8 @@ export class LayoutComponent extends React.Component {
                 event 
             );            
         } else {
+        	Core.UI.desksInScreen = Core.UI.desksBoundaries.length;
+        	
         	this._state.desksInScreen = Core.UI.desksInScreen;
         	this._state.desksBoundaries = Core.UI.desksBoundaries;
         	this.setState( this._state );
@@ -164,7 +165,7 @@ export class LayoutComponent extends React.Component {
                 break;
 
             case "custom":            	
-            	this.handleCustomLayout( event.options.profileLayout )
+            	this.handleCustomLayout( event.options.profileLayout );
             	break;
 
         	case "cancel":
@@ -217,7 +218,16 @@ export class LayoutComponent extends React.Component {
   			this.index = Core.UI.desksBoundariesPile.length - 1;	  		
 
 	  		Core.Events.CustomEvents.dispatchLayoutChange( window ); 		
-  		}  		
+  		} else {
+  			Core.Events.CustomEvents.dispatchContainerGenericEvent( 
+        		window, 
+        		{ 
+        			subject: "alert", 
+        			title: "Error",
+        			message: "Imposible unir esos escritorios" 
+        		} 
+    		);
+  		} 		
   	}
 
   	/**
@@ -274,7 +284,14 @@ export class LayoutComponent extends React.Component {
 
         	Core.Events.CustomEvents.dispatchLayoutChange( window );
         } else {
-        	console.log("ERROR")
+        	Core.Events.CustomEvents.dispatchContainerGenericEvent( 
+        		window, 
+        		{ 
+        			subject: "alert", 
+        			title: "Error",
+        			message: "El tamaño de la ventana es muy pequeño para dibujar el layout" 
+        		} 
+    		);
         }   
     }
 
@@ -393,8 +410,8 @@ export class LayoutComponent extends React.Component {
         let resizable = null, selectable = null;
 
         if ( this.state.layoutTools ) {
-            resizable = this.state.layoutTools["layoutResizable"];
-            selectable = this.state.layoutTools["layoutSelectable"];
+            resizable = this.state.layoutTools.layoutResizable;
+            selectable = this.state.layoutTools.layoutSelectable;
         }
 
 	    return (

@@ -13,6 +13,14 @@ export class PrimaryBlockComponent extends React.Component {
         super();
 
         this.perfectScrollbar = ps;
+
+        this.displayContent = "block";
+
+        this.state = {
+        	style: {
+        		display: this.displayContent
+    		}
+        };
     }
 
     /**
@@ -20,6 +28,23 @@ export class PrimaryBlockComponent extends React.Component {
      */
     componentDidMount() {
 		this.perfectScrollbar.update( document.getElementById( "primary-menu-container" ) ); 
+    }
+
+    /**
+     * [handleClick description]
+     */
+    handleClick() {
+    	if ( this.displayContent === "block" ) {
+    		this.displayContent = "none";
+    	} else {
+    		this.displayContent = "block";
+    	}
+
+    	this.setState({
+    		style: {
+    			display: this.displayContent
+			}
+    	});
     }
 
 	/**
@@ -30,11 +55,13 @@ export class PrimaryBlockComponent extends React.Component {
 			<div className="primary-block" 
 				key={ "primary-block" }>
 				<div id={ "primary-block-title" }
-					className="primary-block-title" 
+					className="primary-block-title"
+					onClick={ this.handleClick.bind( this ) }
 					key={ "primary-block-title" }>{ this.props.title }</div>
 				<hr />
 				<div id={ "primary-block-content" } 
-					className="primary-block-content" 
+					className="primary-block-content"
+					style={ this.state.style }
 					key={ "primary-block-content" }>{ this.props.children }</div>
 			</div>
 		);
