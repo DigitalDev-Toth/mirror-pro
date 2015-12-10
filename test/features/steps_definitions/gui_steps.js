@@ -1,8 +1,6 @@
-import chai from "chai";
+const expect = require( "chai" ).expect;
 
-const expect = chai.expect;
-
-export default function () {
+module.exports = function () {
 
     this.Given(/^the Mirror Pro page is opened$/, function(next) {
         

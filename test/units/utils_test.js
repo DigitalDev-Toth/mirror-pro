@@ -27,7 +27,7 @@ describe("Utils functionalities", function() {
 	it("should get a number with two decimals", (done) => {
 		let number = Utils.getNumberWithTwoDecimalsTruncated( 8.8889 ),
 			decimals = number.toString().split( "." )[1].length;
-		console.log(number, decimals);
+
 		expect( decimals ).to.equal( 2 );
 
 		done();

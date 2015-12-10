@@ -18,7 +18,10 @@ var config = {
         loaders: [
             { 
                 test: /\.(js|jsx)$/,              
-                loader: "babel-loader",
+                loader: "babel",
+                query: {
+        			presets: ["react", "es2015"]
+      			},
                 exclude: [
                     path.resolve( __dirname, "app" ),
                     path.resolve( __dirname, "bootstrap.config.js" ),

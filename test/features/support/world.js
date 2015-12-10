@@ -1,4 +1,4 @@
-import webdriverio from "webdriverio";
+const webdriverio = require( "webdriverio" );
 
 function World() {
 
@@ -9,7 +9,7 @@ function World() {
 	});
 }
 
-export default function() {
+module.exports = function() {
 	
   	this.World = World;
 }
