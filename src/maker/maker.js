@@ -3,9 +3,10 @@
  */
 export class Maker {
 
-	constructor() {}
-
-	UI() {
-		new global.MIRROR.UI.Constructor();
+	/**
+	 * [constructor description]
+	 */
+	constructor() {
+		this.UI = new global.MIRROR.UI.Creator();
 	}
 }

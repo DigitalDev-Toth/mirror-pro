@@ -14,6 +14,5 @@ export const CONST = {
 	RENDER_TYPE				: "WebGL",
 	LIBRARY					: "ThreeJS", 
 
-	MAX_DESKS_SUPPORT	    : 20,
 	MIN_DESK_SIZE			: 200
 };

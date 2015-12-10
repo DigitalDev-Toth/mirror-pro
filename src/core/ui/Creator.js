@@ -10,7 +10,7 @@ import { LayoutTotalsTools } from "./components/tools/LayoutTotalsTools.jsx";
 /**
  * 
  */
-export class Constructor {
+export class Creator {
 	
 	/**
 	 * [constructor description]
@@ -18,27 +18,28 @@ export class Constructor {
 	constructor() {
 		this.blockToolContainerID = 0;
 
-		this.createContainer();
-		this.createStructure();		
-		this.createLayout();
-		this.createTool( "primary", LayoutTools );
+		this.container();
+		this.structure();		
+		this.layout();
 
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
-		this.createTool( "secondary", LayoutTotalsTools );
+		this.tool( "primary", LayoutTools );
+
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools );
 	}
 
 	/**
-	 * [createContainer description]
+	 * [container description]
 	 */
-	createContainer() {		
+	container() {		
 		let mirrorPro = document.createElement( "div" );
 		
 		mirrorPro.setAttribute( "id", "mirror-pro" );
@@ -47,9 +48,9 @@ export class Constructor {
 	}
 
 	/**
-	 * [createContainerStructure description]
+	 * [structure description]
 	 */
-	createStructure() {
+	structure() {
 		ReactDOM.render( 
 			<ContainerComponent />, 
 			document.getElementById( "mirror-pro" ) 
@@ -57,9 +58,9 @@ export class Constructor {
 	}
 
 	/**
-	 * [createLayout description]
+	 * [layout description]
 	 */
-	createLayout() {
+	layout() {
 		ReactDOM.render( 
 			<LayoutComponent />, 
 			document.getElementById( "panel-layout" ) 
@@ -67,10 +68,10 @@ export class Constructor {
 	}
 
 	/**
-	 * [createTool description]
+	 * [tool description]
 	 * @param  {String} where [description]
 	 */
-	createTool(where = "primary", Component) {
+	tool(where = "primary", Component) {
 		let blockContainer = document.getElementById( `${ where }-menu-content` ),
 			blockToolContainer = document.createElement( "div" );
 

@@ -1,4 +1,4 @@
-import { Constructor } from "./Constructor";
+import { Creator } from "./Creator";
 
 /**
  * [UI description]
@@ -6,7 +6,7 @@ import { Constructor } from "./Constructor";
  */
 export let UI = {
 	
-	Constructor,
+	Creator,
 	desksInScreen: 1,
 	desksBoundaries: [],
 	desksSelected: [],
