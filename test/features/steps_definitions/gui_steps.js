@@ -14,14 +14,14 @@ module.exports = function () {
         next();
     });
 
-    this.Then(/^it should have a "mirror-pro" container$/, function(next) {
+    this.Then(/^It should have a "mirror-pro" container$/, function(next) {
         
         this.driver
             .execute(() => {
                 return document.getElementById( "mirror-pro" );
             })
-            .then((mirrorProContainer) => {
-                expect( mirrorProContainer ).to.be.an( "object" );                
+            .then((result) => {
+                expect( result ).to.be.an( "object" );                
             })
             .call( next );
     });
@@ -32,14 +32,14 @@ module.exports = function () {
             .execute(() => {
                 return document.getElementById( "panel-layout" ).offsetHeight;
             })
-            .then((panelContextsHeight) => {
-                expect( panelContextsHeight.value ).to.be.above(0);                 
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                 
             })
             .execute(() => {
                 return document.getElementById( "panel-secondary-menu" ).offsetHeight;
             })
-            .then((panelSecondaryMenuHeight) => {
-                expect( panelSecondaryMenuHeight.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .call( next ); 
     });
@@ -50,14 +50,14 @@ module.exports = function () {
             .execute(() => {
                 return document.getElementById( "primary-menu-container" ).offsetHeight;
             })
-            .then((menuContainerBodyDOMHeight) => {
-                expect( menuContainerBodyDOMHeight.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .execute(() => {
                 return document.getElementById( "secondary-menu-container" ).offsetHeight;
             })
-            .then((menuContainerMainDOMHeight) => {
-                expect( menuContainerMainDOMHeight.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .call( next ); 
     });
@@ -68,8 +68,8 @@ module.exports = function () {
             .execute(() => {
                 return document.getElementById( "primary-menu-content" ).offsetHeight;
             })
-            .then((menuContainerBodyContentDOMHeight) => {
-                expect( menuContainerBodyContentDOMHeight.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .call( next ); 
     });
@@ -80,20 +80,32 @@ module.exports = function () {
             .execute(() => {
                 return document.getElementById( "secondary-menu-content" ).offsetHeight;
             })
-            .then((menuContainerMainContentDOMHeight) => {
-                expect( menuContainerMainContentDOMHeight.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .call( next ); 
     });
 
-    this.Then(/^the menu should have mutiple blocks$/, function(next) {
+    this.Then(/^the menu should have unless one block$/, function(next) {
         
         this.driver
             .execute(() => {
                 return document.getElementById( "primary-menu-content" ).children.length;
             })
-            .then((menuContainerBodyContentDOMChildrenLength) => {
-                expect( menuContainerBodyContentDOMChildrenLength.value ).to.be.above(0);                
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
+            })
+            .call( next ); 
+    });
+
+    this.Then(/^the "layout" should have unless one desk$/, function(next) {
+        
+        this.driver
+            .execute(() => {
+                return document.getElementById( "panel-layout" ).children[0].children.length;
+            })
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
             })
             .call( next ); 
     });

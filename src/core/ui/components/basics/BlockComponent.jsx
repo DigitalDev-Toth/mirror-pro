@@ -52,15 +52,14 @@ export class PrimaryBlockComponent extends React.Component {
 	 */
 	render() {
 		return ( 							
-			<div className="primary-block" 
+			<div id={ this.props.id }
+				className="primary-block" 
 				key={ "primary-block" }>
-				<div id={ "primary-block-title" }
-					className="primary-block-title"
+				<div className="primary-block-title"
 					onClick={ this.handleClick.bind( this ) }
 					key={ "primary-block-title" }>{ this.props.title }</div>
 				<hr />
-				<div id={ "primary-block-content" } 
-					className="primary-block-content"
+				<div className="primary-block-content"
 					style={ this.state.style }
 					key={ "primary-block-content" }>{ this.props.children }</div>
 			</div>
@@ -94,9 +93,8 @@ export class SecondaryBlockComponent extends React.Component {
 	 */
 	render() {
 		return ( 
-			<div key={ "secondary-block" }>
-				<div id={ "secondary-block-content" } 
-					className="secondary-block-content" 
+			<div id={ this.props.id } key={ "secondary-block" }>
+				<div className="secondary-block-content" 
 					key={ "secondary-block-content" }>{ this.props.children }</div>
 			</div>
 		);

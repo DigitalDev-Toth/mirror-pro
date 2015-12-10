@@ -22,18 +22,18 @@ export class Creator {
 		this.structure();		
 		this.layout();
 
-		this.tool( "primary", LayoutTools );
+		this.tool( "primary", LayoutTools, "layout-tools" );
 
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
-		this.tool( "secondary", LayoutTotalsTools );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-1" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-2" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-3" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-4" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-5" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-6" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-7" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-8" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-9" );
+		this.tool( "secondary", LayoutTotalsTools, "layout-totals-tools-10" );
 	}
 
 	/**
@@ -71,7 +71,7 @@ export class Creator {
 	 * [tool description]
 	 * @param  {String} where [description]
 	 */
-	tool(where = "primary", Component) {
+	tool(where = "primary", Component, blockID = "") {
 		let blockContainer = document.getElementById( `${ where }-menu-content` ),
 			blockToolContainer = document.createElement( "div" );
 
@@ -81,14 +81,14 @@ export class Creator {
 
 		if (where === "primary") {
 			ReactDOM.render( 
-				<Component />, 
+				<Component id={ blockID } />, 
 				document.getElementById( `block-tool-container-${ this.blockToolContainerID }` )
 			);
 		} else {
 			blockToolContainer.setAttribute( "class", "secondary-block" );
 
 			ReactDOM.render( 
-				<Component />, 
+				<Component id={ blockID } />, 
 				document.getElementById( `block-tool-container-${ this.blockToolContainerID }` )
 			);
 		}		

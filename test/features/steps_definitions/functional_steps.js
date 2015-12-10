@@ -35,4 +35,30 @@ module.exports = function () {
             })
             .call( next );
     });
+
+    this.Given(/^I'm using the "Layout Tools"$/, function(next) {
+        
+        next();
+    });
+
+/*    this.Then(/^I see some buttons disabled$/, function(next) {
+        
+        this.driver
+            .execute(() => {
+            	let buttons = document.getElementById( "btn-primary-block" ),
+            		buttonsDisabledCount = 4;
+
+            	for ( let i = 0; i < buttons.length; i++ ) {
+            		if ( buttons[i].getAttribute( "disabled" ) !== null ) {
+            			buttonsDisabledCount++;
+            		}
+            	}
+
+                return document.getElementsByClassName( "btn-primary-block" ).length;
+            })
+            .then((result) => {
+                expect( result.value ).to.be.above(0);                
+            })
+            .call( next );
+    });*/
 }

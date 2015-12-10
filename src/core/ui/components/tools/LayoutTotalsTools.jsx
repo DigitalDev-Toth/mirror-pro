@@ -69,7 +69,7 @@ export class LayoutTotalsTools extends React.Component {
 	 */
 	render() {
 		return ( 
-			<SecondaryBlockComponent>
+			<SecondaryBlockComponent id={ this.props.id }>
 				<span>Total de escritorios: { this.state.desksInScreen }</span>
 			</SecondaryBlockComponent>
 		);

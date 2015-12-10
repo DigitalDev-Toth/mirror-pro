@@ -6,9 +6,10 @@ Feature: Mirror Pro GUI
     Scenario: Visit Mirror Pro
         Given the Mirror Pro page is opened
         When the GUI is loaded
-        Then it should have a "mirror-pro" container
+        Then It should have a "mirror-pro" container
         Then the container should have a "Component" sizes greater than zero
         Then the menu should have a "Component" sizes greater than zero
         Then the menu should have sizes greater than zero in the "primary" panel
         Then the menu should have sizes greater than zero in the "secondary" panel
-        Then the menu should have mutiple blocks
+        Then the menu should have unless one block
+        Then the "layout" should have unless one desk 

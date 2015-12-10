@@ -7,12 +7,11 @@ Feature: Mirror Pro Functionalities
         Given I am on the Mirror Pro page
         When I see the page
         Then I should see "Mirror Pro" as the page title
-        Then I should see the "perfect scrollbar" when the mouse pointer it's over the menu
-        Then I should see the "layout panel"
+        Then I should see the "perfect scrollbar" when the mouse pointer it's over the menu        
 
     Scenario: Use Layout Tools
-        Given I see the "layout tools" panel
-        When I press the "add desk" button        
-        Then I should see the layout change
-        When I press the "remove desk" button
-        Then I should see the "total of desks" number change        
+        Given I'm using the "Layout Tools"
+        Then I see some buttons disabled
+        When I press the "add desks" button or I press the "remove desks" button      
+        Then I should see the layout change 
+        Then I should see the "total of desks" number change         

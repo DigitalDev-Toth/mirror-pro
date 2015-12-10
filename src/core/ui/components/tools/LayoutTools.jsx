@@ -333,7 +333,7 @@ export class LayoutTools extends React.Component {
 		}
 
 		return ( 
-			<PrimaryBlockComponent title="Escritorios">
+			<PrimaryBlockComponent title="Escritorios" id={ this.props.id }>
 				<div>
 					<SelectComponent options={ optionsSelectComponent } 
 					                 handleChange={ this.handleChange.bind( this ) }
