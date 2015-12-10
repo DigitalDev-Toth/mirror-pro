@@ -286,6 +286,11 @@ export let Utils = {
     	return result;
     },
 
+    /**
+     * [cloneObject description]
+     * @param  {Object} object [description]
+     * @return {Object}        [description]
+     */
     cloneObject(object) {
     	if (object === null || typeof object !== 'object') {
         	return object;

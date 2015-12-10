@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Core } from "../../../../core";
-import ProfileLayouts from "json!../../../layout/utils/LayoutsPredetermined.json";
+import ProfileLayouts from "json!../../../layout/utils/ProfileLayouts.json";
 import { PrimaryBlockComponent } from "../basics/BlockComponent.jsx";
 import { ButtonComponent } from "../basics/ButtonComponent.jsx";
 import { SelectComponent } from "../basics/SelectComponent.jsx";

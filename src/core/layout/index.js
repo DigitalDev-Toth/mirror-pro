@@ -1,4 +1,4 @@
-import { DesksBoundaries } from "./binPacking";
+import { DesksBoundaries } from "./bin_packing";
 import { LayoutUtils } from "./utils/LayoutUtils";
 
 /**
