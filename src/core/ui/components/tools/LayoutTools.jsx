@@ -6,6 +6,7 @@ import { PrimaryBlockComponent } from "../basics/BlockComponent.jsx";
 import { ButtonComponent } from "../basics/ButtonComponent.jsx";
 import { SelectComponent } from "../basics/SelectComponent.jsx";
 import { ModalComponent } from "../basics/ModalComponent.jsx";
+import { InputComponent } from "../basics/InputComponent.jsx";
 
 /**
  * 
@@ -123,6 +124,14 @@ export class LayoutTools extends React.Component {
 	        		this.toolsAccessible( null, null, true, null, null, null, null, null, null, null, null ); 
 	        	}
                 break;
+
+            case "save-profile-layout":
+            	console.log("save profile layout");
+            	break;
+
+            case "delete-profile-layout":
+            	console.log("delete profile layout");
+            	break;
         } 
 
         this.setState( this._state );           
@@ -238,7 +247,8 @@ export class LayoutTools extends React.Component {
   				Core.Events.CustomEvents.dispatchContainerGenericEvent( 
         		window, 
         		{ 
-        			subject: "alert", 
+        			subject: "dialog", 
+        			type: "alert",
         			title: "Error",
         			message: "No se encontró el layout" 
         		} 
@@ -306,48 +316,63 @@ export class LayoutTools extends React.Component {
 		let Modal = "";
 
 		if ( !this.state.save ) {
-			Modal = <ModalComponent />
+			let form = [];
+
+			form.push( <InputComponent key="input-save-profile-layout-1" 
+									   id="profile-layout-name" 
+									   type="text" 
+									   placeholder="Ingresa un nombre"
+									   label="Nombre del perfil" /> );
+
+			Modal = <ModalComponent id="save-profile-layout" 
+									modalSize=""
+									title="Guardar perfil"
+									form={ form }
+									functionality="save-profile-layout"
+									cancelButtonID="save-profile-layout-cancel-button" />
 		}
 
 		return ( 
 			<PrimaryBlockComponent title="Escritorios">
 				<div>
-					<SelectComponent options={ optionsSelectComponent } handleChange={ this.handleChange.bind( this ) } />
+					<SelectComponent options={ optionsSelectComponent } 
+					                 handleChange={ this.handleChange.bind( this ) }
+					                 class="select-primary-block" />
 					<ButtonComponent disabled={ this.state.save } 
 									 dataToggle="modal" 
-									 dataTarget="#myModal"
-									 class="btn-default btn-primary-block">Guardar</ButtonComponent>
+									 dataTarget="#save-profile-layout"
+									 class="btn-primary-block">Guardar</ButtonComponent>
 				 	<ButtonComponent handleClick={ this.handleClick.bind( this, 8 ) } 
 									 disabled={ this.state.reset }
-									 class="btn-default btn-primary-block">Reiniciar</ButtonComponent>
+									 class="btn-primary-block">Reiniciar</ButtonComponent>
 				 	<ButtonComponent disabled={ this.state.delete } 
 									 dataToggle="modal" 
 									 dataTarget="#myModal"
-									 class="btn-default btn-primary-block">Eliminar</ButtonComponent>
+									 class="btn-primary-block">Eliminar</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 5 ) } 
 									 disabled={ this.state.undone }
-									 class="btn-default btn-primary-block">Deshacer</ButtonComponent>
+									 class="btn-primary-block">Deshacer</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 6 ) } 
 					                 disabled={ this.state.redone }
-					                 class="btn-default btn-primary-block">Rehacer</ButtonComponent>					
+					                 class="btn-primary-block">Rehacer</ButtonComponent>					
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 2 ) } 
 					                 disabled={ this.state.selectable }
-					                 class="btn-default btn-primary-block">Seleccionable</ButtonComponent>
+					                 class="btn-primary-block">Seleccionable</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 4 ) } 
 					                 disabled={ this.state.merge }
-					                 class="btn-default btn-primary-block">Unir</ButtonComponent>
+					                 class="btn-primary-block">Unir</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 3 ) } 
 									 disabled={ this.state.resizable }
-									 class="btn-default btn-primary-block">Redimensionable</ButtonComponent>	
+									 class="btn-primary-block">Redimensionable</ButtonComponent>	
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 7 ) } 
 									 disabled={ this.state.cancel }
-									 class="btn-default btn-primary-block">Cancelar</ButtonComponent>				
+									 class="btn-primary-block">Cancelar</ButtonComponent>				
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, -1 ) } 
 									 disabled={ this.state.less }
-									 class="btn-default btn-primary-block">-</ButtonComponent>
+									 class="btn-primary-block">-</ButtonComponent>
 					<ButtonComponent handleClick={ this.handleClick.bind( this, 1, 1 ) } 
 									 disabled={ this.state.more }
-									 class="btn-default btn-primary-block">+</ButtonComponent>
+									 class="btn-primary-block">+</ButtonComponent>
 				</div>
 				{ Modal }
 			</PrimaryBlockComponent>			

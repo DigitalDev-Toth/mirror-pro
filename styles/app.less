@@ -8,17 +8,25 @@
 @import "./components/DeskComponent";
 @import "./components/ButtonComponent";
 @import "./components/SelectComponent";
+@import "./components/DialogComponent";
+@import "./components/ModalComponent";
+@import "./components/InputComponent";
 
 // colors
 @color-purple: #60287C;
 @color-light-purple: #7A4196;
+@color-dark-purple: #4F0873;
 @color-grey: #6C6C6C;
+@color-light-grey: #8A8A8A;
+@color-light-light-grey: #AEAEAE;
 @color-dark-grey: #4C4C4C;
 @color-dark-light-grey: #616161;
-@color-dark-white: #AEAEAE;
 @color-white: #FFF;
-
-@color-bg-default: #8A8A8A;
+@color-dark-white: #AEAEAE;
+@color-red: #A22828;
+@color-dark-red: #7E1818;
+@color-yellow: #BABD48;
+@color-dark-yellow: #A8AB39;
 
 // container colors
 @bg-color-header: @color-purple;
@@ -33,7 +41,7 @@
 
 // block colors
 @bg-color-block: @color-dark-light-grey;
-@text-color: @color-white;
+@text-color-block: @color-white;
 
 // layout colors
 @bg-color-layout: @color-grey;
@@ -41,9 +49,43 @@
 @border-color-desk: @color-grey;
 
 // select, button colors
-@bg-color-default: @color-bg-default;
-@text-color-default: @color-white;
-@text-color-default-states: @color-dark-grey;
+@bg-color-primary-block: @color-light-grey;
+@bg-color-primary-block-states: @color-light-light-grey;
+@text-color-primary-block: @color-white;
+@text-color-primary-block-states: @color-dark-grey;
+@bg-color-alert: @color-red;
+@bg-color-alert-states: @color-dark-red;
+@text-color-alert: @color-white;
+@bg-color-simple: @color-light-light-grey;
+@bg-color-simple-states: @color-light-grey;
+@text-color-simple: @color-white;
+@bg-color-caution: @color-yellow;
+@bg-color-caution-states: @color-dark-yellow;
+@text-color-caution: @color-white;
+@bg-color-main: @color-purple;
+@bg-color-main-states: @color-dark-purple;
+@text-color-main: @color-white;
+
+// input
+@bg-color-input: @color-dark-grey;
+@border-color-input: @color-light-grey;
+@text-color-input: @color-white; 
+
+// dialog
+@bg-color-dialog-alert-content: @color-grey;
+@bg-color-dialog-alert-header: @color-red;
+@border-color-dialog-alert-content: @color-red;
+@text-color-dialog-alert-content: @color-white;
+@bg-color-dialog-caution-content: @color-grey;
+@bg-color-dialog-caution-header: @color-yellow;
+@border-color-dialog-caution-content: @color-yellow;
+@text-color-dialog-caution-content: @color-white;
+
+// modal
+@bg-color-modal-content: @color-grey;
+@bg-color-modal-header: @color-purple;
+@border-color-modal-content: @color-purple;
+@text-color-modal-content: @color-white;
 
 @border-color-hr: @color-dark-white;
 

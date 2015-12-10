@@ -222,7 +222,8 @@ export class LayoutComponent extends React.Component {
   			Core.Events.CustomEvents.dispatchContainerGenericEvent( 
         		window, 
         		{ 
-        			subject: "alert", 
+        			subject: "dialog",
+        			type: "alert",
         			title: "Error",
         			message: "Imposible unir esos escritorios" 
         		} 
@@ -287,7 +288,8 @@ export class LayoutComponent extends React.Component {
         	Core.Events.CustomEvents.dispatchContainerGenericEvent( 
         		window, 
         		{ 
-        			subject: "alert", 
+        			subject: "dialog", 
+        			type: "alert",
         			title: "Error",
         			message: "El tamaño de la ventana es muy pequeño para dibujar el layout" 
         		} 

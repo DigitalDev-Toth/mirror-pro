@@ -1,0 +1,81 @@
+.dialog-alert-dialog {
+	width: 400px;
+
+	.dialog-alert-content {
+		background-color: @bg-color-dialog-alert-content;
+		color: @text-color-dialog-alert-content;
+		border: 1px solid @border-color-dialog-alert-content;
+
+		.keyframes(fade-in;{
+			0% { opacity: 0; }
+			100% { opacity: 1; }
+		});
+
+		.animation(fade-in 0.4s ease-in-out 1);
+
+		.dialog-alert-header {
+			background-color: @bg-color-dialog-alert-header;
+    		border-top-left-radius: 6px 6px;
+    		border-top-right-radius: 6px 6px;
+			border: 0;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.dialog-alert-body {
+
+		}
+
+		.dialog-alert-footer {
+			text-align: center;
+			border: 0;
+		}
+	}
+}
+
+.dialog-caution-dialog {
+	width: 400px;
+
+	.dialog-caution-content {
+		background-color: @bg-color-dialog-caution-content;
+		color: @text-color-dialog-caution-content;
+		border: 1px solid @border-color-dialog-caution-content;
+
+		.keyframes(fade-in;{
+			0% { opacity: 0; }
+			100% { opacity: 1; }
+		});
+
+		.animation(fade-in 0.4s ease-in-out 1);
+
+		.dialog-caution-header {
+			background-color: @bg-color-dialog-caution-header;
+    		border-top-left-radius: 6px 6px;
+    		border-top-right-radius: 6px 6px;
+			border: 0;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.dialog-caution-body {
+
+		}
+
+		.dialog-caution-footer {
+			text-align: center;
+			border: 0;
+		}
+	}
+}
+
+.keyframes(@name; @arguments) {
+	@-moz-keyframes @name { @arguments(); }
+	@-webkit-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}
+
+.animation(@arguments) {
+	-webkit-animation: @arguments;
+	-moz-animation: @arguments;
+	animation: @arguments;
+}

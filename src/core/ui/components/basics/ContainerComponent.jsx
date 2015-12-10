@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Core } from "../../../../core";
-import { AlertComponent } from "./AlertComponent.jsx";
+import { DialogComponent } from "./DialogComponent.jsx";
 import { PrimaryMenuComponent, SecondaryMenuComponent } from "./MenuComponent.jsx";
 
 /**
@@ -18,7 +18,8 @@ export class ContainerComponent extends React.Component {
         this.primaryMenuWidth = 160;
 
         this._state = {
-        	alert: {
+        	dialog: {
+        		type: "",
         		display: false,
         		title: "",
         		message: ""
@@ -69,22 +70,24 @@ export class ContainerComponent extends React.Component {
   	handleContainerGenericEvent(event) {
   		if ( event.options.subject === "containerMinSize" ) {
   			this._state.styles = this.getSizes( event.options.size.width, event.options.size.height );
-  		} else if ( event.options.subject === "alert" ) {
-  			this._state.alert.display = true;
-  			this._state.alert.title = event.options.title;
-  			this._state.alert.message = event.options.message;
+  		} else if ( event.options.subject === "dialog" ) {
+  			this._state.dialog.display = true;
+  			this._state.dialog.type = event.options.type;
+  			this._state.dialog.title = event.options.title;
+  			this._state.dialog.message = event.options.message;
   		}
 
     	this.setState( this._state );
   	}
 
   	/**
-  	 * [resetAlert description]
+  	 * [resetDialog description]
   	 */
-  	resetAlert() {
-  		this._state.alert.display = false;
-  		this._state.alert.title = "";
-  		this._state.alert.message = "";
+  	resetDialog() {
+  		this._state.dialog.display = false;
+  		this._state.dialog.type = "";
+  		this._state.dialog.title = "";
+  		this._state.dialog.message = "";
 
   		this.setState( this._state );
   	}
@@ -130,7 +133,7 @@ export class ContainerComponent extends React.Component {
 	render() {
 		let Backdrop = "";
 
-		if ( this.state.alert.display ) {
+		if ( this.state.dialog.display ) {
 			Backdrop = <div className="modal-backdrop fade in"></div>
 		}
 
@@ -164,11 +167,12 @@ export class ContainerComponent extends React.Component {
 							style={ this.state.styles.panelNavigatorbarSize }></div>
 					</div>
 				</div>
-				<AlertComponent display={ this.state.alert.display }
-					title={ this.state.alert.title }
-					resetAlert={ this.resetAlert.bind( this ) }>
-					{ this.state.alert.message }
-				</AlertComponent>
+				<DialogComponent display={ this.state.dialog.display }
+					title={ this.state.dialog.title }
+					resetDialog={ this.resetDialog.bind( this ) }
+					type={ this.state.dialog.type }>
+					{ this.state.dialog.message }
+				</DialogComponent>
 				{ Backdrop }
 			</div>			
 		);
