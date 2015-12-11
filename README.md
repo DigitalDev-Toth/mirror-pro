@@ -2,12 +2,13 @@ Mirror Profesional
 =============
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
-
+#
 ![Strider Badge](http://toth.cl:88/digitaldev-toth/mirror-pro/badge?branch=master)
+---
 
 ## Indicate for Use ##
 
-Node v5.0.0
+Tested with Node v5.2.0
 
 Depencencies:
 ```
@@ -34,5 +35,3 @@ npm run dev
 npm run test:unit
 npm run test:features
 ```
-
-Testing deploy to cao and cisanmartin - intent 18
