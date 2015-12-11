@@ -3,6 +3,8 @@ Mirror Profesional
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
 
+(http://toth.cl:88/digitaldev-toth/mirror-pro/badge?branch=master)
+
 ## Indicate for Use ##
 
 Node v5.0.0
