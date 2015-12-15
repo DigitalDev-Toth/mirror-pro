@@ -2,8 +2,8 @@ Mirror Profesional
 =============
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
-#
-![Strider Badge](http://toth.cl:88/digitaldev-toth/mirror-pro/badge?branch=master)
+---
+![Strider Badge](http://strider.toth.cl/digitaldev-toth/mirror-pro/badge?branch=master)
 ---
 
 ## Indicate for Use ##
