@@ -8,12 +8,42 @@ export class Custom {
 	 */
 	constructor() {
 
+		this.generalGenericEvent = new CustomEvent( "generalgenericevent" );
 		this.containerGenericEvent = new CustomEvent( "containergenericevent" );
 		this.layoutChange = new CustomEvent( "layoutchange" );
 		this.layoutBoundariesFinish = new CustomEvent( "layoutboundariesfinish" );
-		this.layoutGenericEvent = new CustomEvent( "layoutgenericevent" );
+		this.layoutGenericEvent = new CustomEvent( "layoutgenericevent" );		
 	}
 
+	/**
+	 * [onGeneralGenericEvent description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	onGeneralGenericEvent(objectDOM, callback) {
+		objectDOM.addEventListener( "generalgenericevent", callback );
+	}
+
+	/**
+	 * [offGeneralGenericEvent description]
+	 * @param  {Object}   objectDOM [description]
+	 * @param  {Function} callback  [description]
+	 */
+	offGeneralGenericEvent(objectDOM, callback) {
+		objectDOM.removeEventListener( "generalgenericevent", callback );
+	}
+
+	/**
+	 * [dispatchGeneralGenericEvent description]
+	 * @param  {Object} objectDOM [description]
+	 * @param  {Object} options   [description]
+	 */
+	dispatchGeneralGenericEvent(objectDOM, options) {
+		this.generalGenericEvent.options = options;
+
+		objectDOM.dispatchEvent( this.generalGenericEvent );
+	}
+	
 	/**
 	 * [onContainerGenericEvent description]
 	 * @param  {Object}   objectDOM [description]

@@ -14,7 +14,7 @@ export class DialogComponent extends React.Component {
 	 */
 	handleClick(event) {
 		if ( this.props.type !== "alert" && event.target.id === "dialog-ok" ) {
-			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "delete-profile-layout" } );
+			Core.Events.CustomEvents.dispatchGeneralGenericEvent( window, { tool: "delete-profile-layout" } );
 		}
 
 		this.props.resetDialog();

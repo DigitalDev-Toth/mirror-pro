@@ -50,8 +50,9 @@ export class LayoutTools extends React.Component {
      * [componentDidMount description]
      */
     componentDidMount() {
-        Core.Events.CustomEvents.onLayoutChange( window, this.handleLayoutChange.bind( this ) );  
-        Core.Events.CustomEvents.onLayoutGenericEvent( window, this.handleLayoutGenericEvent.bind( this ) );       
+        Core.Events.CustomEvents.onLayoutChange( window, this.handleLayoutChange.bind( this ) );
+        Core.Events.CustomEvents.onLayoutGenericEvent( window, this.handleLayoutGenericEvent.bind( this ) );
+        Core.Events.CustomEvents.onGeneralGenericEvent( window, this.handleGeneralGenericEvent.bind( this ) );
     }
 
     /**
@@ -60,6 +61,7 @@ export class LayoutTools extends React.Component {
     componentWillUnmount() {
         Core.Events.CustomEvents.offLayoutChange( window, this.handleLayoutChange.bind( this ) );
         Core.Events.CustomEvents.offLayoutGenericEvent( window, this.handleLayoutGenericEvent.bind( this ) );
+        Core.Events.CustomEvents.offGeneralGenericEvent( window, this.handleGeneralGenericEvent.bind( this ) );
     }
 
     /**
@@ -124,7 +126,17 @@ export class LayoutTools extends React.Component {
 	        		this.toolsAccessible( null, null, true, null, null, null, null, null, null, null, null ); 
 	        	}
                 break;
+        } 
 
+        this.setState( this._state );           
+    }
+
+    /**
+     * [handleGeneralGenericEvent description]
+     * @param  {Object} event [description]
+     */
+    handleGeneralGenericEvent(event) {
+        switch( event.options.tool ) {
             case "save-profile-layout":
             	console.log("save profile layout");
             	break;

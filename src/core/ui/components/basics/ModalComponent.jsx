@@ -14,7 +14,7 @@ export class ModalComponent extends React.Component {
 	 */
 	handleClick(event) {		
 		if ( this.props.functionality === "save-profile-layout" ) {
-			Core.Events.CustomEvents.dispatchLayoutGenericEvent( window, { tool: "save-profile-layout" } );
+			Core.Events.CustomEvents.dispatchGeneralGenericEvent( window, { tool: "save-profile-layout" } );
 		}
 
 		let fakeEvent = new MouseEvent( "click", { view: window, bubbles: true, cancelable: true } ),

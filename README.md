@@ -36,21 +36,23 @@ npm run test:unit
 npm run test:features
 ```
 
-## CI-CD Phases ##
+## CI-CD Strider Phases ##
 
-Prepare
-===
+Prepare:
+```
 sh /etc/init.d/xvfb start && 
 npm run dev & 
 sleep 10s 
+```
 
-Test
-===
+Test:
+```
 npm run test:units ; 
 npm run test:features 
+```
 
-Deploy
-===
+Deploy:
+```
 ssh -T toth@cao.biopacs.com << EOF
 
 cd mirror-pro
@@ -66,8 +68,10 @@ git pull
 exit
 
 EOF
+```
 
-Cleanup
-===
+Cleanup:
+```
 killall -9 node && 
-sh /etc/init.d/xvfb stop 
+sh /etc/init.d/xvfb stop
+``` 
