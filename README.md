@@ -35,3 +35,39 @@ npm run dev
 npm run test:unit
 npm run test:features
 ```
+
+## CI-CD Phases ##
+
+Prepare
+===
+sh /etc/init.d/xvfb start && 
+npm run dev & 
+sleep 10s 
+
+Test
+===
+npm run test:units ; 
+npm run test:features 
+
+Deploy
+===
+ssh -T toth@cao.biopacs.com << EOF
+
+cd mirror-pro
+git pull
+exit
+
+EOF
+
+ssh -T digitaldev@biopacs.cisanmartin.com << EOF
+
+cd mirror-pro 
+git pull
+exit
+
+EOF
+
+Cleanup
+===
+killall -9 node && 
+sh /etc/init.d/xvfb stop 
