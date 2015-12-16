@@ -23,4 +23,24 @@ module.exports = function () {
             })
             .call( next );
     });
+
+    this.When(/^I press the "add desks" button and next the "remove desks" button$/, function(next) {
+
+    	this.driver
+    		.click( "#layout-tools-more" )
+    		.click( "#layout-tools-less" )
+    		.call( next );
+    });
+
+    this.Then(/^I should see the same layout of the beginning$/, function(next) {
+
+    	this.driver
+    		.execute(() => {
+    			return document.getElementById( "panel-layout" ).children[0].children.length;
+    		})
+    		.then((result) => {
+    			expect( result.value ).to.equal(1);
+    		})
+    		.call( next );
+    })
 }
