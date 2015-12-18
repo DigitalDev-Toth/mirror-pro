@@ -317,7 +317,7 @@ module.exports = function () {
 
     	this.driver
     		.click( "#panel-layout div div:first-child" )
-    		.click( "#panel-layout div div:nth-child(3)" )
+    		.click( "#panel-layout div div:last-child" )
     		.click( "#layout-tools-merge" )
     		.call( next );
     });
