@@ -257,6 +257,7 @@ module.exports = function () {
     		.then((result) => {
     			expect( result.value ).to.equal( "block" );
     		})
+    		.pause( 1000 )
     		.click( "#dialog-ok" )
     		.selectByIndex( "#layout-tools-layouts-selection", 0 )
     		.call( next );
@@ -291,7 +292,7 @@ module.exports = function () {
     	this.driver
     		.click( "#layout-tools-selectable" )
     		.click( "#panel-layout div div:first-child" )
-    		.click( "#panel-layout div div:nth-child(5)" )
+    		.click( "#panel-layout div div:nth-child(6)" )
     		.click( "#layout-tools-merge" )
     		.call( next );
     });
@@ -306,6 +307,7 @@ module.exports = function () {
     		.then((result) => {
     			expect( result.value ).to.equal( "block" );
     		})
+    		.pause( 1000 )
     		.click( "#dialog-ok" )
     		.call( next );
     });
