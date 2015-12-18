@@ -250,7 +250,7 @@ module.exports = function () {
     this.Then(/^I should see the "dialog" alert telling me it's imposible to draw the layout$/, function(next) {
 
     	this.driver
-    		this.driver
+    		.pause( 1000 )
     		.execute(() => {
     			return document.getElementById( "dialog" ).style.display;
     		})
@@ -299,6 +299,7 @@ module.exports = function () {
     this.Then(/^I should see the "dialog" alert telling me it's imposible to merge those "desks"$/, function(next) {
 
     	this.driver
+    		.pause( 1000 )
     		.execute(() => {
     			return document.getElementById( "dialog" ).style.display;
     		})
