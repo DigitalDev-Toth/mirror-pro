@@ -239,6 +239,7 @@ module.exports = function () {
     this.When(/^I select a predefined layout and the window size is too small$/, function(next) {
 
     	this.driver
+    		.windowHandleSize({ width: 800, height: 600 })
     		.selectByIndex( "#layout-tools-layouts-selection", 2 )
     		.getValue( "#layout-tools-layouts-selection" )
     		.then((result) => {
