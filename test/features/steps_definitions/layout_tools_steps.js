@@ -258,14 +258,14 @@ module.exports = function () {
     			expect( result.value ).to.equal( "block" );
     		})
     		.pause( 1000 )
-    		.click( "#dialog-ok" )
-    		.selectByIndex( "#layout-tools-layouts-selection", 0 )
+    		.click( "#dialog-ok" )    		
     		.call( next );
     });
 
     this.When(/^I select a predefined layout and the window size is fine$/, function(next) {
 
     	this.driver
+    		.selectByIndex( "#layout-tools-layouts-selection", 0 )
     		.windowHandleSize({ width: 1600, height: 1000 })
     		.selectByIndex( "#layout-tools-layouts-selection", 2 )
     		.getValue( "#layout-tools-layouts-selection" )
