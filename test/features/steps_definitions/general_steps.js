@@ -36,4 +36,32 @@ module.exports = function () {
             })
             .call( next );
     });
+
+    this.When(/^I resize the window of the browser$/, function(next) {
+
+    	this.driver
+    		.windowHandleSize({ width: 1600, height: 1000 })
+    		.call( next );
+    });
+
+    this.Then(/^I should see the application is responsive$/, function(next) {
+
+    	this.driver
+    		.execute(() => {
+    			var windowWidth = window.innerWidth,
+    				windowHeight = window.innerHeight,
+    				containerWidth = parseInt( document.getElementById( "container" ).style.width ),
+    				containerHeight = parseInt( document.getElementById( "container" ).style.height );
+
+				if ( windowWidth === containerWidth && windowHeight === containerHeight ) {
+					return true;
+				} else {
+					return false;
+				}
+    		})
+    		.then((result) => {
+    			expect( result.value ).to.be.true;
+    		})
+    		.call( next );
+    });
 }

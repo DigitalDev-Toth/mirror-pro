@@ -10,14 +10,14 @@ export class SelectComponent extends React.Component {
 	 */
 	render() {
 		return ( 
-			<select className={ `form-control ${ this.props.class }` } onChange={ this.props.handleChange }>
+			<select id={ this.props.id } className={ `form-control ${ this.props.class }` } onChange={ this.props.handleChange }>
 				{ this.props.options.map(( optionParent, i ) => {
 					if ( typeof optionParent === "object" ) {
 						return (
 							<optgroup key={ `option_parent_${ i }` } label={ optionParent.label }>
 								{ optionParent.options.map(( optionChild, j ) => {
 									return (
-										<option key={ `option_child_${ j }` }>{ optionChild }</option>
+										<option key={ `option_child_${ j }` } value={ optionChild.value }>{ optionChild.text }</option>
 									);
 								}) }
 							</optgroup>

@@ -41,7 +41,8 @@ export class ModalComponent extends React.Component {
       					<div className="modal-footer custom-modal-footer">
       						<ButtonComponent id={ this.props.cancelButtonID } class="btn-simple"      							
       							dataDismiss="modal">Cancelar</ButtonComponent>
-      						<ButtonComponent class="btn-main" handleClick={ this.handleClick.bind( this ) }>Guardar</ButtonComponent>
+      						<ButtonComponent id={ this.props.okButtonID } class="btn-main" 
+      							handleClick={ this.handleClick.bind( this ) }>Guardar</ButtonComponent>
       					</div>
     				</div>
   				</div>

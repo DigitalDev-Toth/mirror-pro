@@ -308,7 +308,10 @@ export class LayoutTools extends React.Component {
 			optionsPredeterminedLayouts = [];
 
 		for ( let i in this.predeterminedLayouts ) {
-			optionsPredeterminedLayouts.push( this.predeterminedLayouts[i].name );		
+			optionsPredeterminedLayouts.push({
+				value: `predefined_${ i }`,
+				text: this.predeterminedLayouts[i].name 
+			});		
 		}
 
 		optionsSelectComponent.push( "Por Defecto" );
@@ -319,9 +322,9 @@ export class LayoutTools extends React.Component {
 		optionsSelectComponent.push({
 			label: "Personalizados",
 			options: [
-				"Perfil 1",
-				"Perfil 2",
-				"Perfil 3"
+				{ value: "Perfil 1", text: "Perfil 1" },
+				{ value: "Perfil 2", text: "Perfil 2" },
+				{ value: "Perfil 3", text: "Perfil 3" }
 			]
 		});
 
@@ -341,13 +344,15 @@ export class LayoutTools extends React.Component {
 									title="Guardar perfil"
 									form={ form }
 									functionality="save-profile-layout"
-									cancelButtonID="save-profile-layout-cancel-button" />
+									cancelButtonID="save-profile-layout-cancel-button"
+									okButtonID="save-profile-layout-save-button" />
 		}
 
 		return ( 
 			<PrimaryBlockComponent title="Escritorios" id={ this.props.id }>
 				<div>
-					<SelectComponent options={ optionsSelectComponent } 
+					<SelectComponent id="layout-tools-layouts-selection"
+									 options={ optionsSelectComponent } 
 					                 handleChange={ this.handleChange.bind( this ) }
 					                 class="select-primary-block" />
 					<ButtonComponent id="layout-tools-save"

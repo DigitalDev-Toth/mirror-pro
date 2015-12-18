@@ -27,7 +27,7 @@ export class DialogComponent extends React.Component {
 		let buttons = [];
 
 		if ( this.props.type === "alert" ) {
-			buttons.push( <ButtonComponent key="dialog-alert-1" class={ `btn-${ this.props.type }` }
+			buttons.push( <ButtonComponent id="dialog-ok" key="dialog-alert-1" class={ `btn-${ this.props.type }` }
       							handleClick={ this.handleClick.bind( this ) }>Aceptar</ButtonComponent> )
 		} else if ( this.props.type === "caution" ) {
 			buttons.push( <ButtonComponent id="dialog-cancel" key="dialog-caution-1" class={ `btn-simple` }

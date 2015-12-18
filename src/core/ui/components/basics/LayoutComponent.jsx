@@ -277,9 +277,9 @@ export class LayoutComponent extends React.Component {
             lastPanelLayoutSize
         );
 
-        let deskToSmall = Core.Utils.isBoundariesMinSize( desksBoundaries, Core.MIN_DESK_SIZE );
+        let deskTooSmall = Core.Utils.isBoundariesMinSize( desksBoundaries, Core.MIN_DESK_SIZE );
 
-        if ( !deskToSmall ) {
+        if ( !deskTooSmall ) {
         	Core.UI.customizingLayout = true;
         	Core.UI.desksBoundaries = desksBoundaries;
 
