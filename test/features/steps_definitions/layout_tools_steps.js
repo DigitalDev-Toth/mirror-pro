@@ -334,7 +334,7 @@ module.exports = function () {
     		.call( next );
     });
 
-    this.When(/^I press the "reset" button$/, function(next) {
+    /*this.When(/^I press the "reset" button$/, function(next) {
 
     	this.driver
     		.click( "#layout-tools-reset" )
@@ -351,5 +351,5 @@ module.exports = function () {
     			expect( result.value ).to.equal(7);
     		})
     		.call( next );
-    });
+    });*/
 }

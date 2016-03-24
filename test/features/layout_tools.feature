@@ -29,5 +29,5 @@ Feature: Mirror Pro Layout Tools
         Then I should see the "dialog" alert telling me it's imposible to merge those "desks"
         When I merge two "desks" correctly
         Then I should see the "reset" button enabled
-        When I press the "reset" button
-        Then I should see the predefined layout back to initial state
+        #When I press the "reset" button
+        #Then I should see the predefined layout back to initial state
