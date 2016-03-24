@@ -322,7 +322,7 @@ module.exports = function () {
     		.call( next );
     });
 
-    this.Then(/^I should see the "reset" button enabled$/, function(next) {
+    /*this.Then(/^I should see the "reset" button enabled$/, function(next) {
 
     	this.driver
     		.execute(() => {
@@ -332,7 +332,7 @@ module.exports = function () {
     			expect( result.value ).to.be.false;
     		})
     		.call( next );
-    });
+    });*/
 
     /*this.When(/^I press the "reset" button$/, function(next) {
 

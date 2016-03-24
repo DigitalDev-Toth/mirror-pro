@@ -1,4 +1,4 @@
-Mirror Profesional
+Mirror Profesional bla bla
 =============
 
 <p align="center"><img src="http://www.toth.cl/toth/img/mirror.png" alt="mirro alt" /></p>
