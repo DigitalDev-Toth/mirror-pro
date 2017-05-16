@@ -1,0 +1,28 @@
+.container-generic {
+	margin: 0;
+	padding: 0;
+}
+
+#container:extend(.container-generic) {
+	.container-fluid:extend(.container-generic) {
+		#panel-header:extend(.container-generic) {
+			background: @bg-color-header;
+			color: @text-color-header;
+		}
+
+		#panel-body:extend(.container-generic) {
+			background: @bg-color-body;
+			border-left: 3px solid @border-color-body;
+			border-right: 3px solid @border-color-body;
+			border-bottom: 3px solid @border-color-body;
+
+			#panel-workspace:extend(.container-generic) {
+				background: @bg-color-workspace;
+			}
+
+			#panel-navigatorbar:extend(.container-generic) {
+				background: @bg-color-navigatorbar;
+			}
+		}
+	}
+}

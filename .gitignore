@@ -1,0 +1,23 @@
+# Ignore node modules
+/node_modules
+/node_modules/**
+
+# Ignore npm-debug file
+npm-debug.log
+
+# Ignore make time
+_time
+
+# Ignore happypack logs
+/.happypack
+/.happypack/**
+
+# Ignore bundles assets
+/public/assets
+/public/assets/**
+
+# Ignore bundle index
+/public/index.html
+
+# Ignore MacOS empty files
+.DS_Store
