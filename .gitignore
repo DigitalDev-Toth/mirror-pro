@@ -21,3 +21,7 @@ _time
 
 # Ignore MacOS empty files
 .DS_Store
+
+# Old javascript
+/src/javascript_old
+/src/javascript_old/**

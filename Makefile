@@ -123,8 +123,8 @@ define wds_handler
 	OUTPUT_PATH_CSS=$(BASE_OUTPUT_PATH_CSS) ;\
 	DLL_PATH=$$OUTPUT_PATH/$(DLL_NAME) ;\
 	WDS_HOSTNAME=0.0.0.0 ;\
-	WDS_PORT=8388 ;\
-	WDS_PROXY="http://127.0.0.1:8188/" ;\
+	WDS_PORT=8058 ;\
+	WDS_PROXY="http://127.0.0.1:8018/" ;\
 	WDS_URL="http://$$WDS_HOSTNAME:$$WDS_PORT" ;\
 	\
 	PID=$(shell fuser $$WDS_PORT/tcp 2> /dev/null) ;\

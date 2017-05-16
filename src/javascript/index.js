@@ -1,15 +1,25 @@
-import '../stylesheet/index.scss';
-// import React from 'react';
-// import { render } from 'react-dom';
-import HelloWorld from './HelloWorld';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { AppContainer } from 'react-hot-loader';
+import store from './settings/store';
+import MirrorPro from './containers/MirrorPro';
 
-// render(
-//   <HelloWorld project='mirror_pro' />,
-//   document.getElementById('app'),
-// );
-// render(
-//   <div>WOOOOLA</div>,
-//   document.getElementById('app'),
-// );
+const attachHotLoader = (Component) => {
+  render(
+    <AppContainer>
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    </AppContainer>,
+    document.getElementById('mirro-pro'),
+  );
+};
 
-document.getElementById('mirro-pro').innerHTML = `es${2015} ${HelloWorld}`;
+attachHotLoader(MirrorPro);
+
+if (module.hot) {
+  module.hot.accept('./containers/MirrorPro', () => {
+    attachHotLoader(MirrorPro);
+  });
+}
