@@ -1,16 +1,16 @@
 import { LOAD_DICOMS } from '../settings/constants';
 
 /**
- * @name mirrorProReducer
+ * @name gridReducer
  * @description
  *
- * Reducer who push new state into Redux' store for MirrorPro page.
+ * Reducer who push new state into Redux' store for Grid Container.
  *
  * @param  {Object} state  The current state in Redux's store
  * @param  {Object} action The action for generate the next state in Redux's store
  * @return {Object}        The next state to push into Redux's store.
  */
-const mirrorProReducer = (state = initialState, action) => {
+const gridReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_DICOMS: {
       return { counter: state.counter + 1 };
@@ -24,4 +24,4 @@ const mirrorProReducer = (state = initialState, action) => {
 
 const initialState = { counter: 1 };
 
-export default mirrorProReducer;
+export default gridReducer;

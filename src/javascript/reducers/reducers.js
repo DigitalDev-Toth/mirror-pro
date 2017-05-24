@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import mirrorProReducer from './mirrorProReducer';
+import gridReducer from './gridReducer';
+import menuReducer from './menuReducer';
 
 export default combineReducers({
-  MirrorPro: mirrorProReducer,
+  Grid: gridReducer,
+  Menu: menuReducer,
 });

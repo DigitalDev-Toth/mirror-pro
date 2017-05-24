@@ -1,0 +1,16 @@
+.MirrorPro {
+  background-color: #FFF;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.Layout {
+  width: 100%;
+
+  &-Top {
+    background-color: #CCC;
+    height: 50px;
+    width: 100%;
+  }
+}

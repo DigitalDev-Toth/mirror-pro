@@ -4,7 +4,7 @@ ETIME:=read st < $@_time; st=$$((`date +%s`-$$st)) ; echo Elapsed time: $$((st))
 BASE_ENTRY_NAME:=mirror_pro
 BASE_ENTRY_PATH:=src
 BASE_ENTRY_PATH_JS:=javascript
-BASE_ENTRY_PATH_SCSS:=stylesheet
+BASE_ENTRY_PATH_SCSS:=javascript
 BASE_OUTPUT_PATH:=public
 BASE_OUTPUT_PATH_JS:=assets/javascript
 BASE_OUTPUT_PATH_CSS:=assets/stylesheet

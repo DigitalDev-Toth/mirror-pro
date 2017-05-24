@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import store from './settings/store';
-import MirrorPro from './containers/MirrorPro';
+import MirrorPro from './views/MirrorPro';
 
 const attachHotLoader = (Component) => {
   render(
@@ -19,7 +19,7 @@ const attachHotLoader = (Component) => {
 attachHotLoader(MirrorPro);
 
 if (module.hot) {
-  module.hot.accept('./containers/MirrorPro', () => {
+  module.hot.accept('./views/MirrorPro', () => {
     attachHotLoader(MirrorPro);
   });
 }
