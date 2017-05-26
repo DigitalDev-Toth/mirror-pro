@@ -32,7 +32,7 @@ module.exports = webpackMerge(commonConfig, {
     }],
   },
   plugins: [
-    new DefinePlugin({ 'process.env.NODE_ENV': 'development' }),
+    // new DefinePlugin({ 'process.env.NODE_ENV': 'development' }),
     new DllReferencePlugin({
       context: process.cwd(),
       manifest: require(resolve(__dirname, `../${DLL_MANIFEST_PATH}.vendor.json`)),

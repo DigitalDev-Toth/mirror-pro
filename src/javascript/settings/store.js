@@ -3,32 +3,30 @@ import reducers from '../reducers/reducers';
 import { NODE_ENV } from './constants';
 
 /**
- * @name store
- * @description
- *
- * Create the redux store. If the environment is development,
+ * Create the store. If the environment is development,
  * then add the devtools chrome plugin for tracking the store behavior.
  *
- * @return {Object} The redux store object.
+ * @return     {Function}  The store instance.
  */
 const store = () => {
   if (NODE_ENV === 'production') {
     return createStore(reducers);
   }
 
-  const store = createStore(
+  const storeInstance = createStore(
     reducers,
     /* eslint no-underscore-dangle: ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }] */
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   );
 
   if (module.hot) {
+    /* eslint-disable global-require */
     module.hot.accept('../reducers/reducers', () =>
-      store.replaceReducer(require('../reducers/reducers'))
+      storeInstance.replaceReducer(require('../reducers/reducers')),
     );
   }
 
-  return store;
+  return storeInstance;
 };
 
 export default store();

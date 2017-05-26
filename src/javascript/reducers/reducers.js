@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import gridReducer from './gridReducer';
 import menuReducer from './menuReducer';
+import gridReducer from './gridReducer';
+import navigationReducer from './navigationReducer';
+import statusReducer from './statusReducer';
 
 export default combineReducers({
-  Grid: gridReducer,
   Menu: menuReducer,
+  Grid: gridReducer,
+  Navigation: navigationReducer,
+  Status: statusReducer,
 });

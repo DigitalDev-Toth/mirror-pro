@@ -3,21 +3,18 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
-// import { API } from '../../api/api';
-import Desk from '../../components/Desk/Desk';
 
 /**
- * The Grid container.
+ * The Menu container.
  *
- * @class      Grid
+ * @class      Menu
  * @param      {Object}  props   The component properties
- * @return     {Node}    The grid container.
+ * @return     {Node}    The menu container.
  */
-export const Grid = (props) => {
+export const Menu = (props) => {
   return (
-    <div className="Grid">
-      Grid {props.counter}
-      <Desk />
+    <div>
+      <div>Menu {props.counter}</div>
     </div>
   );
 };
@@ -25,14 +22,14 @@ export const Grid = (props) => {
 /**
  * Component default properties.
  */
-Grid.defaultProps = {
+Menu.defaultProps = {
   counter: 1,
 };
 
 /**
  * Component properties types.
  */
-Grid.propTypes = {
+Menu.propTypes = {
   counter: PropTypes.number,
 };
 
@@ -42,7 +39,7 @@ Grid.propTypes = {
  * @param      {Object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
-  counter: state.Grid.counter,
+  counter: state.Menu.counter,
 });
 
 /**
@@ -54,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

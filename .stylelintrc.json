@@ -6,7 +6,7 @@
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
     "at-rule-semicolon-newline-after": "always",
-    "at-rule-whitelist": ["import", "extend", "keyframes", "include", "@include", "media"],
+    "at-rule-whitelist": ["import", "extend", "keyframes", "include", "@include", "media", "mixin"],
 
     "block-no-empty": true,
     "block-closing-brace-empty-line-before": "never",
@@ -86,7 +86,6 @@
     "selector-descendant-combinator-no-non-space": true,
     "selector-no-id": true,
     "selector-no-qualifying-type": true,
-    "selector-no-type": true,
     "selector-no-universal": true,
     "selector-pseudo-class-case": "lower",
     "selector-pseudo-class-no-unknown": true,
@@ -105,7 +104,7 @@
     "time-min-milliseconds": 100,
 
     "unit-no-unknown": true,
-    "unit-whitelist": ["em", "rem", "%", "s", "px", "deg"],
+    "unit-whitelist": ["em", "rem", "%", "s", "px", "deg", "vh"],
 
     "value-keyword-case": "lower",
     "value-list-comma-space-after": "always-single-line",

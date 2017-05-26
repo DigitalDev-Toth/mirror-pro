@@ -4,20 +4,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
 // import { API } from '../../api/api';
-import Desk from '../../components/Desk/Desk';
 
 /**
- * The Grid container.
+ * The Status container.
  *
- * @class      Grid
+ * @class      Status
  * @param      {Object}  props   The component properties
- * @return     {Node}    The grid container.
+ * @return     {Node}    The status container.
  */
-export const Grid = (props) => {
+export const Status = (props) => {
   return (
-    <div className="Grid">
-      Grid {props.counter}
-      <Desk />
+    <div>
+      <div>Status {props.counter}</div>
     </div>
   );
 };
@@ -25,14 +23,14 @@ export const Grid = (props) => {
 /**
  * Component default properties.
  */
-Grid.defaultProps = {
+Status.defaultProps = {
   counter: 1,
 };
 
 /**
  * Component properties types.
  */
-Grid.propTypes = {
+Status.propTypes = {
   counter: PropTypes.number,
 };
 
@@ -42,7 +40,7 @@ Grid.propTypes = {
  * @param      {Object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
-  counter: state.Grid.counter,
+  counter: state.Status.counter,
 });
 
 /**
@@ -54,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+export default connect(mapStateToProps, mapDispatchToProps)(Status);

@@ -3,21 +3,18 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
-// import { API } from '../../api/api';
-import Desk from '../../components/Desk/Desk';
 
 /**
- * The Grid container.
+ * The Navigation container.
  *
- * @class      Grid
+ * @class      Navigation
  * @param      {Object}  props   The component properties
- * @return     {Node}    The grid container.
+ * @return     {Node}    The navigation container.
  */
-export const Grid = (props) => {
+export const Navigation = (props) => {
   return (
-    <div className="Grid">
-      Grid {props.counter}
-      <Desk />
+    <div>
+      <div>{`${props.a}${props.b}`}</div>
     </div>
   );
 };
@@ -25,15 +22,17 @@ export const Grid = (props) => {
 /**
  * Component default properties.
  */
-Grid.defaultProps = {
-  counter: 1,
+Navigation.propTypes = {
+  a: PropTypes.string,
+  b: PropTypes.string,
 };
 
 /**
  * Component properties types.
  */
-Grid.propTypes = {
-  counter: PropTypes.number,
+Navigation.defaultProps = {
+  a: '',
+  b: '',
 };
 
 /**
@@ -42,7 +41,7 @@ Grid.propTypes = {
  * @param      {Object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
-  counter: state.Grid.counter,
+  counter: state.Navigation.counter,
 });
 
 /**
@@ -54,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

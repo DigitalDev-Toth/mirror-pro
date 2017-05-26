@@ -1,16 +1,110 @@
-.MirrorPro {
+@mixin dynamicWidth($substract) {
+  $width: calc(100% - #{$substract}px);
+  width: $width;
+}
+
+@mixin dynamicHeight($substract) {
+  $height: calc(100% - #{$substract}px);
+  height: $height;
+}
+
+html {
+  height: 100%;
+}
+
+body {
   background-color: #FFF;
-  border: 0;
+  color: #FFF;
+  font-family: 'Lato', sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-.Layout {
+.MirrorPro {
+  border: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.MirrorProView {
+  height: 100%;
   width: 100%;
 
-  &-Top {
-    background-color: #CCC;
-    height: 50px;
+  &-Header {
+    background-color: #08889E;
+    box-sizing: border-box;
+    height: 20px;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  &-Title {
+    height: 100%;
+    margin: 0 0 0 auto;
+    vertical-align: top;
+    width: 200px;
+  }
+
+  &-Text {
+    display: table-cell;
+    padding: 0 10px;
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  &-Text.__version {
+    display: table-cell;
+    font-size: 9px;
+    padding: 0 10px;
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  &-Section {
+    background-color: #38383C;
+    display: table;
+    @include dynamicHeight(40);
+    width: 100%;
+  }
+
+  &-Menu {
+    background-clip: padding-box;
+    background-color: #484848;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 4px 2px 4px 0;
+    box-sizing: content-box;
+    display: table-cell;
+    width: 200px;
+  }
+
+  &-Grid {
+    background-clip: padding-box;
+    background-color: #484848;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 4px 2px;
+    box-sizing: content-box;
+    display: table-cell;
+    @include dynamicWidth(220);
+  }
+
+  &-Navigation {
+    background-clip: padding-box;
+    background-color: #484848;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 4px 0 4px 2px;
+    box-sizing: content-box;
+    display: table-cell;
+    width: 20px;
+  }
+
+  &-Footer {
+    background-color: #000;
+    height: 20px;
     width: 100%;
   }
 }

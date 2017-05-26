@@ -1,14 +1,11 @@
 import { LOAD_DICOMS } from '../settings/constants';
 
 /**
- * @name menuReducer
- * @description
+ * Reducer who push new state into store for Menu container.
  *
- * Reducer who push new state into Redux' store for Menu Container.
- *
- * @param  {Object} state  The current state in Redux's store
- * @param  {Object} action The action for generate the next state in Redux's store
- * @return {Object}        The next state to push into Redux's store.
+ * @param      {Object}  state   The current state in store
+ * @param      {Object}  action  The action for generate the next state in store
+ * @return     {Object}  The next state to push into store.
  */
 const menuReducer = (state = initialState, action) => {
   switch (action.type) {

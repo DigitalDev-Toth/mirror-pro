@@ -1,38 +1,39 @@
 import React from 'react';
 import './MirrorPro.scss';
-import PrimaryMenu from '../containers/Menu/PrimaryMenu';
-import SecondaryMenu from '../containers/Menu/SecondaryMenu';
+import Menu from '../containers/Menu/Menu';
 import Grid from '../containers/Grid/Grid';
+import Navigation from '../containers/Navigation/Navigation';
+import Status from '../containers/Status/Status';
 
 /**
- * Class for mirror pro.
+ * MirrorPro view layout.
  *
- * @class      MirrorPro (name)
+ * @class      MirrorPro
+ * @return     {Node}  The mirror pro view layout.
  */
 export const MirrorPro = () => {
   return (
-    <div className="Layout">
-      <div className="Layout-Top">
-        {
-          // Top side
-        }
-      </div>
-      <div className="Layout-Middle">
-        <div className="Layout-SideBar">
-          <PrimaryMenu />
+    <div className="MirrorProView">
+      <header className="MirrorProView-Header">
+        <div className="MirrorProView-Title">
+          <span className="MirrorProView-Text">MIRROR PRO</span>
+          <span className="MirrorProView-Text __version">v0.0.1-dev</span>
         </div>
-        <div className="Layout-Grid">
+      </header>
+      <section className="MirrorProView-Section">
+        <div className="MirrorProView-Menu">
+          <Menu />
+        </div>
+        <div className="MirrorProView-Grid">
           <Grid />
         </div>
-        <div className="Layout-RightBar">
-          {
-            // Navigation bar
-          }
+        <div className="MirrorProView-Navigation">
+          <Navigation />
         </div>
-      </div>
-      <div className="Layout-Bottom">
-        <SecondaryMenu />
-      </div>
+      </section>
+      <footer className="MirrorProView-Footer">
+        <Status />
+      </footer>
     </div>
   );
 };
