@@ -1,11 +1,17 @@
 /**
- * Environment variable
+ * Environment variable.
  *
  * @type       {String}
  */
 export const NODE_ENV = `${process.env.NODE_ENV}`;
 /**
- * State type for load dicoms
+ *  Application version.
+ *
+ * @type       {String}
+ */
+export const APPLICATION_VERSION = `${process.env.APPLICATION_VERSION}`;
+/**
+ * State type for load dicoms.
  *
  * @type       {string}
  */

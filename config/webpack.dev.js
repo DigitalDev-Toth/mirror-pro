@@ -10,6 +10,7 @@ const {
   OUTPUT_PATH_JS,
   INCLUDE_SCSS,
   DLL_MANIFEST_PATH,
+  APPLICATION_VERSION,
 } = process.env;
 
 module.exports = webpackMerge(commonConfig, {
@@ -32,7 +33,7 @@ module.exports = webpackMerge(commonConfig, {
     }],
   },
   plugins: [
-    // new DefinePlugin({ 'process.env.NODE_ENV': 'development' }),
+    new DefinePlugin({ 'process.env.APPLICATION_VERSION': JSON.stringify(APPLICATION_VERSION) }),
     new DllReferencePlugin({
       context: process.cwd(),
       manifest: require(resolve(__dirname, `../${DLL_MANIFEST_PATH}.vendor.json`)),

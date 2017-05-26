@@ -8,6 +8,7 @@ BASE_ENTRY_PATH_SCSS:=javascript
 BASE_OUTPUT_PATH:=public
 BASE_OUTPUT_PATH_JS:=assets/javascript
 BASE_OUTPUT_PATH_CSS:=assets/stylesheet
+BASE_APPLICATION_VERSION:=0.0.0-dev
 
 dll:
 	@$(STIME)
@@ -72,6 +73,7 @@ define build_handler
 	OUTPUT_PATH_JS=$(BASE_OUTPUT_PATH_JS) ;\
 	OUTPUT_PATH_CSS=$(BASE_OUTPUT_PATH_CSS) ;\
 	OUTPUT_PATH_FULL_JS=$$OUTPUT_PATH/$$OUTPUT_PATH_JS/$$ENTRY_NAME ;\
+	APPLICATION_VERSION=$(BASE_APPLICATION_VERSION) ;\
 	\
 	echo "Building Mirror Pro" ;\
 	\
@@ -97,6 +99,7 @@ define build_handler
 			INCLUDE_JS=$$ENTRY_PATH/$$ENTRY_PATH_JS \
 			INCLUDE_SCSS=$$ENTRY_PATH/$$ENTRY_PATH_SCSS \
 			NODE_ENV=production \
+			APPLICATION_VERSION=$$APPLICATION_VERSION \
 			./node_modules/.bin/webpack -p --display-chunks --hide-modules $$ENTRY_NAME=./$$path ;\
 		else \
 			BUNDLE_TASK=dev \
@@ -107,6 +110,7 @@ define build_handler
 			DLL_MANIFEST_PATH=$$OUTPUT_PATH/$$OUTPUT_PATH_JS/$$ENTRY_NAME \
 			INCLUDE_JS=$$ENTRY_PATH/$$ENTRY_PATH_JS \
 			INCLUDE_SCSS=$$ENTRY_PATH/$$ENTRY_PATH_SCSS \
+			APPLICATION_VERSION=$$APPLICATION_VERSION \
 			./node_modules/.bin/webpack --display-chunks --hide-modules $$ENTRY_NAME=./$$path ;\
 		fi ;\
 	done
@@ -126,6 +130,7 @@ define wds_handler
 	WDS_PORT=8058 ;\
 	WDS_PROXY="http://127.0.0.1:8018/" ;\
 	WDS_URL="http://$$WDS_HOSTNAME:$$WDS_PORT" ;\
+	APPLICATION_VERSION=$(BASE_APPLICATION_VERSION) ;\
 	\
 	PID=$(shell fuser $$WDS_PORT/tcp 2> /dev/null) ;\
 	if [ ! "$$PID" = "" ]; then kill $PID; fi ;\
@@ -157,5 +162,6 @@ define wds_handler
 	WDS_HOSTNAME=$$WDS_HOSTNAME \
 	WDS_PORT=$$WDS_PORT \
 	WDS_PROXY=$$WDS_PROXY \
+	APPLICATION_VERSION=$$APPLICATION_VERSION \
 	./node_modules/.bin/webpack-dev-server
 endef

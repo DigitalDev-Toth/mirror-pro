@@ -1,5 +1,6 @@
 import React from 'react';
 import './MirrorPro.scss';
+import { APPLICATION_VERSION } from '../settings/constants';
 import Menu from '../containers/Menu/Menu';
 import Grid from '../containers/Grid/Grid';
 import Navigation from '../containers/Navigation/Navigation';
@@ -17,7 +18,7 @@ export const MirrorPro = () => {
       <header className="MirrorProView-Header">
         <div className="MirrorProView-Title">
           <span className="MirrorProView-Text">MIRROR PRO</span>
-          <span className="MirrorProView-Text __version">v0.0.1-dev</span>
+          <span className="MirrorProView-Text __version">{`v${APPLICATION_VERSION}`}</span>
         </div>
       </header>
       <section className="MirrorProView-Section">

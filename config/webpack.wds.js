@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const webpackMerge = require('webpack-merge');
 const { HappyPack, commonConfig } = require('./webpack.common.js');
 
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin');
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
@@ -18,6 +19,7 @@ const {
   WDS_HOSTNAME,
   WDS_PORT,
   WDS_PROXY,
+  APPLICATION_VERSION,
 } = process.env;
 
 module.exports = webpackMerge(commonConfig, {
@@ -45,6 +47,7 @@ module.exports = webpackMerge(commonConfig, {
     ],
   },
   plugins: [
+    new DefinePlugin({ 'process.env.APPLICATION_VERSION': JSON.stringify(APPLICATION_VERSION}) }),
     new DllReferencePlugin({
       context: process.cwd(),
       manifest: require(resolve(__dirname, `../${DLL_MANIFEST_PATH}.vendor.json`)),
