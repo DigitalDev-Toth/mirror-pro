@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
  * The Desk container.
  *
  * @class      Desk
- * @param      {Object}  props   The component properties
- * @return     {Node}    The desk container.
+ * @param      {object}  props   The component properties
+ * @return     {node}    The desk container.
  */
 const Desk = (props) => {
   return (

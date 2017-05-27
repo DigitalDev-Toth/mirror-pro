@@ -8,8 +8,8 @@ import actionCreators from '../../actions/actions';
  * The Navigation container.
  *
  * @class      Navigation
- * @param      {Object}  props   The component properties
- * @return     {Node}    The navigation container.
+ * @param      {object}  props   The component properties
+ * @return     {node}    The navigation container.
  */
 export const Navigation = (props) => {
   return (
@@ -38,7 +38,7 @@ Navigation.defaultProps = {
 /**
  * Bind the state to the component properties.
  *
- * @param      {Object}  state   The state structure to access
+ * @param      {object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
   counter: state.Navigation.counter,
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
 /**
  * Bind dispaching actions creators to component properties.
  *
- * @param      {Function}  dispatch  The dispatch to access
+ * @param      {function}  dispatch  The dispatch to access
  */
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),

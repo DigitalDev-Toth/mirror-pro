@@ -10,8 +10,8 @@ import Desk from '../../components/Desk/Desk';
  * The Grid container.
  *
  * @class      Grid
- * @param      {Object}  props   The component properties
- * @return     {Node}    The grid container.
+ * @param      {object}  props   The component properties
+ * @return     {node}    The grid container.
  */
 export const Grid = (props) => {
   return (
@@ -39,7 +39,7 @@ Grid.propTypes = {
 /**
  * Bind the state to the component properties.
  *
- * @param      {Object}  state   The state structure to access
+ * @param      {object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
   counter: state.Grid.counter,
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 /**
  * Bind dispaching actions creators to component properties.
  *
- * @param      {Function}  dispatch  The dispatch to access
+ * @param      {function}  dispatch  The dispatch to access
  */
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),

@@ -1,16 +1,19 @@
-import { LOAD_DICOMS } from '../settings/constants';
+import { DESK_COUNTER } from '../settings/constants';
 
 /**
  * Reducer who push new state into store for Status container.
  *
- * @param      {Object}  state   The current state in store
- * @param      {Object}  action  The action for generate the next state in store
- * @return     {Object}  The next state to push into store.
+ * @param      {object}  state   The current state in store
+ * @param      {object}  action  The action for generate the next state in store
+ * @return     {object}  The next state to push into store.
  */
 const statusReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_DICOMS: {
-      return { counter: state.counter + 1 };
+    case DESK_COUNTER: {
+      return {
+        ...state,
+        deskCounter: action.length,
+      };
     }
 
     default: {
@@ -19,6 +22,6 @@ const statusReducer = (state = initialState, action) => {
   }
 };
 
-const initialState = { counter: 1 };
+const initialState = { deskCounter: 1 };
 
 export default statusReducer;

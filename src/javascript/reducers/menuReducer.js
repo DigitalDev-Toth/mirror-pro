@@ -1,16 +1,20 @@
-import { LOAD_DICOMS } from '../settings/constants';
+import { SUBMENU_SHOW } from '../settings/constants';
 
 /**
  * Reducer who push new state into store for Menu container.
  *
- * @param      {Object}  state   The current state in store
- * @param      {Object}  action  The action for generate the next state in store
- * @return     {Object}  The next state to push into store.
+ * @param      {object}  state   The current state in store
+ * @param      {object}  action  The action for generate the next state in store
+ * @return     {object}  The next state to push into store.
  */
 const menuReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_DICOMS: {
-      return { counter: state.counter + 1 };
+    case SUBMENU_SHOW: {
+      return {
+        ...state,
+        subMenuName: action.name,
+        subMenuShow: action.show,
+      };
     }
 
     default: {
@@ -19,6 +23,9 @@ const menuReducer = (state = initialState, action) => {
   }
 };
 
-const initialState = { counter: 1 };
+const initialState = {
+  subMenuName: null,
+  subMenuShow: false,
+};
 
 export default menuReducer;

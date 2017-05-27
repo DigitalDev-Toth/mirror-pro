@@ -1,10 +1,10 @@
 import React from 'react';
-import './MirrorPro.scss';
 import { APPLICATION_VERSION } from '../settings/constants';
 import Menu from '../containers/Menu/Menu';
 import Grid from '../containers/Grid/Grid';
 import Navigation from '../containers/Navigation/Navigation';
 import Status from '../containers/Status/Status';
+import './MirrorPro.scss';
 
 /**
  * MirrorPro view layout.

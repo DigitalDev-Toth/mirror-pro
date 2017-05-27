@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
-// import { API } from '../../api/api';
+import './Status.scss';
 
 /**
  * The Status container.
  *
  * @class      Status
- * @param      {Object}  props   The component properties
- * @return     {Node}    The status container.
+ * @param      {object}  props   The component properties
+ * @return     {node}    The status container.
  */
 export const Status = (props) => {
   return (
-    <div>
-      <div>Status {props.counter}</div>
+    <div className="Status">
+      <div className="Status-Info">
+        <span className="Status-Text">Desks: {props.deskCounter}</span>
+      </div>
     </div>
   );
 };
@@ -24,29 +26,29 @@ export const Status = (props) => {
  * Component default properties.
  */
 Status.defaultProps = {
-  counter: 1,
+  deskCounter: 1,
 };
 
 /**
  * Component properties types.
  */
 Status.propTypes = {
-  counter: PropTypes.number,
+  deskCounter: PropTypes.number.isRequired,
 };
 
 /**
  * Bind the state to the component properties.
  *
- * @param      {Object}  state   The state structure to access
+ * @param      {object}  state   The state structure to access
  */
 const mapStateToProps = state => ({
-  counter: state.Status.counter,
+  deskCounter: state.Status.deskCounter,
 });
 
 /**
  * Bind dispaching actions creators to component properties.
  *
- * @param      {Function}  dispatch  The dispatch to access
+ * @param      {function}  dispatch  The dispatch to access
  */
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
