@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Button.scss';
+import './Button.style.scss';
 
 /**
  * The Button container.
@@ -13,7 +13,7 @@ const Button = (props) => {
   return (
     <button
       className={`Button __${props.modifier}`}
-      onClick={props.onClick}
+      onClick={props.click}
     >
       {props.text}
     </button>
@@ -24,8 +24,8 @@ const Button = (props) => {
  * Component default properties.
  */
 Button.propTypes = {
+  click: PropTypes.func.isRequired,
   modifier: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };
 
@@ -33,8 +33,8 @@ Button.propTypes = {
  * Component properties types.
  */
 Button.defaultProps = {
+  click: () => {},
   modifier: 'default',
-  onClick: () => {},
   text: 'Action',
 };
 

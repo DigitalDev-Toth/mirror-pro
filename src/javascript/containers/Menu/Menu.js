@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
-import {
-  subMenuShowHandler,
-  subMenuComponent,
-} from './MenuHelper';
+import { subMenuShowHandler, getSubMenuItems } from './MenuHelper';
+import SubMenu from '../../components/SubMenu/SubMenu';
 import Button from '../../components/Button/Button';
-import './Menu.scss';
+import './Menu.style.scss';
 
 /**
  * The Menu container.
@@ -19,28 +17,36 @@ import './Menu.scss';
  */
 export const Menu = (props) => {
   const { actions, subMenuName, subMenuShow } = props;
+  const subMenuItems = getSubMenuItems(actions, subMenuName);
+
+  if (subMenuShow && subMenuItems[subMenuName]) {
+    return (
+      <div className="Menu">
+        <SubMenu
+          close={() => subMenuShowHandler(actions, subMenuName, false)}
+          items={subMenuItems[subMenuName]}
+          name={subMenuName}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="Menu">
-      <Button
-        onClick={() => subMenuShowHandler(actions, 'grid', true)}
+      {/* <Button
+        click={() => subMenuShowHandler(actions, 'grid', true)}
         text="Grid"
+      /> */}
+      <Button
+        click={() => subMenuShowHandler(actions, 'presets', true)}
+        text="Presets"
       />
       <Button
-        onClick={() => subMenuShowHandler(actions, 'filtering', true)}
-        text="Filtering"
+        click={() => {}}
+        text="Slices"
       />
-      {subMenuComponent(actions, subMenuName, subMenuShow)}
     </div>
   );
-};
-
-/**
- * Component default properties.
- */
-Menu.defaultProps = {
-  subMenuName: null,
-  subMenuShow: false,
 };
 
 /**
@@ -50,6 +56,14 @@ Menu.propTypes = {
   actions: PropTypes.shape().isRequired,
   subMenuName: PropTypes.string,
   subMenuShow: PropTypes.bool.isRequired,
+};
+
+/**
+ * Component default properties.
+ */
+Menu.defaultProps = {
+  subMenuName: null,
+  subMenuShow: false,
 };
 
 /**

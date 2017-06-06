@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actionCreators from '../../actions/actions';
-import './Status.scss';
+import './Status.style.scss';
 
 /**
  * The Status container.
@@ -23,18 +23,16 @@ export const Status = (props) => {
 };
 
 /**
- * Component default properties.
- */
-Status.defaultProps = {
-  deskCounter: 1,
-};
-
-/**
  * Component properties types.
  */
 Status.propTypes = {
   deskCounter: PropTypes.number.isRequired,
 };
+
+/**
+ * Component default properties.
+ */
+Status.defaultProps = {};
 
 /**
  * Bind the state to the component properties.

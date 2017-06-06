@@ -1,19 +1,23 @@
-import React from 'react';
-import SubMenu from '../../components/SubMenu/SubMenu';
-
+/**
+ * Handle the call of action creator for show or hide the submenu.
+ *
+ * @param      {object}   actions  The actions
+ * @param      {String}   name     The name
+ * @param      {boolean}  show     The show
+ */
 export const subMenuShowHandler = (actions, name, show) => {
   actions.updateSubMenuShow(name, show);
 };
 
-export const subMenuComponent = (actions, name, show) => {
-  if (!show) {
-    return null;
-  }
-
-  return (
-    <SubMenu
-      name={name}
-      onClose={() => subMenuShowHandler(actions, name, false)}
-    />
-  );
+/**
+ * Gets the sub menu items.
+ *
+ * @param      {object}  actions  The actions
+ * @return     {object}  The sub menu items.
+ */
+export const getSubMenuItems = (actions) => {
+  return {
+    // grid: require('../Grid/GridHelper').subMenuGrid(actions),
+    presets: require('../../helpers/FilterHelper').subMenuPresets(actions),
+  };
 };

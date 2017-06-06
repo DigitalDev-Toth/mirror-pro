@@ -1,5 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { getDicom } from './DeskHelper';
+import './Desk.style.scss';
 
 /**
  * The Desk container.
@@ -8,10 +10,15 @@ import PropTypes from 'prop-types';
  * @param      {object}  props   The component properties
  * @return     {node}    The desk container.
  */
-const Desk = (props) => {
+const Desk = () => {
   return (
-    <div>
-      <div>{`${props.a}${props.b}`}</div>
+    <div className="Desk">
+      {/* <span className="Desk-Empty">Empty</span> */}
+      <canvas
+        className="Desk-Canvas"
+        id="Desk"
+        ref={() => getDicom()}
+      />
     </div>
   );
 };
@@ -19,17 +26,11 @@ const Desk = (props) => {
 /**
  * Component default properties.
  */
-Desk.propTypes = {
-  a: PropTypes.string,
-  b: PropTypes.string,
-};
+Desk.propTypes = {};
 
 /**
  * Component properties types.
  */
-Desk.defaultProps = {
-  a: 'De',
-  b: 'sk',
-};
+Desk.defaultProps = {};
 
 export default Desk;

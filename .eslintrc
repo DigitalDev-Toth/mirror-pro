@@ -30,7 +30,8 @@
     "wrap-iife": ["error", "inside"],
     "react/jsx-uses-vars": [2],
     "arrow-body-style": 0,
-    "strict": 0
+    "strict": 0,
+    "global-require": "off"
   }
 }
 

@@ -10,10 +10,15 @@ import { DESK_COUNTER } from '../settings/constants';
 const statusReducer = (state = initialState, action) => {
   switch (action.type) {
     case DESK_COUNTER: {
-      return {
-        ...state,
-        deskCounter: action.length,
-      };
+      let deskCounter = action.length;
+
+      if (action.operation === '-') {
+        deskCounter = state.deskCounter - 1;
+      } else if (action.operation === '+') {
+        deskCounter = state.deskCounter + 1;
+      }
+
+      return { ...state, deskCounter };
     }
 
     default: {

@@ -17,11 +17,13 @@ const loadDicoms = payload => ({
 /**
  * Action creator for counter the current number of desk in grid.
  *
- * @param      {number}  length  The length of desks in grid
+ * @param      {number}  length     The length of desks in grid
+ * @param      {string}  operation  The operation to apply to the length
  */
-const updateDeskCounter = length => ({
+const updateDeskCounter = ({ length, operation }) => ({
   type: DESK_COUNTER,
   length,
+  operation,
 });
 
 /**

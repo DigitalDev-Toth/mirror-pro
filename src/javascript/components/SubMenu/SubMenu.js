@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
-import './SubMenu.scss';
+import './SubMenu.style.scss';
 
 /**
  * The SubMenu container.
@@ -12,10 +12,18 @@ import './SubMenu.scss';
  */
 const SubMenu = (props) => {
   return (
-    <div>
-      {`submenu ${props.name}`}
+    <div className="SubMenu">
+      {props.items.map((item) => {
+        return (
+          <Button
+            click={item.click}
+            key={item.text}
+            text={item.text}
+          />
+        );
+      })}
       <Button
-        onClick={props.onClose}
+        click={props.close}
         text="Back"
       />
     </div>
@@ -23,19 +31,18 @@ const SubMenu = (props) => {
 };
 
 /**
- * Component properties types.
- */
-SubMenu.defaultProps = {
-  name: 'asdads',
-  onClose: () => {},
-};
-
-/**
  * Component default properties.
  */
 SubMenu.propTypes = {
-  name: PropTypes.string,
-  onClose: PropTypes.func,
+  close: PropTypes.func,
+  items: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};
+
+/**
+ * Component properties types.
+ */
+SubMenu.defaultProps = {
+  close: () => {},
 };
 
 export default SubMenu;

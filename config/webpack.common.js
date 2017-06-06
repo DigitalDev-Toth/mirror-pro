@@ -19,7 +19,7 @@ module.exports = {
     cache: true,
     stats: 'errors-only',
     resolve: {
-      extensions: ['.js'],
+      extensions: ['.js', '.scss'],
       modules: [ resolve(__dirname, ENTRY_PATH), 'node_modules' ],
     },
     module: {
