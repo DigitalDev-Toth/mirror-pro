@@ -1,7 +1,37 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { getDicom } from './DeskHelper';
+import {
+  getDicom,
+  // zoomDownHandler,
+  // zoomMoveHandler,
+  // panDownHandler,
+  // panMoveHandler,
+  rotateDownHandler,
+  rotateMoveHandler,
+} from './DeskHelper';
 import './Desk.style.scss';
+
+const deskData = {
+  camera: null,
+  canvas: null,
+  globalMouse: null,
+  lastY: 0,
+  localMouse: null,
+  pan: { x: 0, y: 0 },
+  panDiff: { x: 0, y: 0 },
+  pivot: null,
+  plane: null,
+  planeParent: null,
+  origin: { x: 0, y: 0 },
+  ratio: 0,
+  renderer: null,
+  rotate: 0,
+  rotateDiff: { x: 0, y: 0 },
+  scale: 1,
+  scaleDiff: { x: 0, y: 0 },
+  scene: null,
+};
+let mouseMove = false;
 
 /**
  * The Desk container.
@@ -17,7 +47,21 @@ const Desk = () => {
       <canvas
         className="Desk-Canvas"
         id="Desk"
-        ref={() => getDicom()}
+        onMouseDown={(event) => {
+          mouseMove = true;
+          // zoomDownHandler(event, deskData);
+          // panDownHandler(event, deskData);
+          rotateDownHandler(event, deskData);
+        }}
+        onMouseMove={(event) => {
+          if (mouseMove) {
+            // zoomMoveHandler(event, deskData);
+            // panMoveHandler(event, deskData);
+            rotateMoveHandler(event, deskData);
+          }
+        }}
+        onMouseUp={() => { mouseMove = false; }}
+        ref={() => getDicom(deskData)}
       />
     </div>
   );
