@@ -13,10 +13,14 @@ import './Grid.style.scss';
  * @param      {object}  props   The component properties
  * @return     {node}    The grid container.
  */
-export const Grid = () => {
+export const Grid = (props) => {
   return (
     <div className="Grid">
-      <Desk />
+      <Desk
+        actions={props.actions}
+        tool={props.tool}
+        windowLevel={props.window}
+      />
     </div>
   );
 };
@@ -25,7 +29,10 @@ export const Grid = () => {
  * Component properties types.
  */
 Grid.propTypes = {
-  deskCounter: PropTypes.number.isRequired,
+  actions: PropTypes.shape().isRequired,
+  // deskCounter: PropTypes.number.isRequired,
+  tool: PropTypes.string.isRequired,
+  window: PropTypes.shape().isRequired,
 };
 
 /**
@@ -40,6 +47,8 @@ Grid.defaultProps = {};
  */
 const mapStateToProps = state => ({
   deskCounter: state.Status.deskCounter,
+  tool: state.Grid.tool,
+  window: state.Grid.window,
 });
 
 /**

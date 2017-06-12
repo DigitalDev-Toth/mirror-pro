@@ -18,6 +18,16 @@ export const Status = (props) => {
       <div className="Status-Info">
         <span className="Status-Text">Desks: {props.deskCounter}</span>
       </div>
+      <div className="Status-Info">
+        <span className="Status-Text">
+          Tool: {props.tool}
+        </span>
+      </div>
+      <div className="Status-Info">
+        <span className="Status-Text">
+          WindowLevel: {props.window.center} | {props.window.width}
+        </span>
+      </div>
     </div>
   );
 };
@@ -27,6 +37,8 @@ export const Status = (props) => {
  */
 Status.propTypes = {
   deskCounter: PropTypes.number.isRequired,
+  tool: PropTypes.string.isRequired,
+  window: PropTypes.shape().isRequired,
 };
 
 /**
@@ -41,6 +53,8 @@ Status.defaultProps = {};
  */
 const mapStateToProps = state => ({
   deskCounter: state.Status.deskCounter,
+  tool: state.Status.tool,
+  window: state.Status.window,
 });
 
 /**

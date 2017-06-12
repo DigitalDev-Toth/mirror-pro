@@ -38,12 +38,19 @@ export const Menu = (props) => {
         text="Grid"
       /> */}
       <Button
+        click={() => subMenuShowHandler(actions, 'transform', true)}
+        text="Transform"
+      />
+      <Button
         click={() => subMenuShowHandler(actions, 'presets', true)}
         text="Presets"
       />
       <Button
-        click={() => {}}
-        text="Slices"
+        click={() => {
+          actions.applyCurrentTool('windowing');
+          actions.updateCurrentTool('Windowing');
+        }}
+        text="Windowing"
       />
     </div>
   );

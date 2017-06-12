@@ -1,4 +1,8 @@
-import { DESK_COUNTER } from '../settings/constants';
+import {
+  DESK_COUNTER,
+  UPDATE_WINDOWING,
+  UPDATE_CURRENT_TOOL,
+} from '../settings/constants';
 
 /**
  * Reducer who push new state into store for Status container.
@@ -21,12 +25,36 @@ const statusReducer = (state = initialState, action) => {
       return { ...state, deskCounter };
     }
 
+    case UPDATE_WINDOWING: {
+      return {
+        ...state,
+        window: {
+          center: action.center,
+          width: action.width,
+        },
+      };
+    }
+
+    case UPDATE_CURRENT_TOOL: {
+      return {
+        ...state,
+        tool: action.tool,
+      };
+    }
+
     default: {
       return state;
     }
   }
 };
 
-const initialState = { deskCounter: 1 };
+const initialState = {
+  deskCounter: 1,
+  tool: 'Windowing',
+  window: {
+    center: null,
+    width: null,
+  },
+};
 
 export default statusReducer;

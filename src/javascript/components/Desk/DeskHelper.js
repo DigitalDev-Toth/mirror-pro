@@ -6,7 +6,7 @@ import {
   vertex,
 } from '../../helpers/ShaderHelper';
 
-export const getDicom = (deskData) => {
+export const getDicom = (deskData, actions) => {
   window.fetch('/assets/files/5B3A9D62.dcm')
   .then(response => response.arrayBuffer())
   .then(response => new Uint8Array(response))
@@ -37,14 +37,16 @@ export const getDicom = (deskData) => {
       );
     }
 
-    return drawDicom(dicom, deskData);
+    actions.updateWindowLevel(dicom.WindowCenter, dicom.WindowCenter);
+
+    drawDicom(dicom, deskData);
   });
 };
 
 /* eslint-disable no-param-reassign */
 const drawDicom = (dicom, deskData) => {
-  const width = 500;
-  const height = 500;
+  const width = window.innerWidth - 230;
+  const height = window.innerHeight - 80;
 
   deskData.canvas = document.getElementById('Desk');
   deskData.canvas.width = width;
@@ -60,11 +62,15 @@ const drawDicom = (dicom, deskData) => {
     1000,
   );
 
-  let geometry = new THREE.PlaneGeometry(500, 500);
+  let geometry = new THREE.PlaneGeometry(height, height);
   let material = new THREE.MeshBasicMaterial({ color: 'black' });
 
   deskData.planeParent = new THREE.Mesh(geometry, material);
   deskData.pivot = new THREE.Object3D();
+  deskData.originalWindow.center = dicom.WindowCenter;
+  deskData.originalWindow.width = dicom.WindowWidth;
+  deskData.window.center = dicom.WindowCenter;
+  deskData.window.width = dicom.WindowWidth;
 
   const vShader = vertex;
   let fShader = null;
@@ -82,8 +88,8 @@ const drawDicom = (dicom, deskData) => {
     texture.needsUpdate = true;
     uniforms = {
       uTexture: { type: 't', value: texture },
-      uWW: { type: 'f', value: dicom.WindowWidth },
-      uWC: { type: 'f', value: dicom.WindowCenter },
+      uWW: { type: 'f', value: deskData.window.width },
+      uWC: { type: 'f', value: deskData.window.center },
       uRS: { type: 'f', value: dicom.RescaleSlope },
       uRI: { type: 'f', value: dicom.RescaleIntercept },
       uAlpha: { type: 'f', value: 1 },
@@ -104,7 +110,7 @@ const drawDicom = (dicom, deskData) => {
       uAlpha: { type: 'f', value: 1 },
     };
   }
-  geometry = new THREE.PlaneGeometry(500, 500);
+  geometry = new THREE.PlaneGeometry(height, height);
   material = new THREE.ShaderMaterial({
     uniforms,
     vertexShader: vShader,
@@ -112,14 +118,12 @@ const drawDicom = (dicom, deskData) => {
   });
 
   deskData.plane = new THREE.Mesh(geometry, material);
-  deskData.pivot.add(plane);
+  deskData.pivot.add(deskData.plane);
   deskData.planeParent.add(deskData.pivot);
   deskData.scene.add(deskData.planeParent);
   deskData.camera.position.z = 600;
 
   animate(deskData);
-
-  return deskData;
 };
 
 export const animate = ({ scene, renderer, camera }) => {
@@ -135,12 +139,12 @@ export const zoomDownHandler = (event, deskData) => {
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
 
-  deskData.lastY = y;
+  deskData.last.y = y;
 
   const vector = new THREE.Vector3();
 
   vector.set(
-    ((x / 500) * 2) - 1,
+    ((x / deskData.canvas.width) * 2) - 1,
     (-(y / 500) * 2) + 1,
     0.5,
   );
@@ -164,9 +168,9 @@ export const zoomDownHandler = (event, deskData) => {
 export const zoomMoveHandler = (event, deskData) => {
   const rect = deskData.canvas.getBoundingClientRect();
   const y = event.clientY - rect.top;
-  const delta = Math.abs(y - deskData.lastY) / 1000;
+  const delta = Math.abs(y - deskData.last.y) / 1000;
 
-  if (deskData.lastY > y) {
+  if (deskData.last.y > y) {
     deskData.ratio = 1.03 + delta;
   } else {
     deskData.ratio = 0.97 - delta;
@@ -176,7 +180,7 @@ export const zoomMoveHandler = (event, deskData) => {
 
   zoomDicom(deskData);
 
-  deskData.lastY = y;
+  deskData.last.y = y;
 };
 
 const zoomDicom = (deskData) => {
@@ -195,7 +199,7 @@ export const panDownHandler = (event, deskData) => {
   const vector = new THREE.Vector3();
 
   vector.set(
-    ((x / 500) * 2) - 1,
+    ((x / deskData.canvas.width) * 2) - 1,
     (-(y / 500) * 2) + 1,
     0.5,
   );
@@ -221,12 +225,12 @@ export const panMoveHandler = (event, deskData) => {
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
 
-  deskData.lastY = y;
+  deskData.last.y = y;
 
   const vector = new THREE.Vector3();
 
   vector.set(
-    ((x / 500) * 2) - 1,
+    ((x / deskData.canvas.width) * 2) - 1,
     (-(y / 500) * 2) + 1,
     0.5,
   );
@@ -259,12 +263,12 @@ export const rotateDownHandler = (event, deskData) => {
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
 
-  deskData.lastY = y;
+  deskData.last.y = y;
 
   const vector = new THREE.Vector3();
 
   vector.set(
-    ((x / 500) * 2) - 1,
+    ((x / deskData.canvas.width) * 2) - 1,
     (-(y / 500) * 2) + 1,
     0.5,
   );
@@ -287,15 +291,15 @@ export const rotateDownHandler = (event, deskData) => {
   deskData.rotateDiff.y = deskData.globalMouse.y - deskData.localMouse.y;
 };
 
-export const rotateMoveHandler = (deskData) => {
+export const rotateMoveHandler = (event, deskData) => {
   const rect = deskData.canvas.getBoundingClientRect();
   const y = event.clientY - rect.top;
 
-  deskData.rotate += (y - deskData.lastY) / 50;
+  deskData.rotate += (y - deskData.last.y) / 50;
 
   rotateDicom(deskData);
 
-  deskData.lastY = y;
+  deskData.last.y = y;
 };
 
 const rotateDicom = (deskData) => {
@@ -306,4 +310,32 @@ const rotateDicom = (deskData) => {
   deskData.pivot.rotation.z = rotate;
   deskData.planeParent.position.x = localMouse.x + rotateDiff.x;
   deskData.planeParent.position.y = localMouse.y + rotateDiff.y;
+};
+
+export const windowingDownHandler = (event, deskData) => {
+  const rect = deskData.canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  deskData.last.x = x;
+  deskData.last.y = y;
+};
+
+export const windowingMoveHandler = (event, deskData) => {
+  const rect = deskData.canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  deskData.window.center += (y - deskData.last.y);
+  deskData.window.width += (x - deskData.last.x);
+
+  windowingDicom(deskData);
+
+  deskData.last.x = x;
+  deskData.last.y = y;
+};
+
+export const windowingDicom = (deskData) => {
+  deskData.plane.material.uniforms.uWC.value = deskData.window.center;
+  deskData.plane.material.uniforms.uWW.value = deskData.window.width;
 };

@@ -1,13 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   getDicom,
-  // zoomDownHandler,
-  // zoomMoveHandler,
-  // panDownHandler,
-  // panMoveHandler,
+  zoomDownHandler,
+  zoomMoveHandler,
+  panDownHandler,
+  panMoveHandler,
   rotateDownHandler,
   rotateMoveHandler,
+  windowingDownHandler,
+  windowingMoveHandler,
+  windowingDicom,
 } from './DeskHelper';
 import './Desk.style.scss';
 
@@ -15,7 +18,7 @@ const deskData = {
   camera: null,
   canvas: null,
   globalMouse: null,
-  lastY: 0,
+  last: { x: null, y: null },
   localMouse: null,
   pan: { x: 0, y: 0 },
   panDiff: { x: 0, y: 0 },
@@ -23,6 +26,7 @@ const deskData = {
   plane: null,
   planeParent: null,
   origin: { x: 0, y: 0 },
+  originalWindow: { center: null, width: null },
   ratio: 0,
   renderer: null,
   rotate: 0,
@@ -30,6 +34,7 @@ const deskData = {
   scale: 1,
   scaleDiff: { x: 0, y: 0 },
   scene: null,
+  window: { center: null, width: null },
 };
 let mouseMove = false;
 
@@ -40,7 +45,14 @@ let mouseMove = false;
  * @param      {object}  props   The component properties
  * @return     {node}    The desk container.
  */
-const Desk = () => {
+const Desk = (props) => {
+  if (deskData.renderer && props.tool === 'windowing') {
+    deskData.window.center = props.windowLevel.center;
+    deskData.window.width = props.windowLevel.width;
+
+    windowingDicom(deskData);
+  }
+
   return (
     <div className="Desk">
       {/* <span className="Desk-Empty">Empty</span> */}
@@ -49,19 +61,35 @@ const Desk = () => {
         id="Desk"
         onMouseDown={(event) => {
           mouseMove = true;
-          // zoomDownHandler(event, deskData);
-          // panDownHandler(event, deskData);
-          rotateDownHandler(event, deskData);
+          if (props.tool === 'zoom') {
+            zoomDownHandler(event, deskData);
+          } else if (props.tool === 'pan') {
+            panDownHandler(event, deskData);
+          } else if (props.tool === 'rotation') {
+            rotateDownHandler(event, deskData);
+          } else {
+            windowingDownHandler(event, deskData);
+          }
         }}
         onMouseMove={(event) => {
           if (mouseMove) {
-            // zoomMoveHandler(event, deskData);
-            // panMoveHandler(event, deskData);
-            rotateMoveHandler(event, deskData);
+            if (props.tool === 'zoom') {
+              zoomMoveHandler(event, deskData);
+            } else if (props.tool === 'pan') {
+              panMoveHandler(event, deskData);
+            } else if (props.tool === 'rotation') {
+              rotateMoveHandler(event, deskData);
+            } else {
+              windowingMoveHandler(event, deskData);
+            }
           }
         }}
         onMouseUp={() => { mouseMove = false; }}
-        ref={() => getDicom(deskData)}
+        ref={() => {
+          if (!deskData.renderer) {
+            getDicom(deskData, props.actions);
+          }
+        }}
       />
     </div>
   );
@@ -70,7 +98,11 @@ const Desk = () => {
 /**
  * Component default properties.
  */
-Desk.propTypes = {};
+Desk.propTypes = {
+  actions: PropTypes.shape().isRequired,
+  tool: PropTypes.string.isRequired,
+  windowLevel: PropTypes.shape().isRequired,
+};
 
 /**
  * Component properties types.

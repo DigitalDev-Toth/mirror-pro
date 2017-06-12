@@ -1,4 +1,8 @@
-import { LOAD_DICOMS } from '../settings/constants';
+import {
+  LOAD_DICOMS,
+  APPLY_WINDOWING,
+  APPLY_CURRENT_TOOL,
+} from '../settings/constants';
 
 /**
  * Reducer who push new state into store for Grid container.
@@ -13,12 +17,36 @@ const gridReducer = (state = initialState, action) => {
       return { counter: state.counter + 1 };
     }
 
+    case APPLY_WINDOWING: {
+      return {
+        ...state,
+        window: {
+          center: action.center,
+          width: action.width,
+        },
+      };
+    }
+
+    case APPLY_CURRENT_TOOL: {
+      return {
+        ...state,
+        tool: action.tool,
+      };
+    }
+
     default: {
       return state;
     }
   }
 };
 
-const initialState = { counter: 1 };
+const initialState = {
+  counter: 1,
+  tool: 'windowing',
+  window: {
+    center: null,
+    width: null,
+  },
+};
 
 export default gridReducer;
