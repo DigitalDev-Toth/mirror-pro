@@ -29,3 +29,7 @@ _time
 # Old stylesheet
 /src/stylesheet
 /src/stylesheet/**
+
+# Old tests
+/test
+/test/**
