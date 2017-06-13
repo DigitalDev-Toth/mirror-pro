@@ -17,7 +17,6 @@ export const subMenuShowHandler = (actions, name, show) => {
  */
 export const getSubMenuItems = (actions) => {
   return {
-    // grid: require('../Grid/GridHelper').subMenuGrid(actions),
     transform: require('../../helpers/TransformHelper').subMenuTransform(actions),
     presets: require('../../helpers/FilterHelper').subMenuPresets(actions),
   };

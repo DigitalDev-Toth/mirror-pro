@@ -6,6 +6,13 @@ import {
   vertex,
 } from '../../helpers/ShaderHelper';
 
+/**
+ * Gets the dicom.
+ *
+ * @param      {object}    deskData  The desk data
+ * @param      {object}    actions   The actions to update the store
+ * @return     {Function}  The dicom.
+ */
 export const getDicom = (deskData, actions) => {
   window.fetch('/assets/files/5B3A9D62.dcm')
   .then(response => response.arrayBuffer())
@@ -43,10 +50,16 @@ export const getDicom = (deskData, actions) => {
   });
 };
 
+/**
+ * Draws a dicom image into canvas with webgl context.
+ *
+ * @param      {object}  dicom     The dicom parsed info
+ * @param      {object}  deskData  The desk data
+ */
 /* eslint-disable no-param-reassign */
 const drawDicom = (dicom, deskData) => {
   const width = window.innerWidth - 230;
-  const height = window.innerHeight - 80;
+  const height = window.innerHeight - 55;
 
   deskData.canvas = document.getElementById('Desk');
   deskData.canvas.width = width;
@@ -62,7 +75,7 @@ const drawDicom = (dicom, deskData) => {
     1000,
   );
 
-  let geometry = new THREE.PlaneGeometry(height, height);
+  let geometry = new THREE.PlaneGeometry(width, deskData.canvas.height);
   let material = new THREE.MeshBasicMaterial({ color: 'black' });
 
   deskData.planeParent = new THREE.Mesh(geometry, material);
@@ -126,216 +139,18 @@ const drawDicom = (dicom, deskData) => {
   animate(deskData);
 };
 
+/**
+ * Make the loop to handle the animation to rendering the canvas with webgl context.
+ *
+ * @param      {object}  arg1           The common desk data
+ * @param      {object}  arg1.scene     The scene
+ * @param      {object}  arg1.renderer  The renderer
+ * @param      {object}  arg1.camera    The camera
+ */
 export const animate = ({ scene, renderer, camera }) => {
   if (scene !== null) {
     renderer.render(scene, camera);
   }
 
   window.requestAnimationFrame(() => animate({ scene, renderer, camera }));
-};
-
-export const zoomDownHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  deskData.last.y = y;
-
-  const vector = new THREE.Vector3();
-
-  vector.set(
-    ((x / deskData.canvas.width) * 2) - 1,
-    (-(y / 500) * 2) + 1,
-    0.5,
-  );
-  vector.unproject(deskData.camera);
-
-  const dir = vector.sub(deskData.camera.position).normalize();
-  const distance = -deskData.camera.position.z / dir.z;
-
-  deskData.globalMouse = deskData.camera
-  .position
-  .clone()
-  .add(dir.multiplyScalar(distance));
-  deskData.localMouse = deskData.planeParent
-  .worldToLocal(new THREE.Vector3(deskData.globalMouse.x, deskData.globalMouse.y, 0.0));
-  deskData.scaleDiff.x = deskData.globalMouse.x - deskData.localMouse.x;
-  deskData.scaleDiff.y = deskData.globalMouse.y - deskData.localMouse.y;
-  deskData.origin.x = deskData.localMouse.x;
-  deskData.origin.y = deskData.localMouse.y;
-};
-
-export const zoomMoveHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const y = event.clientY - rect.top;
-  const delta = Math.abs(y - deskData.last.y) / 1000;
-
-  if (deskData.last.y > y) {
-    deskData.ratio = 1.03 + delta;
-  } else {
-    deskData.ratio = 0.97 - delta;
-  }
-
-  deskData.scale *= deskData.ratio;
-
-  zoomDicom(deskData);
-
-  deskData.last.y = y;
-};
-
-const zoomDicom = (deskData) => {
-  const { scale, origin, scaleDiff } = deskData;
-
-  deskData.planeParent.scale.x = scale;
-  deskData.planeParent.scale.y = scale;
-  deskData.planeParent.position.x = (-origin.x * (scale - 1)) + scaleDiff.x;
-  deskData.planeParent.position.y = (-origin.y * (scale - 1)) + scaleDiff.y;
-};
-
-export const panDownHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  const vector = new THREE.Vector3();
-
-  vector.set(
-    ((x / deskData.canvas.width) * 2) - 1,
-    (-(y / 500) * 2) + 1,
-    0.5,
-  );
-  vector.unproject(deskData.camera);
-
-  const dir = vector.sub(deskData.camera.position).normalize();
-  const distance = -deskData.camera.position.z / dir.z;
-
-  deskData.globalMouse = deskData.camera
-  .position
-  .clone()
-  .add(dir.multiplyScalar(distance));
-  deskData.localMouse = deskData.planeParent
-  .worldToLocal(new THREE.Vector3(
-    deskData.globalMouse.x,
-    deskData.globalMouse.y,
-    0.0,
-  ));
-};
-
-export const panMoveHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  deskData.last.y = y;
-
-  const vector = new THREE.Vector3();
-
-  vector.set(
-    ((x / deskData.canvas.width) * 2) - 1,
-    (-(y / 500) * 2) + 1,
-    0.5,
-  );
-  vector.unproject(deskData.camera);
-
-  const dir = vector.sub(deskData.camera.position).normalize();
-  const distance = -deskData.camera.position.z / dir.z;
-  const global = deskData.camera
-  .position
-  .clone()
-  .add(dir.multiplyScalar(distance));
-
-  deskData.pan.x = (global.x - deskData.globalMouse.x);
-  deskData.pan.y = (global.y - deskData.globalMouse.y);
-  deskData.panDiff.x = deskData.globalMouse.x - deskData.localMouse.x;
-  deskData.panDiff.y = deskData.globalMouse.y - deskData.localMouse.y;
-
-  panDicom(deskData);
-};
-
-const panDicom = (deskData) => {
-  const { pan, panDiff, localMouse, scale } = deskData;
-
-  deskData.planeParent.position.x = (pan.x + panDiff.x) - (localMouse.x * (scale - 1));
-  deskData.planeParent.position.y = (pan.y + panDiff.y) - (localMouse.y * (scale - 1));
-};
-
-export const rotateDownHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  deskData.last.y = y;
-
-  const vector = new THREE.Vector3();
-
-  vector.set(
-    ((x / deskData.canvas.width) * 2) - 1,
-    (-(y / 500) * 2) + 1,
-    0.5,
-  );
-  vector.unproject(deskData.camera);
-
-  const dir = vector.sub(deskData.camera.position).normalize();
-  const distance = -deskData.camera.position.z / dir.z;
-
-  deskData.globalMouse = deskData.camera
-  .position
-  .clone()
-  .add(dir.multiplyScalar(distance));
-  deskData.localMouse = deskData.plane
-  .worldToLocal(new THREE.Vector3(
-    deskData.globalMouse.x,
-    deskData.globalMouse.y,
-    0.0,
-  ));
-  deskData.rotateDiff.x = deskData.globalMouse.x - deskData.localMouse.x;
-  deskData.rotateDiff.y = deskData.globalMouse.y - deskData.localMouse.y;
-};
-
-export const rotateMoveHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const y = event.clientY - rect.top;
-
-  deskData.rotate += (y - deskData.last.y) / 50;
-
-  rotateDicom(deskData);
-
-  deskData.last.y = y;
-};
-
-const rotateDicom = (deskData) => {
-  const { localMouse, rotate, rotateDiff } = deskData;
-
-  deskData.plane.position.x = -localMouse.x;
-  deskData.plane.position.y = -localMouse.y;
-  deskData.pivot.rotation.z = rotate;
-  deskData.planeParent.position.x = localMouse.x + rotateDiff.x;
-  deskData.planeParent.position.y = localMouse.y + rotateDiff.y;
-};
-
-export const windowingDownHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  deskData.last.x = x;
-  deskData.last.y = y;
-};
-
-export const windowingMoveHandler = (event, deskData) => {
-  const rect = deskData.canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  deskData.window.center += (y - deskData.last.y);
-  deskData.window.width += (x - deskData.last.x);
-
-  windowingDicom(deskData);
-
-  deskData.last.x = x;
-  deskData.last.y = y;
-};
-
-export const windowingDicom = (deskData) => {
-  deskData.plane.material.uniforms.uWC.value = deskData.window.center;
-  deskData.plane.material.uniforms.uWW.value = deskData.window.width;
 };

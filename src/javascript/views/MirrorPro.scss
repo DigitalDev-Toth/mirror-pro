@@ -65,7 +65,7 @@ body {
   &-Section {
     background-color: #38383C;
     display: table;
-    @include dynamicHeight(40);
+    @include dynamicHeight(80);
     width: 100%;
   }
 

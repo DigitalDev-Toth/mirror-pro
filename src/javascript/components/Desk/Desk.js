@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getDicom } from './DeskHelper';
 import {
-  getDicom,
   zoomDownHandler,
   zoomMoveHandler,
   panDownHandler,
   panMoveHandler,
   rotateDownHandler,
   rotateMoveHandler,
+} from '../../helpers/TransformHelper';
+import {
   windowingDownHandler,
   windowingMoveHandler,
   windowingDicom,
-} from './DeskHelper';
+} from '../../helpers/FilterHelper';
 import './Desk.style.scss';
 
+/**
+ * Common desk data info with mutate capability.
+ *
+ * @type       {object}
+ */
 const deskData = {
   camera: null,
   canvas: null,

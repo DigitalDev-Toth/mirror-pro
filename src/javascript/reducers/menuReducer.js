@@ -23,6 +23,11 @@ const menuReducer = (state = initialState, action) => {
   }
 };
 
+/**
+ * The initial state of the menu reducer store.
+ *
+ * @type       {object}
+ */
 const initialState = {
   subMenuName: null,
   subMenuShow: false,

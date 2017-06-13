@@ -40,6 +40,11 @@ const gridReducer = (state = initialState, action) => {
   }
 };
 
+/**
+ * The initial state of the grid reducer store.
+ *
+ * @type       {object}
+ */
 const initialState = {
   counter: 1,
   tool: 'windowing',

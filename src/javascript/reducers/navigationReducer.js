@@ -19,6 +19,11 @@ const navigationReducer = (state = initialState, action) => {
   }
 };
 
+/**
+ * The initial state of the navigation reducer store.
+ *
+ * @type       {object}
+ */
 const initialState = { counter: 1 };
 
 export default navigationReducer;

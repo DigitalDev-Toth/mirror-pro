@@ -48,6 +48,11 @@ const statusReducer = (state = initialState, action) => {
   }
 };
 
+/**
+ * The initial state of the status reducer store.
+ *
+ * @type       {object}
+ */
 const initialState = {
   deskCounter: 1,
   tool: 'Windowing',

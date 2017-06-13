@@ -25,3 +25,7 @@ _time
 # Old javascript
 /src/javascript_old
 /src/javascript_old/**
+
+# Old stylesheet
+/src/stylesheet
+/src/stylesheet/**
