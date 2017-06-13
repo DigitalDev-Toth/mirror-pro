@@ -5,6 +5,46 @@ GET IT
 ---
 - `$ git clone --recursive git@github.com:DigitalDev-Toth/mirror-workspace.git`
 
+HOW TO USE IT
+---
+In root project folder:
+
+- Build DLL with vendor libraries:
+```
+make dll
+```
+- Build application in development mode:
+```
+make build
+```
+- Build application in production mode:
+```
+make build e=production
+```
+- Work with `webpack-dev-server` and `HMR`:
+```
+make wds
+```
+
+ACCESS
+---
+Every service has its own pair of ports:
+- Nginx:
+```
+HTTP: localhost:8018
+HTTPS: localhost:8028
+```
+- Apache httpd:
+```
+HTTP: localhost:8038
+HTTPS: localhost:8048
+```
+- Webpack dev server:
+```
+HTTP: localhost:8058
+HTTPS: localhost:8068
+```
+
 SNAPSHOTS
 ---
 ### WINDOWING
